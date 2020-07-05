@@ -8,13 +8,24 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
+
+/**
+ * This class will be called whenever we need to modify, clear, add or access the list of users
+ */
 public class UserRepository {
     private static SinglyList<User> UserList;
 
+    /**
+     * This method initializes the user list and adds all of the users from the Users.json json file
+     */
     public static void initUserList(){
         UserList = new SinglyList<User>();
         updateUserList();
     }
+
+    /**
+     * This method will access to the Users.json and load all of the users in the UsersList
+     */
     public static void updateUserList() {
         JSONParser userparser = new JSONParser();
         UserList.clear();
@@ -32,6 +43,11 @@ public class UserRepository {
         catch (Exception e) {e.printStackTrace();}
     }
 
+    /**
+     * This method will convert the given JSONObject into a User
+     * @param newObject
+     * @return the JSONObject converted into a User
+     */
     public static User makeUser(JSONObject newObject){
 
         User newUser = new User();
@@ -91,6 +107,11 @@ public class UserRepository {
         return newUser;
     }
 
+    /**
+     * This method will convert the given User into a JSONObject
+     * @param newUser
+     * @return the User converted into a JSONObject
+     */
     @SuppressWarnings("unchecked")
     public static JSONObject makeObject(User newUser){
 
@@ -104,10 +125,19 @@ public class UserRepository {
         return incomingUser;
 
     }
+
+    /**
+     * This method is a getter for the UserList
+     * @return UserList
+     */
     public static SinglyList<User> getUserList(){
         return UserList;
     }
 
+    /**
+     * This method receives a User and it adds it to the UserList
+     * @param newUser
+     */
     public static void addUser(User newUser){
         if(newUser!=null){
             UserList.add(newUser);
@@ -119,6 +149,9 @@ public class UserRepository {
         }
     }
 
+    /**
+     * This method will write the users into the Users.json
+     */
     @SuppressWarnings("unchecked")
     public static void saveUser(){
 
