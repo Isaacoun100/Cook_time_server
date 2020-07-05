@@ -1,4 +1,4 @@
-package com.itcr.datos.cooktimeserver.Object;
+package com.itcr.datos.cooktimeserver.object;
 
 public class User {
 
