@@ -5,12 +5,30 @@ import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.data.UserRepository;
 import com.itcr.datos.cooktimeserver.object.User;
 
-@RestController
-
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
  */
+@RestController
 public class HelloController {
+
+    @GetMapping("/")
+    public String login(){
+
+        String Welcome= "Welcome to the Cook Time server "
+                        + System.lineSeparator() +
+                        "You can"
+                        + System.lineSeparator() +
+                        "Access the users in the following link http://localhost:6969/user "
+                        + System.lineSeparator() +
+                        "Access an specific user in the following link http://localhost:6969/user/ + the user number"
+                        + System.lineSeparator() +
+                        "Add new users using the link http://localhost:6969/newUser/ using a POST request "
+                        + System.lineSeparator() +
+                        "Read more about HTTP Methods here: https://restfulapi.net/http-methods/ ";
+
+        System.out.println(Welcome);
+        return Welcome;
+    }
 
     /**
      * This method will manage accessing to an specific user in the list by the index
