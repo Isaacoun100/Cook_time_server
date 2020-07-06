@@ -3,7 +3,7 @@ package com.itcr.datos.cooktimeserver.object;
 /**
  * This class is will manage all of the data from the users
  */
-public class User {
+public class User extends Client {
 
     private String name;
     private String password;
@@ -12,64 +12,80 @@ public class User {
 
     /**
      * Getter for the String name
+     *
      * @return name
      */
+    @Override
     public String getName() {
         return name;
     }
 
     /**
      * Setter for the String name
+     *
      * @param name
      */
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
     /**
      * Getter for the String password
+     *
      * @return password
      */
+    @Override
     public String getPassword() {
         return password;
     }
 
     /**
-     * Setter for the String pasword
+     * Setter for the String password
+     *
      * @param password
      */
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
      * Getter for the String email
+     *
      * @return email
      */
+    @Override
     public String getEmail() {
         return email;
     }
 
     /**
      * Setter for the String email
+     *
      * @param email
      */
+    @Override
     public void setEmail(String email) {
-        this.email = email;
+        this.email =  email;
     }
 
     /**
      * Getter for the integer age
+     *
      * @return age
      */
+    @Override
     public int getAge() {
         return age;
     }
 
     /**
      * Setter for the integer age
+     *
      * @param age
      */
+    @Override
     public void setAge(int age) {
         this.age = age;
     }
