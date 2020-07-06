@@ -1,7 +1,7 @@
 package com.itcr.datos.cooktimeserver;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.itcr.datos.cooktimeserver.data.UserRepository;
+import com.itcr.datos.cooktimeserver.restfull.UserListAdmin;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -15,7 +15,7 @@ public class CookTimeServerApplication {
      * @param args
      */
     public static void main(String[] args) {
-        UserRepository.initUserList();
+        UserListAdmin.initUserList();
         SpringApplication.run(CookTimeServerApplication.class, args);
     }
 

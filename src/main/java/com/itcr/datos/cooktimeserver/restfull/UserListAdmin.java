@@ -1,4 +1,4 @@
-package com.itcr.datos.cooktimeserver.data;
+package com.itcr.datos.cooktimeserver.restfull;
 
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.User;
@@ -12,7 +12,7 @@ import java.io.FileWriter;
 /**
  * This class will be called whenever we need to modify, clear, add or access the list of users
  */
-public class UserRepository {
+public class UserListAdmin {
     private static SinglyList<User> UserList;
 
     /**

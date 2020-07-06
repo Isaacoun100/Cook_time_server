@@ -1,15 +1,15 @@
-package com.itcr.datos.cooktimeserver.controller;
+package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import org.springframework.web.bind.annotation.*;
-import com.itcr.datos.cooktimeserver.data.UserRepository;
+import com.itcr.datos.cooktimeserver.restfull.UserListAdmin;
 import com.itcr.datos.cooktimeserver.object.User;
 
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
  */
 @RestController
-public class HelloController {
+public class WebHost {
 
     @GetMapping("/")
     public String login(){
@@ -36,7 +36,7 @@ public class HelloController {
      * @return the user that matches the given id
      */
     public User getUserById(int userID) {
-        return UserRepository.getUserList().get(userID).getData();
+        return UserListAdmin.getUserList().get(userID).getData();
     }
 
     /**
@@ -45,8 +45,8 @@ public class HelloController {
      */
     @GetMapping("/user")
     public SinglyList<User> getString(){
-        UserRepository.updateUserList();
-        return UserRepository.getUserList();
+        UserListAdmin.updateUserList();
+        return UserListAdmin.getUserList();
     }
 
     /**
@@ -73,7 +73,7 @@ public class HelloController {
     public User addUser( @RequestBody User newUser){
         if(newUser!=null){
             System.out.println(newUser.toString());
-            UserRepository.addUser(newUser);
+            UserListAdmin.addUser(newUser);
             return newUser;
         }
         else{
