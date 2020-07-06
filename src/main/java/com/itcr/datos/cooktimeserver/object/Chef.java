@@ -1,14 +1,33 @@
 package com.itcr.datos.cooktimeserver.object;
 
 /**
- * This class is will manage all of the data from the users
+ * This class is inherited from Client, this because User and Chef both are clients from the server with the only
+ * difference that the chef needs a boolean to check if is or not verified
  */
-public class User extends Client {
+public class Chef extends Client{
 
     private String name;
-    private String password;
     private String email;
+    private String password;
     private int age;
+    private boolean verify;
+
+    /**
+     *  This method verifies if the chef is a verified chef or not
+     * @return
+     */
+    public boolean isVerify() {
+        return verify;
+    }
+
+    /**
+     *  This class modifies the value of the verify value
+     * @param verify is true if the user has been verified
+     */
+    public void setVerify(boolean verify) {
+        this.verify = verify;
+    }
+
 
     /**
      * Getter for the String name
