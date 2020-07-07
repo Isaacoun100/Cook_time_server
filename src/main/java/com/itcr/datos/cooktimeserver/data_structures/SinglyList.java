@@ -146,6 +146,12 @@ public class SinglyList<T> extends LinkedList<T> {
             length--;
         }
     }
+
+    /**
+     *Swaps the values in the positions specified
+     * @param pos1 position of one of the nodes
+     * @param pos2 another position for one of the nodes
+     */
     public void swap(int pos1, int pos2){
         if (pos1 >= this.length || pos2 >= this.length){
             throw new IllegalArgumentException("The index is out of range");
@@ -153,6 +159,22 @@ public class SinglyList<T> extends LinkedList<T> {
         SinglyNode<T> tmp = new SinglyNode<T>(this.get(pos1).getData());
         this.get(pos1).setData(this.get(pos2).getData());
         this.get(pos2).setData(tmp.getData());
+
+    }
+    public SinglyList<T> split(int pos1, int pos2){
+        SinglyList<T> result = new SinglyList<>();
+        if (pos1 >= this.length || pos2 >= this.length){
+            throw new IllegalArgumentException("The index is out of range");
+        }
+        if (pos1 > pos2){
+            throw new IllegalArgumentException("Error with the indexes");
+        }
+        while (pos1 != pos2){
+            result.add(this.get(pos1).getData());
+            pos1++;
+        }
+        result.add(this.get(pos2).getData());
+        return result;
 
     }
 
