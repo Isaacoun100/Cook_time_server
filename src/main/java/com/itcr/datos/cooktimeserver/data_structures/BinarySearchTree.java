@@ -1,6 +1,7 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
 public class BinarySearchTree<T extends Comparable<T>>{
+
     private NodeTree<T> root = null;
 
     /**
@@ -8,6 +9,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
      * @param data the object contained in the node
      * @param key a value representing the value of the node
      */
+
     public void add(T data, int key){
         if (this.isEmpty()) {
             root = new NodeTree<T>(data, key);
@@ -32,6 +34,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
             }
         }
     }
+
     public boolean contains (int key) {
         if (root == null) {
             return false;
@@ -44,6 +47,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
         }
         return false;
     }
+
     public int getMin(){
         if (!isEmpty()){
             NodeTree<T> tmp = root;
@@ -54,6 +58,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
             return -1;
         }
     }
+
     public int getMax(){
         if (!isEmpty()){
             NodeTree<T> tmp = root;
@@ -64,9 +69,11 @@ public class BinarySearchTree<T extends Comparable<T>>{
             return -1;
         }
     }
+
     public void delete(int key) throws Exception {
         this.root = deleteAux(this.root, key);
     }
+
     private NodeTree<T> deleteAux(NodeTree<T> root, int key) throws Exception {
         if (root == null){
             throw new Exception("Nodo no encontrado");
@@ -94,6 +101,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
         }
         return root;
     }
+
     private NodeTree<T> change(NodeTree<T> root){
         NodeTree<T> copy = root;
         NodeTree<T> maxLeft = root.getLeft();
@@ -110,9 +118,11 @@ public class BinarySearchTree<T extends Comparable<T>>{
         }
         return maxLeft;
     }
+
     public boolean isEmpty (){
         return this.root == null;
     }
+
     public NodeTree<T> getRoot(){
         return this.root;
     }
