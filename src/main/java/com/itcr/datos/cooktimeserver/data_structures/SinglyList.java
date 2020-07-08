@@ -161,6 +161,13 @@ public class SinglyList<T> extends LinkedList<T> {
         this.get(pos2).setData(tmp.getData());
 
     }
+
+    /**
+     * Method for splitting the list between two values
+     * @param pos1 position where the split starts
+     * @param pos2 position where the split ends
+     * @return returns the new list 
+     */
     public SinglyList<T> split(int pos1, int pos2){
         SinglyList<T> result = new SinglyList<>();
         if (pos1 >= this.length || pos2 >= this.length){
