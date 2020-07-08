@@ -32,28 +32,50 @@ public class BinarySearchTree<T extends Comparable<T>>{
             }
         }
     }
+
+    /**
+     * Method that verifies if the key is contained in the BST
+     * @param key variable that is verified
+     * @return returns true if the key is contained or false if it´s not
+     */
     public boolean contains (int key) {
         if (root == null) {
             return false;
         }
         NodeTree<T> tmp = root;
         while (tmp != null) {
-            if (tmp.getKey() == key) {return true;}
-            else if (tmp.getKey() > key) {tmp = tmp.getLeft();}
-            else {tmp = tmp.getRight();}
+            if (tmp.getKey() == key) {
+                return true;
+            }
+            else if (tmp.getKey() > key) {
+                tmp = tmp.getLeft();
+            }
+            else {tmp = tmp.getRight();
+            }
         }
         return false;
     }
+
+    /**
+     * Method that gets the lowest key in the BST
+     * @return returns -1 if the node is not found or if the tree is empty
+     */
     public int getMin(){
         if (!isEmpty()){
             NodeTree<T> tmp = root;
-            while (tmp.getLeft() != null) {tmp = tmp.getLeft();}
+            while (tmp.getLeft() != null) {
+                tmp = tmp.getLeft();
+            }
             return tmp.getKey();
         }
         else{
             return -1;
         }
     }
+    /**
+     * Method that gets the highest key in the BST
+     * @return returns -1 if the node is not found or if the tree is empty
+     */
     public int getMax(){
         if (!isEmpty()){
             NodeTree<T> tmp = root;
@@ -64,9 +86,23 @@ public class BinarySearchTree<T extends Comparable<T>>{
             return -1;
         }
     }
+
+    /**
+     * Deletes the node in the BST
+     * @param key key about to be deleted
+     * @throws Exception throws exception if the node is not found
+     */
     public void delete(int key) throws Exception {
         this.root = deleteAux(this.root, key);
     }
+
+    /**
+     * Auxiliar method that gets called in delete.
+     * @param root the root of the BST
+     * @param key key about to be deleted
+     * @return returns the root
+     * @throws Exception throws exception if the node is not found
+     */
     private NodeTree<T> deleteAux(NodeTree<T> root, int key) throws Exception {
         if (root == null){
             throw new Exception("Nodo no encontrado");
@@ -94,6 +130,12 @@ public class BinarySearchTree<T extends Comparable<T>>{
         }
         return root;
     }
+
+    /**
+     *
+     * @param root
+     * @return
+     */
     private NodeTree<T> change(NodeTree<T> root){
         NodeTree<T> copy = root;
         NodeTree<T> maxLeft = root.getLeft();
@@ -110,9 +152,19 @@ public class BinarySearchTree<T extends Comparable<T>>{
         }
         return maxLeft;
     }
+
+    /**
+     *
+     * @return returns a boolean if the root is false or not
+     */
     public boolean isEmpty (){
         return this.root == null;
     }
+
+    /**
+     *
+     * @return
+     */
     public NodeTree<T> getRoot(){
         return this.root;
     }
