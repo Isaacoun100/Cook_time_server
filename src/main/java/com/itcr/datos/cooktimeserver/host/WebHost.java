@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.restfull.UserListAdmin;
 import com.itcr.datos.cooktimeserver.object.User;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
  */
@@ -62,6 +65,21 @@ public class WebHost {
         catch(NullPointerException e){
             return new User();
         }
+    }
+
+    @PostMapping("/test")
+    public String addUser( @RequestBody String message){
+        System.out.println(message);
+
+        try(FileWriter file = new FileWriter("res/data/test.json")){
+            file.write(message);
+            file.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return message;
     }
 
     /**
