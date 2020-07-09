@@ -68,6 +68,11 @@ public class WebHost {
         }
     }
 
+    @GetMapping("/usersize")
+    public int getSize() {
+        return UserListAdmin.getUserList().getLength()+1;
+    }
+
     @PostMapping("/test")
     public String addUser( @RequestBody String message){
         System.out.println(message);
