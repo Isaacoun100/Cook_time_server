@@ -2,6 +2,8 @@ package com.itcr.datos.cooktimeserver.data_structures;
 
 public class BinarySearchTree<T extends Comparable<T>>{
     private NodeTree<T> root = null;
+    static final int COUNT = 10;
+
 
     /**
      * Adds a node to the tree
@@ -162,8 +164,44 @@ public class BinarySearchTree<T extends Comparable<T>>{
     }
 
     /**
+     * Method that print the tree
+     * @param node
+     */
+    public void printTree(NodeTree<T> node){
+        printTreeAux(node, 0);
+    }
+
+    /**
+     * Recursive method for printing the tree
+     * @param root the root of the tree
+     * @param space integer for printing the tree
+     */
+    public void printTreeAux(NodeTree<T> root, int space){
+        // Base case
+        if (root == null)
+            return;
+
+        // Increase distance between levels
+        space += COUNT;
+
+        // Process right child first
+        printTreeAux(root.getRight(), space);
+
+        // Print current node after space
+        // count
+        System.out.print("\n");
+        for (int i = COUNT; i < space; i++)
+            System.out.print(" ");
+        System.out.print(root.getData() + "\n");
+
+        // Process left child
+        printTreeAux(root.getLeft(), space);
+
+    }
+
+    /**
      *
-     * @return
+     * @return returns the root of the tree
      */
     public NodeTree<T> getRoot(){
         return this.root;

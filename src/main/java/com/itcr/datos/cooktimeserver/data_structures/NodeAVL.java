@@ -1,24 +1,20 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
-public class NodeTree<T extends Comparable <T>>{
+public class NodeAVL<T extends Comparable<T>> {
     private T data;
-    private int key, height;
-    private NodeTree<T> left;
-    private NodeTree<T> right;
-
-    public int idata;
-    public int depth = 0;
-    public int level = 0;
-    public int drawPos = 0;
+    private int key;
+    public int height;
+    private NodeAVL<T> left, right;
 
     /**
      * Constructor that sets the data to the node
      *
      * @param data data of generic type saved on new node
      */
-    public NodeTree(T data, int key) {
+    public NodeAVL(T data, int key) {
         this.data = data;
         this.key = key;
+        this.height = 1;
     }
     public T getData() {
         return data;
@@ -41,7 +37,7 @@ public class NodeTree<T extends Comparable <T>>{
      *
      * @return right node
      */
-    public NodeTree<T> getRight() {
+    public NodeAVL<T> getRight() {
         return right;
     }
 
@@ -51,7 +47,7 @@ public class NodeTree<T extends Comparable <T>>{
      * @param right data stored on right node
      */
 
-    public void setRight(NodeTree<T> right) {
+    public void setRight(NodeAVL<T> right) {
         this.right = right;
     }
 
@@ -61,7 +57,7 @@ public class NodeTree<T extends Comparable <T>>{
      * @return left node
      */
 
-    public NodeTree<T> getLeft() {
+    public NodeAVL<T> getLeft() {
         return left;
     }
 
@@ -70,7 +66,7 @@ public class NodeTree<T extends Comparable <T>>{
      *
      * @param left data stored on left node
      */
-    public void setLeft(NodeTree<T> left) {
+    public void setLeft(NodeAVL<T> left) {
         this.left = left;
     }
 }
