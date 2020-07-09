@@ -1,12 +1,13 @@
 package com.itcr.datos.cooktimeserver.host;
 
-import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.restfull.UserListAdmin;
 import com.itcr.datos.cooktimeserver.object.User;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
@@ -47,9 +48,9 @@ public class WebHost {
      * @return a list of users in json format
      */
     @GetMapping("/user")
-    public SinglyList<User> getString(){
+    public String getString() throws IOException {
         UserListAdmin.updateUserList();
-        return UserListAdmin.getUserList();
+        return new String(Files.readAllBytes(Paths.get("res/data/Users.json")));
     }
 
     /**
