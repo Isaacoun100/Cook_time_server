@@ -2,9 +2,14 @@ package com.itcr.datos.cooktimeserver.data_structures;
 
 public class NodeTree<T extends Comparable <T>>{
     private T data;
-    private int key;
+    private int key, height;
     private NodeTree<T> left;
     private NodeTree<T> right;
+
+    public int idata;
+    public int depth = 0;
+    public int level = 0;
+    public int drawPos = 0;
 
     /**
      * Constructor that sets the data to the node
@@ -14,10 +19,7 @@ public class NodeTree<T extends Comparable <T>>{
     public NodeTree(T data, int key) {
         this.data = data;
         this.key = key;
-
-
     }
-
     public T getData() {
         return data;
     }
