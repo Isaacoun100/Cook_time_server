@@ -66,17 +66,19 @@ public class AVLtree<T extends Comparable<T>>
             return 0;
         return height(N.getLeft()) - height(N.getRight());
     }
-
-    public NodeAVL<T> insert(NodeAVL<T> node, T data, int key)
+    public void add(T data, int key){
+        this.root = add_aux(this.root, data, key);
+    }
+    public NodeAVL<T> add_aux(NodeAVL<T> node, T data, int key)
     {
         /* 1. Perform the normal BST rotation */
         if (node == null)
             return (new NodeAVL<T>(data, key));
 
         if (key < node.getKey())
-            node.setLeft(insert(node.getLeft(), data, key));
+            node.setLeft(add_aux(node.getLeft(), data, key));
         else if (key > node.getKey())
-            node.setRight(insert(node.getRight(), data, key));
+            node.setRight(add_aux(node.getRight(), data, key));
         else // Equal keys not allowed
             return node;
 
@@ -129,8 +131,10 @@ public class AVLtree<T extends Comparable<T>>
 
         return current;
     }
-
-    public NodeAVL<T> deleteNode(NodeAVL<T> root, int key)
+    public void deleteNode(int key){
+        this.root = deleteNode_aux(this.root, key);
+    }
+    public NodeAVL<T> deleteNode_aux(NodeAVL<T> root, int key)
     {
         // STEP 1: PERFORM STANDARD BST DELETE
         if (root == null)
@@ -139,12 +143,12 @@ public class AVLtree<T extends Comparable<T>>
         // If the key to be deleted is smaller than
         // the root's key, then it lies in left subtree
         if (key < root.getKey())
-            root.setLeft(deleteNode(root.getLeft(), key));
+            root.setLeft(deleteNode_aux(root.getLeft(), key));
 
             // If the key to be deleted is greater than the
             // root's key, then it lies in right subtree
         else if (key > root.getKey())
-            root.setRight(deleteNode(root.getRight(), key));
+            root.setRight(deleteNode_aux(root.getRight(), key));
 
             // if key is same as root's key, then this is the node
             // to be deleted
@@ -181,7 +185,7 @@ public class AVLtree<T extends Comparable<T>>
                 root.setKey(temp.getKey());
 
                 // Delete the inorder successor
-                root.setRight(deleteNode(root.getRight(), temp.getKey()));
+                root.setRight(deleteNode_aux(root.getRight(), temp.getKey()));
             }
         }
 
@@ -248,6 +252,7 @@ public class AVLtree<T extends Comparable<T>>
         print_aux(root.getLeft(), space);
 
     }
+    
 }
 
 
