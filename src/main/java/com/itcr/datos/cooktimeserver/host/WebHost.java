@@ -1,16 +1,14 @@
 package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.restfull.UserListAdmin;
 import com.itcr.datos.cooktimeserver.object.User;
-
+import org.springframework.web.bind.annotation.*;
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
  */
 @RestController
 public class WebHost {
-
     @GetMapping("/")
     public String login(){
 
@@ -35,7 +33,7 @@ public class WebHost {
      * @param userID
      * @return the user that matches the given id
      */
-    public User getUserById(int userID) {
+    private User getUserById(int userID) {
         return UserListAdmin.getUserList().get(userID).getData();
     }
 
@@ -69,7 +67,7 @@ public class WebHost {
      * @param newUser
      * @return the user that was just created
      */
-    @PostMapping("newUser")
+    @PostMapping("/newUser")
     public User addUser( @RequestBody User newUser){
         if(newUser!=null){
             System.out.println(newUser.toString());
@@ -80,5 +78,4 @@ public class WebHost {
             return new User();
         }
     }
-
 }
