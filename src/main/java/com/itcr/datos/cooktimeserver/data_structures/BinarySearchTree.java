@@ -172,34 +172,6 @@ public class BinarySearchTree<T extends Comparable<T>>{
     }
 
     /**
-     * Recursive method for printing the tree
-     * @param root the root of the tree
-     * @param space integer for printing the tree
-     */
-    public void printTreeAux(NodeTree<T> root, int space){
-        // Base case
-        if (root == null)
-            return;
-
-        // Increase distance between levels
-        space += COUNT;
-
-        // Process right child first
-        printTreeAux(root.getRight(), space);
-
-        // Print current node after space
-        // count
-        System.out.print("\n");
-        for (int i = COUNT; i < space; i++)
-            System.out.print(" ");
-        System.out.print(root.getData() + "\n");
-
-        // Process left child
-        printTreeAux(root.getLeft(), space);
-
-    }
-
-    /**
      *
      * @return returns the root of the tree
      */
