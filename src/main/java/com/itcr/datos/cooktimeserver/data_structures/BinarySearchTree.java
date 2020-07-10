@@ -129,4 +129,19 @@ public class BinarySearchTree<T extends Comparable<T>>{
         return this.root;
     }
 
+    public String toString(BinarySearchTree<T> tree) {
+        return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    public StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb, NodeTree<T> head) {
+        if(head.getRight()!=null) {
+            sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, new StringBuilder(), head.getRight()));
+        }
+        sb.append(prefix).append(isTail ? "└──" : "┌──").append("[").append(head.getData()).append("]").append("\n");
+        if(head.getLeft()!=null) {
+            sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "    " : "│   "), true, new StringBuilder(), head.getLeft()));
+        }
+        return sb;
+    }
 }
