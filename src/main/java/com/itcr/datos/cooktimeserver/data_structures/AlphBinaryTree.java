@@ -34,7 +34,7 @@ public class AlphBinaryTree<T> {
         }
 
         int size,count=0;
-        size = Math.max(leaf.length(), key.length());
+        size = Math.min(leaf.length(), key.length());
 
         while(count<=size){
 
