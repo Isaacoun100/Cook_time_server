@@ -83,4 +83,6 @@ public class AlphNodeTree<T> {
         this.right = right;
     }
 
+    public void toString(StringBuilder append, boolean b, StringBuilder sb, AlphNodeTree<T> root) {
+    }
 }
