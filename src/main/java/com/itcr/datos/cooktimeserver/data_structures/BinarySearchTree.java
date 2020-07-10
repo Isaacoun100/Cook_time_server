@@ -76,7 +76,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
 
     private NodeTree<T> deleteAux(NodeTree<T> root, int key) throws Exception {
         if (root == null){
-            throw new Exception("Nodo no encontrado");
+            throw new Exception("The node was not found");
         }
         else if(key < root.getKey()){
             NodeTree<T> left = deleteAux(root.getLeft(), key);
@@ -102,9 +102,11 @@ public class BinarySearchTree<T extends Comparable<T>>{
         return root;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private NodeTree<T> change(NodeTree<T> root){
         NodeTree<T> copy = root;
         NodeTree<T> maxLeft = root.getLeft();
+
         while (maxLeft.getRight() != null){
             copy = maxLeft;
             maxLeft = maxLeft.getRight();
