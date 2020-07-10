@@ -2,8 +2,6 @@ package com.itcr.datos.cooktimeserver.data_structures;
 
 public class BinarySearchTree<T extends Comparable<T>>{
     private NodeTree<T> root = null;
-    static final int COUNT = 10;
-
 
     /**
      * Adds a node to the tree
@@ -107,7 +105,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
      */
     private NodeTree<T> deleteAux(NodeTree<T> root, int key) throws Exception {
         if (root == null){
-            throw new Exception("Nodo no encontrado");
+            throw new Exception("The node was not found");
         }
         else if(key < root.getKey()){
             NodeTree<T> left = deleteAux(root.getLeft(), key);
@@ -141,6 +139,7 @@ public class BinarySearchTree<T extends Comparable<T>>{
     private NodeTree<T> change(NodeTree<T> root){
         NodeTree<T> copy = root;
         NodeTree<T> maxLeft = root.getLeft();
+
         while (maxLeft.getRight() != null){
             copy = maxLeft;
             maxLeft = maxLeft.getRight();
@@ -154,29 +153,26 @@ public class BinarySearchTree<T extends Comparable<T>>{
         }
         return maxLeft;
     }
-
-    /**
-     *
-     * @return returns a boolean if the root is false or not
-     */
     public boolean isEmpty (){
         return this.root == null;
     }
-
-    /**
-     * Method that print the tree
-     * @param node
-     */
-    public void printTree(NodeTree<T> node){
-        printTreeAux(node, 0);
-    }
-
-    /**
-     *
-     * @return returns the root of the tree
-     */
     public NodeTree<T> getRoot(){
         return this.root;
     }
 
+    public String toString(BinarySearchTree<T> tree) {
+        return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    public StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb, NodeTree<T> head) {
+        if(head.getRight()!=null) {
+            sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, new StringBuilder(), head.getRight()));
+        }
+        sb.append(prefix).append(isTail ? "└──" : "┌──").append("[").append(head.getData()).append("]").append("\n");
+        if(head.getLeft()!=null) {
+            sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "    " : "│   "), true, new StringBuilder(), head.getLeft()));
+        }
+        return sb;
+    }
 }
