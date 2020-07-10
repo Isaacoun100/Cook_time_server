@@ -9,19 +9,29 @@ public class AlphBinaryTree<T> {
         else addNode(data, key,this.root);
     }
 
-    public void addNode(T data, String key, AlphNodeTree<T> tmp){
+    private void addNode(T data, String key, AlphNodeTree<T> tmp){
 
-        if(greater(key,tmp.getKey())){
-            if(tmp.getRight()==null) tmp.setRight(new AlphNodeTree<T>(data,key));
-            else addNode(data,key,tmp.getRight());
-        }
-        else{
-            if(tmp.getLeft() == null) tmp.setLeft(new AlphNodeTree<T>(data,key));
-            else addNode(data,key,tmp.getLeft());
+        switch (greater(key,tmp.getKey())){
+            case "key":
+                if(tmp.getRight()==null) tmp.setRight(new AlphNodeTree<T>(data,key));
+                else addNode(data,key,tmp.getRight());
+                break;
+
+            case "leaf":
+                if(tmp.getLeft() == null) tmp.setLeft(new AlphNodeTree<T>(data,key));
+                else addNode(data,key,tmp.getLeft());
+                break;
+
+            case "equals":
+                break;
         }
     }
 
-    public boolean greater(String leaf, String key){
+    public String greater(String leaf, String key){
+
+        if(leaf.equals(key)){
+            return "equals";
+        }
 
         int size,count=0;
         size = Math.max(leaf.length(), key.length());
@@ -29,19 +39,22 @@ public class AlphBinaryTree<T> {
         while(count<=size){
 
             if(key.charAt(count)>leaf.charAt(count)){
-                return true;
+                return "key";
             }
             else if(key.charAt(count)<leaf.charAt(count)){
-                return false;
+                return "leaf";
             }
             else{
                 count++;
             }
-
         }
 
-        return leaf.length() <= key.length();
-
+        if(key.length() > leaf.length()){
+            return "key";
+        }
+        else{
+            return "leaf";
+        }
     }
 
     public boolean isEmpty (){
@@ -64,6 +77,71 @@ public class AlphBinaryTree<T> {
             return tmp.getKey();
         }
         return "null";
+    }
+
+    public void delete(String key) throws Exception {
+        this.root = deleteAux(this.root, key);
+    }
+
+    private AlphNodeTree<T> deleteAux(AlphNodeTree <T> root, String key) throws Exception {
+
+        if (root == null) {
+            throw new Exception("Node was not found");
+        }
+
+        switch (greater(root.getKey(), key)) {
+            case "key" -> {
+                AlphNodeTree<T> left = deleteAux(root.getLeft(), key);
+                root.setRight(left);
+            }
+            case "leaf" -> {
+                AlphNodeTree<T> right = deleteAux(root.getRight(), key);
+                root.setRight(right);
+            }
+            case "equals" -> {
+                AlphNodeTree<T> copy = root;
+                if (copy.getRight() == null) root = copy.getLeft();
+                else if (copy.getLeft() == null) root = copy.getRight();
+                else copy = change(copy);
+                copy = null;
+            }
+        }
+        return root;
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private AlphNodeTree<T> change(AlphNodeTree<T> root){
+        AlphNodeTree<T> nodeTree = root;
+        AlphNodeTree<T> maxLeft = root.getLeft();
+
+        //noinspection DuplicatedCode
+        while (maxLeft.getRight() != null){
+            nodeTree = maxLeft;
+            maxLeft = maxLeft.getRight();
+        }
+        root.setData(maxLeft.getData());
+        if(nodeTree == root) nodeTree.setLeft(maxLeft.getRight());
+        else nodeTree.setRight(maxLeft.getRight());
+        return maxLeft;
+    }
+
+    public AlphNodeTree<T> getRoot(){
+        return this.root;
+    }
+
+    public String toString(AlphBinaryTree<T> tree) {
+        return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
+    }
+
+    public StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,AlphNodeTree<T> head) {
+        if(head.getRight()!=null) {
+            sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, new StringBuilder(), head.getRight()));
+        }
+        sb.append(prefix).append(isTail ? "└──" : "┌──").append("[").append(head.getData()).append("]").append("\n");
+        if(head.getLeft()!=null) {
+            sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "    " : "│   "), true, new StringBuilder(), head.getLeft()));
+        }
+        return sb;
     }
 
 }
