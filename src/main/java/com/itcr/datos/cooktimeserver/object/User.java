@@ -6,9 +6,9 @@ package com.itcr.datos.cooktimeserver.object;
 public class User extends Client {
 
     private String name;
-    private String password;
     private String email;
     private int age;
+    private String password;
 
     /**
      * Getter for the String name
