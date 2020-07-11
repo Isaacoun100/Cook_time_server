@@ -13,6 +13,14 @@ public class NodeAVL<T extends Comparable<T>> {
         height = 1;
     }
 
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
     public int getKey() {
         return key;
     }

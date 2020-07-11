@@ -5,7 +5,6 @@ package com.itcr.datos.cooktimeserver.data_structures;
 public class AVLtree<T extends Comparable<T>>
 {
     NodeAVL<T> root;
-    static final int COUNT = 10;
 
     // A utility function to get height of the tree
     public int height(NodeAVL<T> N)
@@ -226,33 +225,24 @@ public class AVLtree<T extends Comparable<T>>
         return root;
     }
 
-
-    public void printAVL(NodeAVL<T> node){
-        print_aux(node, 0);
+    public String toString(AVLtree<T> tree) {
+        return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
     }
-    public void print_aux(NodeAVL<T> root, int space){
-        // Base case
-        if (root == null)
-            return;
-
-        // Increase distance between levels
-        space += COUNT;
-
-        // Process right child first
-        print_aux(root.getRight(), space);
-
-        // Print current node after space
-        // count
-        System.out.print("\n");
-        for (int i = COUNT; i < space; i++)
-            System.out.print(" ");
-        System.out.print(root.getKey() + "\n");
-
-        // Process left child
-        print_aux(root.getLeft(), space);
-
+    public NodeAVL<T> getRoot(){
+        return this.root;
     }
-    
+
+
+    public StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,NodeAVL<T> head) {
+        if(head.getRight()!=null) {
+            sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, new StringBuilder(), head.getRight()));
+        }
+        sb.append(prefix).append(isTail ? "└──" : "┌──").append("[").append(head.getKey()).append("]").append("\n");
+        if(head.getLeft()!=null) {
+            sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "    " : "│   "), true, new StringBuilder(), head.getLeft()));
+        }
+        return sb;
+    }
 }
 
 
