@@ -137,6 +137,10 @@ public class Recipe {
         return comments;
     }
 
+    public void addComment(String author, String comment){
+        this.comments.add(new Comment(author, comment));
+    }
+
     public void setComments(SinglyList<Comment> comments) {
         this.comments = comments;
     }

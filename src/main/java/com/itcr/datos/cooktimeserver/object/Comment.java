@@ -2,8 +2,13 @@ package com.itcr.datos.cooktimeserver.object;
 
 public class Comment {
 
-    private String author;
-    private String comment;
+    private final String author;
+    private final String comment;
+
+    public Comment(String author, String comment) {
+        this.author = author;
+        this.comment = comment;
+    }
 
     /**
      * Getter for the author
