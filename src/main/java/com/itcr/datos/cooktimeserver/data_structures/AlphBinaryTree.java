@@ -1,11 +1,11 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
+import com.itcr.datos.cooktimeserver.object.User;
+
 /**
  * Class for the implementation of the alphabetical BST
  * @param <T> the type of data
  */
-import com.itcr.datos.cooktimeserver.object.User;
-
 public class AlphBinaryTree<T> {
 
 
@@ -24,6 +24,7 @@ public class AlphBinaryTree<T> {
     public void add(T data, String key){
         if (this.isEmpty()) {
             root = new AlphNodeTree<T>(data, key);
+            length=1;
         }else{
             AlphNodeTree<T> tmp = root;
             while (tmp != null){
@@ -44,6 +45,7 @@ public class AlphBinaryTree<T> {
                 }
             }
         }
+        length++;
     }
 
 
@@ -181,12 +183,8 @@ public class AlphBinaryTree<T> {
     }
     /**
      * Function that calls recursively the function of printing the tree´s diagram
-     * @param tree the tree that´s being used for inserting the nodes
      * @return returns the recursive function
      */
-    public String toString(AlphBinaryTree<T> tree) {
-        return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
-
     public String toString() {
         return this.toString(new StringBuilder(), true, new StringBuilder(),this.root).toString();
     }
@@ -198,7 +196,7 @@ public class AlphBinaryTree<T> {
      * @param head the root
      * @return returns the tree´s diagram
      */
-    public StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,AlphNodeTree<T> head) {
+    private StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,AlphNodeTree<T> head) {
         if(head.getRight()!=null) {
             sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, new StringBuilder(), head.getRight()));
         }
@@ -209,4 +207,31 @@ public class AlphBinaryTree<T> {
         return sb;
     }
 
+    public static void main(String[] args) {
+
+        AlphBinaryTree<User> alf = new AlphBinaryTree<User>();
+
+        alf.add(new User(), "mauricio");
+        alf.add(new User(), "zenobrio");
+        alf.add(new User(), "zzzz");
+        alf.add(new User(), "alejandro");
+        alf.add(new User(), "ab");
+        alf.add(new User(), "ad");
+
+
+        System.out.println(alf.toString());
+
+        try{
+            alf.delete("alejandro");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println("---------------------New Tree---------------------");
+
+
+        System.out.println(alf.toString());
+
+    }
 }
