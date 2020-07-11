@@ -1,10 +1,10 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
-import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.AlphBinaryTree;
+import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,35 +12,48 @@ import java.io.FileWriter;
 /**
  * This class will be called whenever we need to modify, clear, add or access the list of users
  */
-public class UserListAdmin {
-    private static SinglyList<User> UserList;
+public class UserTree {
+    private static AlphBinaryTree<User> binaryUserTree;
 
     /**
      * This method initializes the user list and adds all of the users from the Users.json json file
      */
     public static void initUserList(){
-        UserList = new SinglyList<User>();
+        binaryUserTree = new AlphBinaryTree<User>();
         updateUserList();
     }
 
     /**
      * This method will access to the Users.json and load all of the users in the UsersList
      */
-    public static void updateUserList() {
-        JSONParser userparser = new JSONParser();
-        UserList.clear();
+    public static void updateUserList(){
+        binaryUserTree.clear();
 
+        JSONParser userParser = new JSONParser();
         try {
-            JSONArray jsonArray = (JSONArray) userparser.parse(new FileReader("res/data/Users.json"));
-            int count = 0;
-
-            while(count<=jsonArray.size()-1) {
-                UserList.add(makeUser( (JSONObject) jsonArray.get(count)));
-                count++;
-            }
-
+            JSONObject usersJSON = (JSONObject) userParser.parse(new FileReader("res/data/Users.json"));
+            getBranch(usersJSON);
         }
         catch (Exception e) {e.printStackTrace();}
+        System.out.println(binaryUserTree.toString());
+    }
+
+    private static void getBranch(JSONObject jsonObject){
+        User newUser = new User();
+        newUser.setName(jsonObject.get("name").toString());
+        newUser.setEmail(jsonObject.get("email").toString());
+        newUser.setAge(Integer.parseInt(jsonObject.get("age").toString()));
+        newUser.setPassword(jsonObject.get("password").toString());
+
+        binaryUserTree.add(newUser, newUser.getName());
+
+        if(jsonObject.get("right")!=null){
+            getBranch((JSONObject) jsonObject.get("right"));
+        }
+        if(jsonObject.get("left")!=null){
+            getBranch((JSONObject) jsonObject.get("left"));
+        }
+
     }
 
     /**
@@ -130,8 +143,8 @@ public class UserListAdmin {
      * This method is a getter for the UserList
      * @return UserList
      */
-    public static SinglyList<User> getUserList(){
-        return UserList;
+    public static AlphBinaryTree<User> getUserTree(){
+        return binaryUserTree;
     }
 
     /**
@@ -140,7 +153,7 @@ public class UserListAdmin {
      */
     public static void addUser(User newUser){
         if(newUser!=null){
-            UserList.add(newUser);
+            binaryUserTree.add(newUser, newUser.getName());
             saveUser();
             updateUserList();
         }
@@ -148,37 +161,33 @@ public class UserListAdmin {
             System.out.println("Something went wrong while adding the user, the user was empty");
         }
     }
-
     /**
      * This method will write the users into the Users.json
      */
-    @SuppressWarnings("unchecked")
     public static void saveUser(){
+        try(FileWriter file = new FileWriter("res/data/Users.json")){
+            file.write(binaryTravel(binaryUserTree.getRoot(), new JSONObject()).toString());
+            file.flush();
 
-        int client = UserList.getLength();
-        if(client!=0){
-            client-=1;
-            try(FileWriter file = new FileWriter("res/data/Users.json")){
-                JSONArray users = new JSONArray();
-
-                while(client>=0){
-
-                    JSONObject memory = new JSONObject();
-
-                    memory.put("name",UserList.get(client).getData().getName());
-                    memory.put("password",UserList.get(client).getData().getPassword());
-                    memory.put("email",UserList.get(client).getData().getEmail());
-                    memory.put("age",UserList.get(client).getData().getAge());
-
-                    users.add(memory);
-                    client--;
-                }
-
-                file.write(users.toString());
-                file.flush();
-
-            }
-            catch (IOException e) { e.printStackTrace();}
         }
+        catch (IOException e) { e.printStackTrace();}
     }
+
+    @SuppressWarnings("unchecked")
+    public static JSONObject binaryTravel(AlphNodeTree<User> user, JSONObject jsonObject){
+        jsonObject.put("name",user.getData().getName());
+        jsonObject.put("password",user.getData().getPassword());
+        jsonObject.put("email",user.getData().getEmail());
+        jsonObject.put("age",user.getData().getAge());
+        jsonObject.put("left", null);
+        jsonObject.put("right",null);
+        if(user.getLeft()!=null){
+            jsonObject.replace("left", binaryTravel(user.getLeft(), new JSONObject()));
+        }
+        if(user.getRight()!=null){
+            jsonObject.replace("right", binaryTravel(user.getRight(), new JSONObject()));
+        }
+        return jsonObject;
+    }
+
 }

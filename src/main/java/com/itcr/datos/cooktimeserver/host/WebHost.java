@@ -1,16 +1,14 @@
 package com.itcr.datos.cooktimeserver.host;
 
-import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import org.springframework.web.bind.annotation.*;
-import com.itcr.datos.cooktimeserver.restfull.UserListAdmin;
+import com.itcr.datos.cooktimeserver.data_structures.AlphBinaryTree;
+import com.itcr.datos.cooktimeserver.restfull.UserTree;
 import com.itcr.datos.cooktimeserver.object.User;
-
+import org.springframework.web.bind.annotation.*;
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
  */
 @RestController
 public class WebHost {
-
     @GetMapping("/")
     public String login(){
 
@@ -31,37 +29,13 @@ public class WebHost {
     }
 
     /**
-     * This method will manage accessing to an specific user in the list by the index
-     * @param userID
-     * @return the user that matches the given id
-     */
-    public User getUserById(int userID) {
-        return UserListAdmin.getUserList().get(userID).getData();
-    }
-
-    /**
      * This method will be executed with the link http://localhost:6969/user and will return a list of the users
      * @return a list of users in json format
      */
     @GetMapping("/user")
-    public SinglyList<User> getString(){
-        UserListAdmin.updateUserList();
-        return UserListAdmin.getUserList();
-    }
-
-    /**
-     * This method recieves an id from the clients and retrieves the user that corresponds to that ID
-     * @param id
-     * @return the user that was requested by the client
-     */
-    @GetMapping("/user/{id}")
-    public User userID( @PathVariable int id ) {
-        try{
-            return getUserById(id);
-        }
-        catch(NullPointerException e){
-            return new User();
-        }
+    public AlphBinaryTree<User> getString(){
+        UserTree.updateUserList();
+        return UserTree.getUserTree();
     }
 
     /**
@@ -69,16 +43,15 @@ public class WebHost {
      * @param newUser
      * @return the user that was just created
      */
-    @PostMapping("newUser")
+    @PostMapping("/newUser")
     public User addUser( @RequestBody User newUser){
         if(newUser!=null){
             System.out.println(newUser.toString());
-            UserListAdmin.addUser(newUser);
+            UserTree.addUser(newUser);
             return newUser;
         }
         else{
             return new User();
         }
     }
-
 }

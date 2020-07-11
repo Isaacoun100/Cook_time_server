@@ -4,10 +4,17 @@ package com.itcr.datos.cooktimeserver.data_structures;
  * Class for the implementation of the alphabetical BST
  * @param <T> the type of data
  */
+import com.itcr.datos.cooktimeserver.object.User;
+
 public class AlphBinaryTree<T> {
 
 
     private AlphNodeTree<T> root = null;
+    private int length;
+
+    public int getLength(){
+        return this.length;
+    }
 
     /**
      * Adds a node to the tree
@@ -40,6 +47,11 @@ public class AlphBinaryTree<T> {
     }
 
 
+    public void clear(){
+        this.root=null;
+        length=0;
+    }
+
     public String greater(String leaf, String key){
 
         if(leaf.equals(key)){
@@ -47,7 +59,7 @@ public class AlphBinaryTree<T> {
         }
 
         int size,count=0;
-        size = Math.max(leaf.length(), key.length());
+        size = Math.min(leaf.length(), key.length());
 
         while(count<=size){
 
@@ -104,6 +116,7 @@ public class AlphBinaryTree<T> {
 
     public void delete(String key) throws Exception {
         this.root = deleteAux(this.root, key);
+        length--;
     }
 
     /**
@@ -173,6 +186,9 @@ public class AlphBinaryTree<T> {
      */
     public String toString(AlphBinaryTree<T> tree) {
         return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
+
+    public String toString() {
+        return this.toString(new StringBuilder(), true, new StringBuilder(),this.root).toString();
     }
     /**
      * Recursive function used for printing de AVL tree´s diagram
@@ -192,4 +208,5 @@ public class AlphBinaryTree<T> {
         }
         return sb;
     }
+
 }

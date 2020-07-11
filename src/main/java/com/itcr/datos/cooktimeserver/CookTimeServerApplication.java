@@ -1,11 +1,11 @@
 package com.itcr.datos.cooktimeserver;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.itcr.datos.cooktimeserver.restfull.UserListAdmin;
+import com.itcr.datos.cooktimeserver.restfull.UserTree;
 import org.springframework.boot.SpringApplication;
 
 /**
- * CookTimeServerApplication is the main class, here will be executed only the neccesary for the code to run
+ * CookTimeServerApplication is the main class, here will be executed only the necessary for the code to run
  */
 @SpringBootApplication
 public class CookTimeServerApplication {
@@ -15,7 +15,7 @@ public class CookTimeServerApplication {
      * @param args
      */
     public static void main(String[] args) {
-        UserListAdmin.initUserList();
+        UserTree.initUserList();
         SpringApplication.run(CookTimeServerApplication.class, args);
     }
 
