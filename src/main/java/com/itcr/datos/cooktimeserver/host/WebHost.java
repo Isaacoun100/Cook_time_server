@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.restfull.UserListAdmin;
 import com.itcr.datos.cooktimeserver.object.User;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -67,7 +68,7 @@ public class WebHost {
         }
     }
 
-    @PostMapping("/test")
+    @PostMapping("/test/post")
     public String addUser( @RequestBody String message){
         System.out.println(message);
 
@@ -81,6 +82,19 @@ public class WebHost {
 
         return message;
     }
+
+    @GetMapping("/test/get")
+    public StringBuilder addUser() throws IOException {
+        FileReader fr =new FileReader("res/data/test.json");
+        int i;
+        StringBuilder message= new StringBuilder();
+        while((i=fr.read())!=-1)
+            message.append((char) i);
+        fr.close();
+
+        return message;
+    }
+
 
     /**
      * This method is a post method that receives a user in json format and converts it into a User type
