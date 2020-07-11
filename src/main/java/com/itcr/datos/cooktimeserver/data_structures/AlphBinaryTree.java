@@ -1,12 +1,20 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
+import com.itcr.datos.cooktimeserver.object.User;
+
 public class AlphBinaryTree<T> {
 
     private AlphNodeTree<T> root = null;
+    private int length;
+
+    public int getLength(){
+        return this.length;
+    }
 
     public void add(T data, String key){
         if(this.root==null) root = new AlphNodeTree<T>(data, key);
-        else addNode(data, key,this.root);
+        else addNode(data, key, this.root);
+        length++;
     }
 
     private void addNode(T data, String key, AlphNodeTree<T> tmp){
@@ -25,6 +33,11 @@ public class AlphBinaryTree<T> {
             case "equals":
                 break;
         }
+    }
+
+    public void clear(){
+        this.root=null;
+        length=0;
     }
 
     public String greater(String leaf, String key){
@@ -81,6 +94,7 @@ public class AlphBinaryTree<T> {
 
     public void delete(String key) throws Exception {
         this.root = deleteAux(this.root, key);
+        length--;
     }
 
     private AlphNodeTree<T> deleteAux(AlphNodeTree <T> root, String key) throws Exception {
@@ -129,8 +143,8 @@ public class AlphBinaryTree<T> {
         return this.root;
     }
 
-    public String toString(AlphBinaryTree<T> tree) {
-        return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
+    public String toString() {
+        return this.toString(new StringBuilder(), true, new StringBuilder(),this.root).toString();
     }
 
     public StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,AlphNodeTree<T> head) {
