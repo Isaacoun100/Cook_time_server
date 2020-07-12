@@ -1,5 +1,6 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
+
 import com.itcr.datos.cooktimeserver.object.User;
 
 /**
@@ -35,13 +36,15 @@ public class AlphBinaryTree<T> {
                     }else{
                         tmp = tmp.getRight();
                     }
-                }else{
-                    if (tmp.getLeft() == null){
-                        tmp.setLeft(new AlphNodeTree<T>(data, key)); return;
-                    }
-                    else{
+                } if (greater(key, tmp.getKey()).equals("key")) {
+                    if (tmp.getLeft() == null) {
+                        tmp.setLeft(new AlphNodeTree<T>(data, key));
+                        return;
+                    } else {
                         tmp = tmp.getLeft();
                     }
+                }else{
+                    return;
                 }
             }
         }
@@ -113,10 +116,9 @@ public class AlphBinaryTree<T> {
     /**
      * Deletes the node in the BST
      * @param key key about to be deleted
-     * @throws Exception throws exception if the node is not found
      */
 
-    public void delete(String key) throws Exception {
+    public void delete(String key){
         this.root = deleteAux(this.root, key);
         length--;
     }
@@ -126,34 +128,35 @@ public class AlphBinaryTree<T> {
      * @param root the root of the BST
      * @param key key about to be deleted
      * @return returns the root
-     * @throws Exception throws exception if the node is not found
      */
 
-    private AlphNodeTree<T> deleteAux(AlphNodeTree<T> root, String key) throws Exception {
-        if (root == null){
-            throw new Exception("The node was not found");
+    private AlphNodeTree<T> deleteAux(AlphNodeTree<T> root, String key){
+        /* Base Case: If the tree is empty */
+        if (root == null)  return root;
+
+        /* Otherwise, recur down the tree */
+        if (greater(key, root.getKey()).equals("key"))
+            root.setLeft(deleteAux(root.getLeft(), key));
+        else if (greater(key, root.getKey()).equals("leaf"))
+            root.setRight(deleteAux(root.getRight(), key));
+
+            // if key is same as root's key, then This is the node
+            // to be deleted
+        else {
+            // node with only one child or no child
+            if (root.getLeft() == null)
+                return root.getRight();
+            else if (root.getRight() == null)
+                return root.getLeft();
+
+            // node with two children: Get the inorder successor (smallest
+            // in the right subtree)
+            root.setKey(minValue(root.getRight()));
+
+            // Delete the inorder successor
+            root.setRight(deleteAux(root.getRight(), root.getKey()));
         }
-        else if(greater(key, root.getKey()).equals("key")){
-            AlphNodeTree<T> left = deleteAux(root.getLeft(), key);
-            root.setLeft(left);
-        }
-        else if(greater(key, root.getKey()).equals("leaf")){
-            AlphNodeTree<T> right = deleteAux(root.getRight(), key);
-            root.setRight(right);
-        }
-        else{
-            AlphNodeTree<T> copy = root;
-            if (copy.getRight() == null){
-                root = copy.getLeft();
-            }
-            else if(copy.getLeft() == null){
-                root = copy.getRight();
-            }
-            else{
-                copy = change(copy);
-            }
-            copy = null;
-        }
+
         return root;
     }
 
@@ -173,6 +176,16 @@ public class AlphBinaryTree<T> {
         if(nodeTree == root) nodeTree.setLeft(maxLeft.getRight());
         else nodeTree.setRight(maxLeft.getRight());
         return maxLeft;
+    }
+    private String minValue(AlphNodeTree<T> root)
+    {
+        String minv = root.getKey();
+        while (root.getLeft() != null)
+        {
+            minv = root.getLeft().getKey();
+            root = root.getLeft();
+        }
+        return minv;
     }
     /**
      * Function that returns the root of the tree
@@ -205,33 +218,5 @@ public class AlphBinaryTree<T> {
             sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "    " : "│   "), true, new StringBuilder(), head.getLeft()));
         }
         return sb;
-    }
-
-    public static void main(String[] args) {
-
-        AlphBinaryTree<User> alf = new AlphBinaryTree<User>();
-
-        alf.add(new User(), "mauricio");
-        alf.add(new User(), "zenobrio");
-        alf.add(new User(), "zzzz");
-        alf.add(new User(), "alejandro");
-        alf.add(new User(), "ab");
-        alf.add(new User(), "ad");
-
-
-        System.out.println(alf.toString());
-
-        try{
-            alf.delete("alejandro");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        System.out.println("---------------------New Tree---------------------");
-
-
-        System.out.println(alf.toString());
-
     }
 }
