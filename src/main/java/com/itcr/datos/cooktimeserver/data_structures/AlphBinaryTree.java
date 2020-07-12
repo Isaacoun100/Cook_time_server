@@ -1,30 +1,60 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
+
+import com.itcr.datos.cooktimeserver.object.User;
+
+/**
+ * Class for the implementation of the alphabetical BST
+ * @param <T> the type of data
+ */
 public class AlphBinaryTree<T> {
 
-    private AlphNodeTree<T> root = null;
 
-    public void add(T data, String key){
-        if(this.root==null) root = new AlphNodeTree<T>(data, key);
-        else addNode(data, key,this.root);
+    private AlphNodeTree<T> root = null;
+    private int length;
+
+    public int getLength(){
+        return this.length;
     }
 
-    private void addNode(T data, String key, AlphNodeTree<T> tmp){
-
-        switch (greater(key,tmp.getKey())){
-            case "key":
-                if(tmp.getRight()==null) tmp.setRight(new AlphNodeTree<T>(data,key));
-                else addNode(data,key,tmp.getRight());
-                break;
-
-            case "leaf":
-                if(tmp.getLeft() == null) tmp.setLeft(new AlphNodeTree<T>(data,key));
-                else addNode(data,key,tmp.getLeft());
-                break;
-
-            case "equals":
-                break;
+    /**
+     * Adds a node to the tree
+     * @param data the object contained in the node
+     * @param key a value representing the value of the node
+     */
+    public void add(T data, String key){
+        if (this.isEmpty()) {
+            root = new AlphNodeTree<T>(data, key);
+            length=1;
+        }else{
+            AlphNodeTree<T> tmp = root;
+            while (tmp != null){
+                if (greater(key, tmp.getKey()).equals("leaf")){
+                    if (tmp.getRight() == null){
+                        tmp.setRight(new AlphNodeTree<T>(data, key));
+                        return;
+                    }else{
+                        tmp = tmp.getRight();
+                    }
+                }  if (greater(key, tmp.getKey()).equals("key")) {
+                    if (tmp.getLeft() == null) {
+                        tmp.setLeft(new AlphNodeTree<T>(data, key));
+                        return;
+                    } else {
+                        tmp = tmp.getLeft();
+                    }
+                }else{
+                   return;
+                }
+            }
         }
+        length++;
+    }
+
+
+    public void clear(){
+        this.root=null;
+        length=0;
     }
 
     public String greater(String leaf, String key){
@@ -34,7 +64,7 @@ public class AlphBinaryTree<T> {
         }
 
         int size,count=0;
-        size = Math.max(leaf.length(), key.length());
+        size = Math.min(leaf.length(), key.length());
 
         while(count<=size){
 
@@ -57,6 +87,10 @@ public class AlphBinaryTree<T> {
         }
     }
 
+    /**
+     *
+     * @return returns true if the node is empty
+     */
     public boolean isEmpty (){
         return this.root == null;
     }
@@ -79,35 +113,54 @@ public class AlphBinaryTree<T> {
         return "null";
     }
 
+    /**
+     * Deletes the node in the BST
+     * @param key key about to be deleted
+     * @throws Exception throws exception if the node is not found
+     */
+
     public void delete(String key) throws Exception {
         this.root = deleteAux(this.root, key);
+        length--;
     }
 
-    private AlphNodeTree<T> deleteAux(AlphNodeTree <T> root, String key) throws Exception {
+    /**
+     * Auxiliar method that gets called in delete.
+     * @param root the root of the BST
+     * @param key key about to be deleted
+     * @return returns the root
+     * @throws Exception throws exception if the node is not found
+     */
 
-        if (root == null) {
-            throw new Exception("Node was not found");
+    private AlphNodeTree<T> deleteAux(AlphNodeTree<T> root, String key) throws Exception {
+        if (root == null){
+            throw new Exception("The node was not found");
         }
-
-        switch (greater(root.getKey(), key)) {
-            case "key" -> {
-                AlphNodeTree<T> left = deleteAux(root.getLeft(), key);
-                root.setRight(left);
+        else if(greater(key, root.getKey()).equals("key")){
+            AlphNodeTree<T> left = deleteAux(root.getLeft(), key);
+            root.setLeft(left);
+        }
+        else if(greater(key, root.getKey()).equals("leaf")){
+            AlphNodeTree<T> right = deleteAux(root.getRight(), key);
+            root.setRight(right);
+        }
+        else{
+            AlphNodeTree<T> copy = root;
+            if (copy.getRight() == null){
+                root = copy.getLeft();
             }
-            case "leaf" -> {
-                AlphNodeTree<T> right = deleteAux(root.getRight(), key);
-                root.setRight(right);
+            else if(copy.getLeft() == null){
+                root = copy.getRight();
             }
-            case "equals" -> {
-                AlphNodeTree<T> copy = root;
-                if (copy.getRight() == null) root = copy.getLeft();
-                else if (copy.getLeft() == null) root = copy.getRight();
-                else copy = change(copy);
-                copy = null;
+            else{
+                copy = change(copy);
             }
+            copy = null;
         }
         return root;
     }
+
+
 
     @SuppressWarnings("DuplicatedCode")
     private AlphNodeTree<T> change(AlphNodeTree<T> root){
@@ -124,24 +177,64 @@ public class AlphBinaryTree<T> {
         else nodeTree.setRight(maxLeft.getRight());
         return maxLeft;
     }
-
+    /**
+     * Function that returns the root of the tree
+     * @return returns the root
+     */
     public AlphNodeTree<T> getRoot(){
         return this.root;
     }
-
-    public String toString(AlphBinaryTree<T> tree) {
-        return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
+    /**
+     * Function that calls recursively the function of printing the tree´s diagram
+     * @return returns the recursive function
+     */
+    public String toString() {
+        return this.toString(new StringBuilder(), true, new StringBuilder(),this.root).toString();
     }
-
-    public StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,AlphNodeTree<T> head) {
+    /**
+     * Recursive function used for printing de AVL tree´s diagram
+     * @param prefix StringBuilder instance
+     * @param isTail a boolean
+     * @param sb StringBuilder instance
+     * @param head the root
+     * @return returns the tree´s diagram
+     */
+    private StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,AlphNodeTree<T> head) {
         if(head.getRight()!=null) {
             sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, new StringBuilder(), head.getRight()));
         }
-        sb.append(prefix).append(isTail ? "└──" : "┌──").append("[").append(head.getData()).append("]").append("\n");
+        sb.append(prefix).append(isTail ? "└──" : "┌──").append("[").append(head.getKey()).append("]").append("\n");
         if(head.getLeft()!=null) {
             sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "    " : "│   "), true, new StringBuilder(), head.getLeft()));
         }
         return sb;
     }
 
+    public static void main(String[] args) {
+
+        AlphBinaryTree<User> alf = new AlphBinaryTree<User>();
+
+        alf.add(new User(), "mauricio");
+        alf.add(new User(), "zenobrio");
+        alf.add(new User(), "zzzz");
+        alf.add(new User(), "alejandro");
+        alf.add(new User(), "ab");
+        alf.add(new User(), "ad");
+
+
+        System.out.println(alf.toString());
+
+        try{
+            alf.delete("alejandro");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println("---------------------New Tree---------------------");
+
+
+        System.out.println(alf.toString());
+
+    }
 }
