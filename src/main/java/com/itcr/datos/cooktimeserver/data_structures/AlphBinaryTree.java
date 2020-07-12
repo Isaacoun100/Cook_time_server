@@ -51,12 +51,19 @@ public class AlphBinaryTree<T> {
         length++;
     }
 
-
+    /**
+     * Utility function that clears the BST
+     */
     public void clear(){
         this.root=null;
         length=0;
     }
-
+    /**
+     * Function that identifies which string is greater than the other
+     * @param leaf first string
+     * @param key second string
+     * @return return ´leaf´ if the first string is greater, ´key´ if the second string is greater, or ´equals´ if they are the same
+     */
     public String greater(String leaf, String key){
 
         if(leaf.equals(key)){
@@ -95,6 +102,10 @@ public class AlphBinaryTree<T> {
         return this.root == null;
     }
 
+    /**
+     * Utility function that gets the minimum value node
+     * @return "null" if the node is not found
+     */
     public String getMin(){
         if (!isEmpty()){
             AlphNodeTree<T> tmp = root;
@@ -104,6 +115,10 @@ public class AlphBinaryTree<T> {
         return "null";
     }
 
+    /**
+     * Utility function that gets the maximun value node
+     * @return "null" if the node is not found
+     */
     public String getMax(){
         if (!isEmpty()){
             AlphNodeTree<T> tmp = root;
@@ -114,7 +129,7 @@ public class AlphBinaryTree<T> {
     }
 
     /**
-     * Deletes the node in the BST
+     * Deletes the node in the BST and calls recursively the other function
      * @param key key about to be deleted
      */
 
@@ -177,6 +192,12 @@ public class AlphBinaryTree<T> {
         else nodeTree.setRight(maxLeft.getRight());
         return maxLeft;
     }
+
+    /**
+     * Gets the inorder succesor of the node
+     * @param root the node
+     * @return returns the node
+     */
     private String minValue(AlphNodeTree<T> root)
     {
         String minv = root.getKey();
