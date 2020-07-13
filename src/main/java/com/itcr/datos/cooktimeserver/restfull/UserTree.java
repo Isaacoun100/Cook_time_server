@@ -2,12 +2,16 @@ package com.itcr.datos.cooktimeserver.restfull;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphBinaryTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
+import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
+
 
 /**
  * This class will be called whenever we need to modify, clear, add or access the list of users
@@ -34,18 +38,40 @@ public class UserTree {
             JSONObject usersJSON = (JSONObject) userParser.parse(new FileReader("res/data/Users.json"));
             getBranch(usersJSON);
         }
-        catch (Exception e) {e.printStackTrace();}
+        catch (Exception e) {
+            e.printStackTrace();
+            getBranch(new JSONObject());
+        }
         System.out.println(binaryUserTree.toString());
     }
 
     private static void getBranch(JSONObject jsonObject){
         User newUser = new User();
-        newUser.setName(jsonObject.get("name").toString());
-        newUser.setEmail(jsonObject.get("email").toString());
-        newUser.setAge(Integer.parseInt(jsonObject.get("age").toString()));
-        newUser.setPassword(jsonObject.get("password").toString());
 
-        binaryUserTree.add(newUser, newUser.getName());
+        try{newUser.setName(jsonObject.get("name").toString());}
+        catch (NullPointerException e){newUser.setName(null);}
+
+        try{newUser.setEmail(jsonObject.get("email").toString());}
+        catch (NullPointerException e){newUser.setEmail(null);}
+
+        try{newUser.setAge(Integer.parseInt(jsonObject.get("age").toString()));}
+        catch (NullPointerException e){newUser.setAge(0);}
+
+        try{newUser.setPassword(jsonObject.get("password").toString());}
+        catch (NullPointerException e){newUser.setPassword(null);}
+
+        newUser.setRecipe(TypeConversion.toSinglyList((JSONArray) jsonObject.get("recipe"),new SinglyList<Recipe>()));
+
+        try{newUser.setHasCompany((Boolean) jsonObject.get("hasCompany"));}
+        catch (NullPointerException e){newUser.setHasCompany(false);}
+
+        try{newUser.setFollowers(TypeConversion.makeStringList((JSONArray)jsonObject.get("followers"), new SinglyList<String>()));}
+        catch (NullPointerException e){newUser.setFollowers(new SinglyList<String>());}
+
+        try{newUser.setFollowing(TypeConversion.makeStringList((JSONArray) jsonObject.get("following"), new SinglyList<String>()));}
+        catch (NullPointerException e){newUser.setFollowing(new SinglyList<String>());}
+
+        binaryUserTree.add(newUser, newUser.getEmail());
 
         if(jsonObject.get("right")!=null){
             getBranch((JSONObject) jsonObject.get("right"));
@@ -53,90 +79,6 @@ public class UserTree {
         if(jsonObject.get("left")!=null){
             getBranch((JSONObject) jsonObject.get("left"));
         }
-
-    }
-
-    /**
-     * This method will convert the given JSONObject into a User
-     * @param newObject
-     * @return the JSONObject converted into a User
-     */
-    public static User makeUser(JSONObject newObject){
-
-        User newUser = new User();
-
-        if(!newObject.isEmpty()){
-
-            try{
-                String name = newObject.get("name").toString();
-                newUser.setName(name);
-            }
-            catch (NullPointerException e){
-                System.out.println("The name was not provided correcly please check");
-                e.printStackTrace();
-                System.out.println("For more information");
-                newUser.setName("Not provided correcly");
-            }
-
-            try{
-                int age = Integer.parseInt(newObject.get("age").toString());
-                newUser.setAge(age);
-            }
-            catch (NullPointerException e){
-                System.out.println("The name age not provided correcly please check");
-                e.printStackTrace();
-                System.out.println("For more information");
-                newUser.setAge(0);
-            }
-
-            try{
-                String email = newObject.get("email").toString();
-                newUser.setEmail(email);
-            }
-            catch (NullPointerException e){
-                System.out.println("The email was not provided correcly please check");
-                e.printStackTrace();
-                System.out.println("For more information");
-                newUser.setEmail("Not provided correcly");
-            }
-
-            try{
-                String password = newObject.get("password").toString();
-                newUser.setPassword(password);
-            }
-            catch (NullPointerException e) {
-                System.out.println("The password was not provided correcly please check");
-                e.printStackTrace();
-                System.out.println("For more information");
-                newUser.setPassword("Not provided correcly");}
-        }
-        else{
-            newUser.setName("Not provided");
-            newUser.setEmail("Not provided");
-            newUser.setPassword("Not provided");
-            newUser.setAge(0);
-        }
-
-        return newUser;
-    }
-
-    /**
-     * This method will convert the given User into a JSONObject
-     * @param newUser
-     * @return the User converted into a JSONObject
-     */
-    @SuppressWarnings("unchecked")
-    public static JSONObject makeObject(User newUser){
-
-        JSONObject incomingUser = new JSONObject();
-
-        incomingUser.put("name",newUser.getName());
-        incomingUser.put("age",newUser.getAge());
-        incomingUser.put("email",newUser.getEmail());
-        incomingUser.put("password",newUser.getPassword());
-
-        return incomingUser;
-
     }
 
     /**
@@ -153,7 +95,7 @@ public class UserTree {
      */
     public static void addUser(User newUser){
         if(newUser!=null){
-            binaryUserTree.add(newUser, newUser.getName());
+            binaryUserTree.add(newUser, newUser.getEmail());
             saveUser();
             updateUserList();
         }
@@ -175,10 +117,34 @@ public class UserTree {
 
     @SuppressWarnings("unchecked")
     public static JSONObject binaryTravel(AlphNodeTree<User> user, JSONObject jsonObject){
-        jsonObject.put("name",user.getData().getName());
-        jsonObject.put("password",user.getData().getPassword());
-        jsonObject.put("email",user.getData().getEmail());
-        jsonObject.put("age",user.getData().getAge());
+
+        try{jsonObject.put("name",user.getData().getName());}
+        catch (NullPointerException e){jsonObject.put("name",null);}
+
+        try{ jsonObject.put("password",user.getData().getPassword());}
+        catch (NullPointerException e){jsonObject.put("password",null);}
+
+        try{jsonObject.put("email",user.getData().getEmail());}
+        catch (NullPointerException e){jsonObject.put("email",null);}
+
+        try{jsonObject.put("age",user.getData().getAge());}
+        catch (NullPointerException e){jsonObject.put("age",0);}
+
+        try{jsonObject.put("image",user.getData().getImage());}
+        catch (NullPointerException e){jsonObject.put("image",null);}
+
+        try{jsonObject.put("recipe",TypeConversion.makeRecipeArray(user.getData().getRecipe(),new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("recipe",null);}
+
+        try{jsonObject.put("followers",TypeConversion.makeStringArray(user.getData().getFollowers(), new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("followers",null);}
+
+        try{jsonObject.put("following",TypeConversion.makeStringArray(user.getData().getFollowing(), new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("following",null);}
+
+        try{jsonObject.put("hasCompany",user.getData().isHasCompany());}
+        catch (NullPointerException e){jsonObject.put("hasCompany",false);}
+
         jsonObject.put("left", null);
         jsonObject.put("right",null);
         if(user.getLeft()!=null){

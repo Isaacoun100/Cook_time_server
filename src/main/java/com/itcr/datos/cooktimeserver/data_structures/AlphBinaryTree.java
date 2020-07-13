@@ -1,8 +1,5 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
-
-import com.itcr.datos.cooktimeserver.object.User;
-
 /**
  * Class for the implementation of the alphabetical BST
  * @param <T> the type of data

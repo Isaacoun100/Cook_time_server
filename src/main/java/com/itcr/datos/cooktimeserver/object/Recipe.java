@@ -1,7 +1,6 @@
 package com.itcr.datos.cooktimeserver.object;
 
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import java.util.Calendar;
 
 public class Recipe {
 
@@ -14,7 +13,7 @@ public class Recipe {
     private String diet;
     private String steps;
     private String image;
-    private Calendar date;
+    private String date;
     private int price;
     private int servings;
     private int rating;
@@ -93,11 +92,11 @@ public class Recipe {
         this.image = image;
     }
 
-    public Calendar getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

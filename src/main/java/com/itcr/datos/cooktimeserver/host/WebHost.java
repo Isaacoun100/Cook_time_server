@@ -18,8 +18,6 @@ public class WebHost {
                         + System.lineSeparator() +
                         "Access the users in the following link http://localhost:6969/user "
                         + System.lineSeparator() +
-                        "Access an specific user in the following link http://localhost:6969/user/ + the user number"
-                        + System.lineSeparator() +
                         "Add new users using the link http://localhost:6969/newUser/ using a POST request "
                         + System.lineSeparator() +
                         "Read more about HTTP Methods here: https://restfulapi.net/http-methods/ ";
@@ -33,9 +31,9 @@ public class WebHost {
      * @return a list of users in json format
      */
     @GetMapping("/user")
-    public AlphBinaryTree<User> getString(){
+    public String getTree(){
         UserTree.updateUserList();
-        return UserTree.getUserTree();
+        return UserTree.getUserTree().toString();
     }
 
     /**
