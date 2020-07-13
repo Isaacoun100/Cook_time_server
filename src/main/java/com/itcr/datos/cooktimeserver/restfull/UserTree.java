@@ -5,6 +5,7 @@ import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
 import java.io.IOException;
@@ -59,15 +60,15 @@ public class UserTree {
         try{newUser.setPassword(jsonObject.get("password").toString());}
         catch (NullPointerException e){newUser.setPassword(null);}
 
-        newUser.setRecipe(TypeConversion.toSinglyList((JSONObject) jsonObject.get("recipe"),new SinglyList<Recipe>()));
+        newUser.setRecipe(TypeConversion.toSinglyList((JSONArray) jsonObject.get("recipe"),new SinglyList<Recipe>()));
 
         try{newUser.setHasCompany((Boolean) jsonObject.get("hasCompany"));}
         catch (NullPointerException e){newUser.setHasCompany(false);}
 
-        try{newUser.setFollowers(TypeConversion.makeStringList((JSONObject)jsonObject.get("followers"), new SinglyList<String>()));}
+        try{newUser.setFollowers(TypeConversion.makeStringList((JSONArray)jsonObject.get("followers"), new SinglyList<String>()));}
         catch (NullPointerException e){newUser.setFollowers(new SinglyList<String>());}
 
-        try{newUser.setFollowing(TypeConversion.makeStringList((JSONObject)jsonObject.get("following"), new SinglyList<String>()));}
+        try{newUser.setFollowing(TypeConversion.makeStringList((JSONArray) jsonObject.get("following"), new SinglyList<String>()));}
         catch (NullPointerException e){newUser.setFollowing(new SinglyList<String>());}
 
         binaryUserTree.add(newUser, newUser.getEmail());
@@ -132,13 +133,13 @@ public class UserTree {
         try{jsonObject.put("image",user.getData().getImage());}
         catch (NullPointerException e){jsonObject.put("image",null);}
 
-        try{jsonObject.put("recipe",user.getData().getRecipe());}
+        try{jsonObject.put("recipe",TypeConversion.makeRecipeArray(user.getData().getRecipe(),new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("recipe",null);}
 
-        try{jsonObject.put("followers",user.getData().getFollowers());}
+        try{jsonObject.put("followers",TypeConversion.makeStringArray(user.getData().getFollowers(), new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("followers",null);}
 
-        try{jsonObject.put("following",user.getData().getFollowing());}
+        try{jsonObject.put("following",TypeConversion.makeStringArray(user.getData().getFollowing(), new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("following",null);}
 
         try{jsonObject.put("hasCompany",user.getData().isHasCompany());}
