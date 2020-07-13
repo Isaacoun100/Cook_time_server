@@ -3,161 +3,131 @@ package com.itcr.datos.cooktimeserver.restfull;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Comment;
 import com.itcr.datos.cooktimeserver.object.Recipe;
-import com.itcr.datos.cooktimeserver.object.User;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import java.util.Calendar;
 
 /**
  * This class will manage the conversion between types JSON and others
  */
 public class TypeConversion {
 
-    public static SinglyList<Recipe> toSinglyList(JSONObject recipeJSON, SinglyList<Recipe> recipeSinglyList){
-        try{
-            if(recipeJSON.get("next")!=null){
-                recipeSinglyList=toSinglyList((JSONObject) recipeJSON.get("next"),recipeSinglyList);
-            }
-            if(recipeJSON.get("data")!=null){
-                recipeSinglyList.add(makeRecipe((JSONObject) recipeJSON.get("data")));
-            }
+    public static SinglyList<Recipe> toSinglyList(JSONArray recipeJSON, SinglyList<Recipe> recipeSinglyList){
+        int count,size = count = 0;
+        try{ size = recipeJSON.size(); }
+        catch (NullPointerException e){ e.printStackTrace(); }
+
+        while(count<size){
+            recipeSinglyList.add(makeRecipe((JSONObject) recipeJSON.get(count)));
+            count++;
         }
-        catch (NullPointerException e){
-            e.printStackTrace();
-        }
-        return recipeSinglyList;
+        return  recipeSinglyList;
     }
 
     private static Recipe makeRecipe(JSONObject jsonObject){
-        try {
-            Recipe recipe = new Recipe();
-            recipe.setTitle(jsonObject.get("title").toString());
-            recipe.setDescription(jsonObject.get("description").toString());
-            recipe.setAuthor(jsonObject.get("author").toString());
-            recipe.setType(jsonObject.get("type").toString());
-            recipe.setDuration(jsonObject.get("duration").toString());
-            recipe.setTime(jsonObject.get("time").toString());
-            recipe.setDiet(jsonObject.get("diet").toString());
-            recipe.setSteps(jsonObject.get("steps").toString());
-            recipe.setImage(jsonObject.get("image").toString());
-            recipe.setDate((Calendar) jsonObject.get("date"));
-            recipe.setPrice(Integer.parseInt(jsonObject.get("price").toString()));
-            recipe.setServings(Integer.parseInt(jsonObject.get("servings").toString()));
-            recipe.setRating(Integer.parseInt(jsonObject.get("rating").toString()));
-            recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString()));
-            recipe.setComments(makeCommentList((JSONObject) jsonObject.get("comments"), new SinglyList<Comment>()));
-            return recipe;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new Recipe();
-        }
+        Recipe recipe = new Recipe();
+        recipe.setTitle(jsonObject.get("title").toString());
+        recipe.setDescription(jsonObject.get("description").toString());
+        recipe.setAuthor(jsonObject.get("author").toString());
+        recipe.setType(jsonObject.get("type").toString());
+        recipe.setDuration(jsonObject.get("duration").toString());
+        recipe.setTime(jsonObject.get("time").toString());
+        recipe.setDiet(jsonObject.get("diet").toString());
+        recipe.setSteps(jsonObject.get("steps").toString());
+        recipe.setImage(jsonObject.get("image").toString());
+        recipe.setDate(jsonObject.get("date").toString());
+        recipe.setPrice(Integer.parseInt(jsonObject.get("price").toString()));
+        recipe.setServings(Integer.parseInt(jsonObject.get("servings").toString()));
+        recipe.setRating(Integer.parseInt(jsonObject.get("rating").toString()));
+        recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString()));
+        recipe.setComments(makeCommentList((JSONArray) jsonObject.get("comments"), new SinglyList<Comment>()));
+        return recipe;
     }
 
-    private static SinglyList<Comment> makeCommentList(JSONObject jsonObject,SinglyList<Comment> result){
-        if(jsonObject.get("next")!=null){
-            result=makeCommentList((JSONObject) jsonObject.get("next"), result);
+    private static SinglyList<Comment> makeCommentList(JSONArray jsonArray,SinglyList<Comment> result){
+        int count,size=count=0;
+        try{size=jsonArray.size();}
+        catch (NullPointerException e){e.printStackTrace();}
+
+        while(count<size){
+            JSONObject jsonObject = (JSONObject) jsonArray.get(count);
+            Comment comment = new Comment(jsonObject.get("author").toString(),jsonObject.get("comment").toString());
+            count++;
         }
-        if(jsonObject.get("data")!=null){
-            result.add(makeComment((JSONObject)jsonObject.get("data")));
-        }
+
         return result;
+
     }
 
     private static Comment makeComment(JSONObject jsonObject){
         return new Comment(jsonObject.get("author").toString(), jsonObject.get("comment").toString());
     }
 
-    public static SinglyList<String> makeStringList(JSONObject jsonObject, SinglyList<String> singlyList){
-        if(jsonObject.get("next")!=null){
-            singlyList= makeStringList((JSONObject)jsonObject.get("next"),singlyList);
-        }
-        if(jsonObject.get("data")!=null){
-            singlyList.add(jsonObject.get("data").toString());
+    public static SinglyList<String> makeStringList(JSONArray jsonArray, SinglyList<String> singlyList){
+        int count,size=count=0;
+
+        try{size=jsonArray.size();}
+        catch (NullPointerException e){e.printStackTrace();}
+
+        while(count<size){
+
+            singlyList.add((String) jsonArray.get(count));
+            count++;
         }
         return singlyList;
     }
 
-    /**
-     * This method will convert the given JSONObject into a User
-     * @param newObject
-     * @return the JSONObject converted into a User
-     */
-    public static User makeUser(JSONObject newObject){
+    @SuppressWarnings("unchecked")
+    public static JSONArray makeRecipeArray(SinglyList<Recipe> recipeSinglyList, JSONArray jsonArray){
 
-        User newUser = new User();
+        int count=0;
 
-        if(!newObject.isEmpty()){
+        while(count<recipeSinglyList.getLength()){
+            JSONObject jsonObject = new JSONObject();
 
-            try{
-                String name = newObject.get("name").toString();
-                newUser.setName(name);
-            }
-            catch (NullPointerException e){
-                System.out.println("The name was not provided correctly please check");
-                e.printStackTrace();
-                System.out.println("For more information");
-                newUser.setName("Not provided correctly");
-            }
+            jsonObject.put("title", recipeSinglyList.get(count).getData().getTitle());
+            jsonObject.put("description", recipeSinglyList.get(count).getData().getDescription());
+            jsonObject.put("author", recipeSinglyList.get(count).getData().getAuthor());
+            jsonObject.put("type", recipeSinglyList.get(count).getData().getType());
+            jsonObject.put("duration", recipeSinglyList.get(count).getData().getDuration());
+            jsonObject.put("time", recipeSinglyList.get(count).getData().getTime());
+            jsonObject.put("diet", recipeSinglyList.get(count).getData().getDiet());
+            jsonObject.put("price",recipeSinglyList.get(count).getData().getPrice());
+            jsonObject.put("rating",recipeSinglyList.get(count).getData().getRating());
+            jsonObject.put("steps", recipeSinglyList.get(count).getData().getSteps());
+            jsonObject.put("image", recipeSinglyList.get(count).getData().getImage());
+            jsonObject.put("date", recipeSinglyList.get(count).getData().getDate());
+            jsonObject.put("servings", recipeSinglyList.get(count).getData().getServings());
+            jsonObject.put("difficulty", recipeSinglyList.get(count).getData().getDifficulty());
 
-            try{
-                int age = Integer.parseInt(newObject.get("age").toString());
-                newUser.setAge(age);
-            }
-            catch (NullPointerException e){
-                System.out.println("The name age not provided correctly please check");
-                e.printStackTrace();
-                System.out.println("For more information");
-                newUser.setAge(0);
-            }
-
-            try{
-                String email = newObject.get("email").toString();
-                newUser.setEmail(email);
-            }
-            catch (NullPointerException e){
-                System.out.println("The email was not provided correctly please check");
-                e.printStackTrace();
-                System.out.println("For more information");
-                newUser.setEmail("Not provided correctly");
+            SinglyList<Comment> commentSinglyList = recipeSinglyList.get(count).getData().getComments();
+            JSONArray newJSONArray = new JSONArray();
+            int value=0;
+            while(value<commentSinglyList.getLength()){
+                JSONObject newJSONObject = new JSONObject();
+                newJSONObject.put("author", commentSinglyList.get(value).getData().getAuthor());
+                newJSONObject.put("comment", commentSinglyList.get(value).getData().getComment());
+                newJSONArray.add(newJSONObject);
+                value++;
             }
 
-            try{
-                String password = newObject.get("password").toString();
-                newUser.setPassword(password);
-            }
-            catch (NullPointerException e) {
-                System.out.println("The password was not provided correctly please check");
-                e.printStackTrace();
-                System.out.println("For more information");
-                newUser.setPassword("Not provided correctly");}
-        }
-        else{
-            newUser.setName("Not provided");
-            newUser.setEmail("Not provided");
-            newUser.setPassword("Not provided");
-            newUser.setAge(0);
+            jsonObject.put("comments",newJSONArray);
+            jsonArray.add(jsonObject);
+            count++;
         }
 
-        return newUser;
+        return jsonArray;
     }
 
-    /**
-     * This method will convert the given User into a JSONObject
-     * @param newUser
-     * @return the User converted into a JSONObject
-     */
     @SuppressWarnings("unchecked")
-    public static JSONObject makeObject(User newUser){
+    public static JSONArray makeStringArray(SinglyList<String> stringSinglyList, JSONArray jsonArray){
+        int count=0;
 
-        JSONObject incomingUser = new JSONObject();
+        while(count<stringSinglyList.getLength()){
+            jsonArray.add(stringSinglyList.get(count).getData());
+            count++;
+        }
 
-        incomingUser.put("name",newUser.getName());
-        incomingUser.put("age",newUser.getAge());
-        incomingUser.put("email",newUser.getEmail());
-        incomingUser.put("password",newUser.getPassword());
-
-        return incomingUser;
-
+        return jsonArray;
     }
 
 }
