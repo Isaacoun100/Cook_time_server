@@ -206,32 +206,4 @@ public class AlphBinaryTree<T> {
         }
         return sb;
     }
-
-    public static void main(String[] args) {
-
-        AlphBinaryTree<User> alf = new AlphBinaryTree<User>();
-
-        alf.add(new User(), "mauricio");
-        alf.add(new User(), "zenobrio");
-        alf.add(new User(), "zzzz");
-        alf.add(new User(), "alejandro");
-        alf.add(new User(), "ab");
-        alf.add(new User(), "ad");
-
-
-        System.out.println(alf.toString());
-
-        try{
-            alf.delete("alejandro");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        System.out.println("---------------------New Tree---------------------");
-
-
-        System.out.println(alf.toString());
-
-    }
 }
