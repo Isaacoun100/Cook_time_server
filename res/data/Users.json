@@ -1,50 +1,17 @@
 {
-  "password": "88797",
-  "left": {
-    "password": "456456389",
-    "left": {
-      "password": "123456789",
-      "left": {
-        "password": "4536546+l",
-        "left": null,
-        "name": "loverboy",
-        "right": null,
-        "email": "trustissue@gmail.com",
-        "age": 15
-      },
-      "name": "Sebas Pereira",
-      "right": null,
-      "email": "SebasPM@gmail.com",
-      "age": 9
-    },
-    "name": "Sam",
-    "right": {
-      "password": "ABCDEFGHI",
-      "left": {
-        "password": "123456789",
-        "left": {
-          "password": "asdkflkjsfda",
-          "left": null,
-          "name": "Ponky",
-          "right": null,
-          "email": "Ponky@dogmail.com",
-          "age": 12
-        },
-        "name": "Isaac Herrera",
-        "right": null,
-        "email": "IsaacH@gmail.com",
-        "age": 55
-      },
-      "name": "Ingrid Monge",
-      "right": null,
-      "email": "IngridM@gmail.com",
-      "age": 43
-    },
-    "email": "sam@dogmail.com",
-    "age": 13
+  "name": "sdfdgdffsdf",
+  "email": "fdgfdgd@gmail.com",
+  "image": null,
+  "password": "fgdg",
+  "recipe": {
+
   },
-  "name": "Alison",
-  "right": null,
-  "email": "alis11@gmail.com",
-  "age": 24
+  "followers": {
+
+  },
+  "following": {
+
+  },
+  "hasCompany": false,
+  "age": 55
 }
