@@ -1,50 +1,35 @@
 {
-  "password": "88797",
-  "left": {
-    "password": "456456389",
-    "left": {
-      "password": "123456789",
-      "left": {
-        "password": "4536546+l",
-        "left": null,
-        "name": "loverboy",
-        "right": null,
-        "email": "trustissue@gmail.com",
-        "age": 15
-      },
-      "name": "Sebas Pereira",
-      "right": null,
-      "email": "SebasPM@gmail.com",
-      "age": 9
-    },
-    "name": "Sam",
-    "right": {
-      "password": "ABCDEFGHI",
-      "left": {
-        "password": "123456789",
-        "left": {
-          "password": "asdkflkjsfda",
-          "left": null,
-          "name": "Ponky",
-          "right": null,
-          "email": "Ponky@dogmail.com",
-          "age": 12
-        },
-        "name": "Isaac Herrera",
-        "right": null,
-        "email": "IsaacH@gmail.com",
-        "age": 55
-      },
-      "name": "Ingrid Monge",
-      "right": null,
-      "email": "IngridM@gmail.com",
-      "age": 43
-    },
-    "email": "sam@dogmail.com",
-    "age": 13
-  },
-  "name": "Alison",
+  "image": null,
+  "password": "sdf54sd",
+  "followers": [
+    "parkunhg@hotmail.com"
+  ],
+  "left":null,
+  "following": [
+    "parkunhg@hotmail.com"
+  ],
+  "name": "Juan",
+  "recipe": [
+    {
+      "date": "12\/12\/12",
+      "image": "https:\/\/i.picsum.photos\/id\/233\/200\/300.jpg?hmac=aVpewfxURvNso_n34jznb-DOcy5vizCqhqwd-YIcKAM",
+      "comments": [],
+      "author": "juan@email",
+      "rating": 5,
+      "description": "IZI",
+      "title": "Pasta",
+      "type": "lunch",
+      "steps": "first you.... then you",
+      "duration": "1-3 h",
+      "difficulty": 50,
+      "servings": 2,
+      "price": 1500,
+      "time": "brunch",
+      "diet": "Vegan"
+    }
+  ],
+  "hasCompany": false,
   "right": null,
-  "email": "alis11@gmail.com",
-  "age": 24
+  "email": "juan@email",
+  "age": 21
 }
