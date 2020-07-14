@@ -5,13 +5,12 @@ import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
-import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
-
 
 /**
  * This class will be called whenever we need to modify, clear, add or access the list of users
@@ -60,7 +59,8 @@ public class UserTree {
         try{newUser.setPassword(jsonObject.get("password").toString());}
         catch (NullPointerException e){newUser.setPassword(null);}
 
-        newUser.setRecipe(TypeConversion.toSinglyList((JSONArray) jsonObject.get("recipe"),new SinglyList<Recipe>()));
+        try{newUser.setRecipe(TypeConversion.toSinglyList((JSONArray) jsonObject.get("recipe"),new SinglyList<Recipe>()));}
+        catch (NullPointerException e){ newUser.setRecipe(new SinglyList<Recipe>());}
 
         try{newUser.setHasCompany((Boolean) jsonObject.get("hasCompany"));}
         catch (NullPointerException e){newUser.setHasCompany(false);}
@@ -147,6 +147,7 @@ public class UserTree {
 
         jsonObject.put("left", null);
         jsonObject.put("right",null);
+
         if(user.getLeft()!=null){
             jsonObject.replace("left", binaryTravel(user.getLeft(), new JSONObject()));
         }

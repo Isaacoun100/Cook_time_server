@@ -4,7 +4,7 @@
   "followers": [
     "parkunhg@hotmail.com"
   ],
-  "left":null,
+  "left": null,
   "following": [
     "parkunhg@hotmail.com"
   ],
@@ -29,7 +29,19 @@
     }
   ],
   "hasCompany": false,
-  "right": null,
+  "right": {
+    "image": null,
+    "password": "sdfsdf",
+    "followers": null,
+    "left": null,
+    "following": null,
+    "name": "sdfsdf",
+    "recipe": null,
+    "hasCompany": false,
+    "right": null,
+    "email": "sdfssfd@gmail.com",
+    "age": 452
+  },
   "email": "juan@email",
   "age": 21
 }
