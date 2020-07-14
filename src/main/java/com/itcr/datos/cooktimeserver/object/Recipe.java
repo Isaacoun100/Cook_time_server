@@ -143,7 +143,11 @@ public class Recipe {
     public void setComments(SinglyList<Comment> comments) {
         this.comments = comments;
     }
-
+    /**
+     * This method is just for testing purposes, is used when a new User it's being added, then it transforms it into
+     * a string to print it in the console
+     * @return a string of the user
+     */
     @Override
     public String toString() {
         return "Recipe{" +
