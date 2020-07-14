@@ -1,6 +1,8 @@
 package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphBinaryTree;
+import com.itcr.datos.cooktimeserver.object.Recipe;
+import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
 import com.itcr.datos.cooktimeserver.restfull.UserTree;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +52,23 @@ public class WebHost {
         }
         else{
             return new User();
+        }
+    }
+    @GetMapping("/recipe")
+    public String getRecipeTree(){
+        RecipeTree.updateRecipeList();
+        return RecipeTree.getAvlRecipeTree().toString();
+    }
+
+    @PostMapping("/newRecipe")
+    public Recipe addRecipe(@RequestBody Recipe newRecipe){
+        if (newRecipe != null){
+            System.out.println(newRecipe.toString());
+            RecipeTree.addRecipe(newRecipe);
+            return newRecipe;
+        }
+        else{
+            return new Recipe();
         }
     }
 }
