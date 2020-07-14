@@ -23,7 +23,7 @@ public class TypeConversion {
         return  recipeSinglyList;
     }
 
-    private static Recipe makeRecipe(JSONObject jsonObject){
+    public static Recipe makeRecipe(JSONObject jsonObject){
         Recipe recipe = new Recipe();
         recipe.setTitle(jsonObject.get("title").toString());
         recipe.setDescription(jsonObject.get("description").toString());
@@ -116,6 +116,18 @@ public class TypeConversion {
         }
 
         return jsonArray;
+    }
+    public static JSONArray makeCommentArray(SinglyList<Comment> commentSinglyList, JSONArray jsonArray){
+        int count = 0;
+        while(count < commentSinglyList.getLength()){
+            JSONObject newJSONObject = new JSONObject();
+            newJSONObject.put("author", commentSinglyList.get(count).getData().getAuthor());
+            newJSONObject.put("comment", commentSinglyList.get(count).getData().getComment());
+            jsonArray.add(newJSONObject);
+            count++;
+        }
+        return jsonArray;
+
     }
 
     @SuppressWarnings("unchecked")
