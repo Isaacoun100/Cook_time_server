@@ -7,6 +7,7 @@ package com.itcr.datos.cooktimeserver.data_structures;
 public class AlphAvlTree<T> {
 
     AlphNodeAVL<T> root = null;
+    private int length;
 
     /**
      *Calls the recursive function for adding nodes
@@ -25,14 +26,18 @@ public class AlphAvlTree<T> {
      * @return the node
      */
     public AlphNodeAVL<T> addNode(T data, String key, AlphNodeAVL<T> node){
-        if (node == null)
+        if (node == null) {
+            length = 1;
             return (new AlphNodeAVL<T>(data, key));
+        }
         if (greater(key, node.getKey()).equals("key"))
             node.setLeft(addNode(data, key, node.getLeft()));
         else if (greater(key, node.getKey()).equals("leaf"))
             node.setRight(addNode(data, key, node.getRight()));
         else // Equal keys not allowed
             return node;
+
+        length++;
         /* 2. Update height of this ancestor node */
         node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
 
@@ -62,6 +67,7 @@ public class AlphAvlTree<T> {
             node.setRight(rightRotate(node.getRight()));
             return leftRotate(node);
         }
+
 
         /* return the (unchanged) node pointer */
         return node;
@@ -173,6 +179,7 @@ public class AlphAvlTree<T> {
                 // Delete the inorder successor
                 root.setRight(deleteNode_aux(root.getRight(), temp.getKey()));
             }
+            length--;
         }
 
         // If the tree had only one node then return
@@ -271,6 +278,11 @@ public class AlphAvlTree<T> {
         return this.root;
     }
 
+
+    public int getLength(){
+        return this.length;
+    }
+
     /**
      *  A utility function to right rotate subtree rooted with y
      * @param y the node
@@ -314,14 +326,19 @@ public class AlphAvlTree<T> {
     }
 
     /**
+     * Utility function that clears the BST
+     */
+    public void clear(){
+        this.root=null;
+        length=0;
+    }
+    /**
      * Function that calls recursively the function of printing the tree´s diagram
-     * @param tree the tree that´s being used for inserting the nodes
      * @return returns the recursive function
      */
-    public String toString(AlphAvlTree<T> tree) {
-        return this.toString(new StringBuilder(), true, new StringBuilder(),tree.getRoot()).toString();
+    public String toString() {
+        return this.toString(new StringBuilder(), true, new StringBuilder(),this.root).toString();
     }
-
     /**
      * Recursive function used for printing de AVL tree´s diagram
      * @param prefix StringBuilder instance
@@ -330,7 +347,7 @@ public class AlphAvlTree<T> {
      * @param head the root
      * @return returns the tree´s diagram
      */
-    public StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,AlphNodeAVL<T> head) {
+    private StringBuilder toString(StringBuilder prefix, boolean isTail, StringBuilder sb,AlphNodeAVL<T> head) {
         if(head.getRight()!=null) {
             sb.append(toString(new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, new StringBuilder(), head.getRight()));
         }

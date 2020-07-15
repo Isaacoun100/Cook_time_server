@@ -4,6 +4,7 @@ import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Comment;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
+import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.itcr.datos.cooktimeserver.restfull.UserTree;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +22,39 @@ public class CookTimeServerApplication {
      */
     public static void main(String[] args) {
 
-        UserTree.initUserList();
+        //UserTree.initUserList();
+        RecipeTree.initRecipeList();
+        /*
+        Recipe recipe = new Recipe();
+
+        recipe.setTitle("Gallo pinto");
+        recipe.setDescription("Ez");
+        recipe.setAuthor("naheemjohnson@email");
+        recipe.setType("Breakfast");
+        recipe.setDuration("3 min");
+        recipe.setTime("brunch");
+        recipe.setDiet("Vegan");
+        recipe.setSteps("Pour the rice and then the beans");
+        recipe.setImage("https://i.picsum.photos/id/233/200/300.jpg?hmac=aVpewfxURvNso_n34jznb-DOcy5vizCqhqwd-YIcKAM");
+        recipe.setDate("12/12/12");
+        recipe.setPrice(2000);
+        recipe.setServings(3);
+        recipe.setRating(4);
+        recipe.setDifficulty(40);
+        SinglyList<Comment> commentSinglyList = new SinglyList<Comment>();
+        Comment comment1 = new Comment("sebas@gmai.com","promete");
+        commentSinglyList.add(comment1);
+        Comment comment2 = new Comment("johnson@hotmail","Ak7 rasta");
+        commentSinglyList.add(comment2);
+        recipe.setComments(commentSinglyList);
+        RecipeTree.addRecipe(recipe);
+
+         */
+
+
+
+
+
 //        User newUser = new User();
 //
 //        newUser.setName("Juan");
