@@ -189,6 +189,19 @@ public class AlphSplayTree<T> {
         return this.root == null;
     }
     /**
+     * @return Returns the root of the tree.
+     */
+    public AlphNodeSplay<T> getRoot() {
+        return this.root;
+    }
+
+    /**
+     * @return Returns the size of the tree.
+     */
+    public int getLenght() {
+        return lenght;
+    }
+    /**
      * Function that calls recursively the function of printing the tree´s diagram
      * @return returns the recursive function
      */
@@ -228,6 +241,6 @@ public class AlphSplayTree<T> {
         tree.delete("b");
         System.out.println(tree.toString());
     }
-    
+
      */
 }
