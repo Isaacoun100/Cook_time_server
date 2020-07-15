@@ -119,6 +119,8 @@ public class TypeConversion {
 
         return jsonArray;
     }
+
+    @SuppressWarnings("unchecked")
     public static JSONArray makeCommentArray(SinglyList<Comment> commentSinglyList, JSONArray jsonArray){
         int count = 0;
         while(count < commentSinglyList.getLength()){
