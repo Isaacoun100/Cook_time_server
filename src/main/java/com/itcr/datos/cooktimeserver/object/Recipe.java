@@ -161,7 +161,7 @@ public class Recipe {
                 ", servings=" + servings +
                 ", rating=" + rating +
                 ", difficulty=" + difficulty +
-                ", comments=" + comments +
+                ", comments=" + comments.toString() +
                 '}';
     }
 
