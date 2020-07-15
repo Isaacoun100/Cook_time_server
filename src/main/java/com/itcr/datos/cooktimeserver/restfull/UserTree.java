@@ -117,34 +117,7 @@ public class UserTree {
 
     @SuppressWarnings("unchecked")
     public static JSONObject binaryTravel(AlphNodeTree<User> user, JSONObject jsonObject){
-
-        try{jsonObject.put("name",user.getData().getName());}
-        catch (NullPointerException e){jsonObject.put("name",null);}
-
-        try{ jsonObject.put("password",user.getData().getPassword());}
-        catch (NullPointerException e){jsonObject.put("password",null);}
-
-        try{jsonObject.put("email",user.getData().getEmail());}
-        catch (NullPointerException e){jsonObject.put("email",null);}
-
-        try{jsonObject.put("age",user.getData().getAge());}
-        catch (NullPointerException e){jsonObject.put("age",0);}
-
-        try{jsonObject.put("image",user.getData().getImage());}
-        catch (NullPointerException e){jsonObject.put("image",null);}
-
-        try{jsonObject.put("recipe",TypeConversion.makeRecipeArray(user.getData().getRecipe(),new JSONArray()));}
-        catch (NullPointerException e){jsonObject.put("recipe",null);}
-
-        try{jsonObject.put("followers",TypeConversion.makeStringArray(user.getData().getFollowers(), new JSONArray()));}
-        catch (NullPointerException e){jsonObject.put("followers",null);}
-
-        try{jsonObject.put("following",TypeConversion.makeStringArray(user.getData().getFollowing(), new JSONArray()));}
-        catch (NullPointerException e){jsonObject.put("following",null);}
-
-        try{jsonObject.put("hasCompany",user.getData().isHasCompany());}
-        catch (NullPointerException e){jsonObject.put("hasCompany",false);}
-
+        jsonObject=TypeConversion.userToJSON(user);
         jsonObject.put("left", null);
         jsonObject.put("right",null);
 
