@@ -240,10 +240,10 @@ public class User extends Client {
                 ", age=" + age +
                 ", password='" + password + '\'' +
                 ", image='" + image + '\'' +
-                ", recipe=" + recipe +
+                ", recipe=" + recipe.toString() +
                 ", hasCompany=" + hasCompany +
-                ", followers=" + followers +
-                ", following=" + following +
+                ", followers=" + followers.toString() +
+                ", following=" + following.toString() +
                 '}';
     }
 
