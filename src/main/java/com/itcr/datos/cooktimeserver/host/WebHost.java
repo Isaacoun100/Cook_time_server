@@ -1,11 +1,10 @@
 package com.itcr.datos.cooktimeserver.host;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.object.Recipe;
-import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
+import com.itcr.datos.cooktimeserver.restfull.*;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
-import com.itcr.datos.cooktimeserver.restfull.TreeManagement;
-import com.itcr.datos.cooktimeserver.restfull.TypeConversion;
-import com.itcr.datos.cooktimeserver.restfull.UserTree;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -156,6 +155,31 @@ public class WebHost {
         catch (NullPointerException e){
             e.printStackTrace();
             return new Recipe();
+        }
+    }
+
+    /**
+     * This method is a post method that receives a company in json format and converts it into a User type
+     * @param newCompany
+     * @return the company object
+     */
+    @PostMapping("/newCompany")
+    public Company addCompany(@RequestBody JSONObject newCompany){
+        try{
+            Company incomingCompany = TypeConversion.makeCompany(newCompany);
+            //Company company = TreeManagement.BinarySearchSplay(incomingCompany.getName()).getData();
+            if (newCompany != null){
+                System.out.println(incomingCompany.toString());
+                CompanyTree.addCompany(incomingCompany);
+                return incomingCompany;
+            }
+            else{
+                return new Company();
+            }
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return new Company();
         }
     }
 }
