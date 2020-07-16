@@ -201,6 +201,18 @@ public class AlphSplayTree<T> {
     public int getLenght() {
         return lenght;
     }
+
+    public void setLenght(int lenght) {
+        this.lenght = lenght;
+    }
+
+    /**
+     * Utility function that clears the BST
+     */
+    public void clear(){
+        this.root=null;
+        setLenght(0);
+    }
     /**
      * Function that calls recursively the function of printing the tree´s diagram
      * @return returns the recursive function
