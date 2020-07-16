@@ -3,6 +3,7 @@ package com.itcr.datos.cooktimeserver.restfull;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Comment;
+import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONArray;
@@ -43,6 +44,40 @@ public class TypeConversion {
         recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString()));
         recipe.setComments(makeCommentList((JSONArray) jsonObject.get("comments"), new SinglyList<Comment>()));
         return recipe;
+    }
+    public static Company makeCompany(JSONObject jsonObject){
+        Company newCompany = new Company();
+
+        try{newCompany.setName(jsonObject.get("name").toString());}
+        catch (NullPointerException e){newCompany.setName(null);}
+
+        try{newCompany.setEmail(jsonObject.get("email").toString());}
+        catch (NullPointerException e){newCompany.setEmail(null);}
+
+        try{newCompany.setSchedule(jsonObject.get("schedule").toString());}
+        catch (NullPointerException e){newCompany.setSchedule(null);}
+
+        try{newCompany.setLogo(jsonObject.get("logo").toString());}
+        catch (NullPointerException e){newCompany.setLogo(null);}
+
+        try{newCompany.setLocation(jsonObject.get("location").toString());}
+        catch (NullPointerException e){ newCompany.setLocation(null);}
+
+        try{newCompany.setNumber(Integer.parseInt(jsonObject.get("number").toString()));}
+        catch (NullPointerException e){newCompany.setNumber(0);}
+
+        try{newCompany.setPosts(Integer.parseInt(jsonObject.get("posts").toString()));}
+        catch (NullPointerException e){newCompany.setPosts(0);}
+
+        try{newCompany.setFollowers(TypeConversion.makeStringList((JSONArray)jsonObject.get("followers"), new SinglyList<String>()));}
+        catch (NullPointerException e){newCompany.setFollowers(new SinglyList<String>());}
+
+        try{newCompany.setFollowing(TypeConversion.makeStringList((JSONArray) jsonObject.get("following"), new SinglyList<String>()));}
+        catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
+
+        try{newCompany.setMembers(TypeConversion.makeStringList((JSONArray) jsonObject.get("members"), new SinglyList<String>()));}
+        catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
+        return newCompany;
     }
 
     private static SinglyList<Comment> makeCommentList(JSONArray jsonArray,SinglyList<Comment> result){
@@ -179,4 +214,5 @@ public class TypeConversion {
 
         return jsonObject;
     }
+
 }
