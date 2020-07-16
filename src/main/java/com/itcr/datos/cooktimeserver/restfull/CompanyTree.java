@@ -5,10 +5,10 @@ import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphSplayTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Company;
-import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -23,7 +23,7 @@ public class CompanyTree {
     /**
      * This method initializes the user list and adds all of the users from the Recipe.json json file
      */
-    public static void initSplayList(){
+    public static void initCompanyList(){
         splayCompanyTree = new AlphSplayTree<Company>();
         updateCompanyList();
     }
@@ -34,14 +34,16 @@ public class CompanyTree {
         splayCompanyTree.clear();
 
         JSONParser companyParser = new JSONParser();
+
         try{
             JSONObject companyJSON = (JSONObject) companyParser.parse(new FileReader("res/data/Companies.json"));
             getBranch(companyJSON);
         }
-        catch (Exception e){
+        catch (IOException | ParseException e){
             e.printStackTrace();
             getBranch(new JSONObject());
         }
+        System.out.println(splayCompanyTree.toString());
     }
 
     /**
@@ -69,7 +71,7 @@ public class CompanyTree {
         try{newCompany.setNumber(Integer.parseInt(jsonObject.get("number").toString()));}
         catch (NullPointerException e){newCompany.setNumber(0);}
 
-        try{newCompany.setPosts(Integer.parseInt(jsonObject.get("number").toString()));}
+        try{newCompany.setPosts(Integer.parseInt(jsonObject.get("posts").toString()));}
         catch (NullPointerException e){newCompany.setPosts(0);}
 
         try{newCompany.setFollowers(TypeConversion.makeStringList((JSONArray)jsonObject.get("followers"), new SinglyList<String>()));}
@@ -101,21 +103,21 @@ public class CompanyTree {
      * This method receives a User and it adds it to the UserList
      * @param newCompany
      */
-    public static void addUser(Company newCompany){
+    public static void addCompany(Company newCompany){
         if(newCompany!=null){
-            splayCompanyTree.add(newCompany, newCompany.getEmail());
-            saveUser();
+            splayCompanyTree.add(newCompany, newCompany.getName());
+            saveCompany();
             updateCompanyList();
         }
         else{
-            System.out.println("Something went wrong while adding the user, the user was empty");
+            System.out.println("Something went wrong while adding the company, the company was empty");
         }
     }
     /**
      * This method will write the users into the Recipe.json
      */
-    public static void saveUser(){
-        try(FileWriter file = new FileWriter("res/data/Users.json")){
+    public static void saveCompany(){
+        try(FileWriter file = new FileWriter("res/data/Companies.json")){
             file.write(splayTravel(splayCompanyTree.getRoot(), new JSONObject()).toString());
             file.flush();
 
@@ -133,7 +135,7 @@ public class CompanyTree {
     public static JSONObject splayTravel(AlphNodeSplay<Company> company, JSONObject jsonObject){
 
         try{jsonObject.put("name", company.getData().getName());}
-        catch (NullPointerException e){jsonObject.put("title",null);}
+        catch (NullPointerException e){jsonObject.put("name",null);}
 
         try{jsonObject.put("email", company.getData().getEmail());}
         catch (NullPointerException e){jsonObject.put("email",null);}
@@ -160,8 +162,8 @@ public class CompanyTree {
         try{jsonObject.put("following",TypeConversion.makeStringArray(company.getData().getFollowing(), new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("following",null);}
 
-       try{jsonObject.put("users", TypeConversion.makeStringArray(company.getData().getMembers(),new JSONArray()));}
-       catch (NullPointerException e){jsonObject.put("user",null);}
+       try{jsonObject.put("members", TypeConversion.makeStringArray(company.getData().getMembers(),new JSONArray()));}
+       catch (NullPointerException e){jsonObject.put("members",null);}
 
         jsonObject.put("left", null);
         jsonObject.put("right",null);
