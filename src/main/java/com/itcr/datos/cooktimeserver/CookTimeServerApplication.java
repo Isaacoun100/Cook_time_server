@@ -1,6 +1,9 @@
 package com.itcr.datos.cooktimeserver;
 
+import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.object.User;
+import com.itcr.datos.cooktimeserver.restfull.CompanyTree;
 import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
 import com.itcr.datos.cooktimeserver.restfull.TreeManagement;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +25,8 @@ public class CookTimeServerApplication {
 
         UserTree.initUserList();
         RecipeTree.initRecipeList();
+        CompanyTree.initCompanyList();
+
         SpringApplication.run(CookTimeServerApplication.class, args);
     }
 
