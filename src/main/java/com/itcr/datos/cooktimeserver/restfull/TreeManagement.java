@@ -1,6 +1,8 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
+import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
+import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.object.User;
 
 public class TreeManagement {
@@ -19,6 +21,23 @@ public class TreeManagement {
                 else{ return null;}
             case "leaf":
                 if(reference.getLeft()!=null){return BinarySearch(reference.getLeft(),data);}
+                else{ return null;}
+        }
+        return null;
+    }
+    public static AlphNodeSplay<Company> BinarySearchSplay(String data){
+        return BinarySearchSplay(CompanyTree.getUserTree().getRoot(),data);
+    }
+    private static AlphNodeSplay<Company> BinarySearchSplay(AlphNodeSplay<Company> reference, String data){
+        if(reference.getKey().equals(data)){
+            return reference;
+        }
+        switch(greater(reference.getKey(),data)){
+            case "key":
+                if(reference.getRight()!=null){ return BinarySearchSplay(reference.getRight(),data);}
+                else{ return null;}
+            case "leaf":
+                if(reference.getLeft()!=null){return BinarySearchSplay(reference.getLeft(),data);}
                 else{ return null;}
         }
         return null;
