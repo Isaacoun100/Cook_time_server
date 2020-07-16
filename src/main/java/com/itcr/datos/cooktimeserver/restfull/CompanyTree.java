@@ -53,35 +53,7 @@ public class CompanyTree {
     private static void getBranch(JSONObject jsonObject){
         Company newCompany = new Company();
 
-        try{newCompany.setName(jsonObject.get("name").toString());}
-        catch (NullPointerException e){newCompany.setName(null);}
-
-        try{newCompany.setEmail(jsonObject.get("email").toString());}
-        catch (NullPointerException e){newCompany.setEmail(null);}
-
-        try{newCompany.setSchedule(jsonObject.get("schedule").toString());}
-        catch (NullPointerException e){newCompany.setSchedule(null);}
-
-        try{newCompany.setLogo(jsonObject.get("logo").toString());}
-        catch (NullPointerException e){newCompany.setLogo(null);}
-
-        try{newCompany.setLocation(jsonObject.get("location").toString());}
-        catch (NullPointerException e){ newCompany.setLocation(null);}
-
-        try{newCompany.setNumber(Integer.parseInt(jsonObject.get("number").toString()));}
-        catch (NullPointerException e){newCompany.setNumber(0);}
-
-        try{newCompany.setPosts(Integer.parseInt(jsonObject.get("posts").toString()));}
-        catch (NullPointerException e){newCompany.setPosts(0);}
-
-        try{newCompany.setFollowers(TypeConversion.makeStringList((JSONArray)jsonObject.get("followers"), new SinglyList<String>()));}
-        catch (NullPointerException e){newCompany.setFollowers(new SinglyList<String>());}
-
-        try{newCompany.setFollowing(TypeConversion.makeStringList((JSONArray) jsonObject.get("following"), new SinglyList<String>()));}
-        catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
-
-        try{newCompany.setMembers(TypeConversion.makeStringList((JSONArray) jsonObject.get("members"), new SinglyList<String>()));}
-        catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
+       newCompany = TypeConversion.makeCompany(jsonObject);
 
         splayCompanyTree.add(newCompany, newCompany.getName());
 
