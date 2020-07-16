@@ -35,6 +35,8 @@ public class WebHost {
                 + System.lineSeparator() +
                 "Change a value from a specific user with http://localhost:6969/setUser/[USER EMAIL]/[[KEY TO MODIFY]]"
                 + System.lineSeparator() +
+                "Verify the user is in the server http://localhost:6969/login/[USER EMAIL]/[[PASSWORD]]"
+                + System.lineSeparator() +
                 "Read more about HTTP Methods here: https://restfulapi.net/http-methods/ ";
 
         System.out.println(Welcome);
@@ -77,6 +79,17 @@ public class WebHost {
     public String getUser(@PathVariable String userKey){
         JSONObject jsonObject = TypeConversion.userToJSON(TreeManagement.BinarySearch(userKey));
         return jsonObject.toString();
+    }
+
+    @GetMapping("/login/{userKey}/{password}")
+    public JSONObject LoginMethod(@PathVariable String userKey, @PathVariable String password){
+        JSONObject jsonObject;
+        if(TreeManagement.BinarySearch(userKey)!=null){
+            jsonObject = TypeConversion.userToJSON(TreeManagement.BinarySearch(userKey));
+        }
+        else{ return TypeConversion.userToJSON(new AlphNodeTree<User>(null,null)); }
+        if(jsonObject.get("password").equals(password)){ return jsonObject; }
+        else{ return TypeConversion.userToJSON(new AlphNodeTree<User>(null,null)); }
     }
 
     @PostMapping("/setUser/{userKey}/{userData}")
@@ -125,13 +138,23 @@ public class WebHost {
     }
 
     @PostMapping("/newRecipe")
-    public Recipe addRecipe(@RequestBody Recipe newRecipe){
-        if (newRecipe != null){
-            System.out.println(newRecipe.toString());
-            RecipeTree.addRecipe(newRecipe);
-            return newRecipe;
+    public Recipe addRecipe(@RequestBody JSONObject newRecipe){
+
+        try{
+            Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
+            User user = TreeManagement.BinarySearch(incomingRecipe.getAuthor()).getData();
+            if (newRecipe != null){
+                System.out.println(incomingRecipe.toString());
+                user.addRecipe(incomingRecipe);
+                RecipeTree.addRecipe(incomingRecipe);
+                return incomingRecipe;
+            }
+            else{
+                return new Recipe();
+            }
         }
-        else{
+        catch (NullPointerException e){
+            e.printStackTrace();
             return new Recipe();
         }
     }

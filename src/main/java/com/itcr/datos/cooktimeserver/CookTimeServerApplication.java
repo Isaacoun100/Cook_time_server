@@ -1,5 +1,8 @@
 package com.itcr.datos.cooktimeserver;
 
+import com.itcr.datos.cooktimeserver.object.User;
+import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
+import com.itcr.datos.cooktimeserver.restfull.TreeManagement;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.itcr.datos.cooktimeserver.restfull.UserTree;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +21,7 @@ public class CookTimeServerApplication {
     public static void main(String[] args) {
 
         UserTree.initUserList();
+        RecipeTree.initRecipeList();
         SpringApplication.run(CookTimeServerApplication.class, args);
     }
 
