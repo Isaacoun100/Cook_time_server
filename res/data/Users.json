@@ -10,12 +10,26 @@
     "followers": [
       "parkunhg@hotmail.com"
     ],
-    "left": null,
+    "left": {
+      "image": "https:\/\/picsum.photos\/200\/300",
+      "password": "sdñlkfjsñldkf",
+      "followers": null,
+      "left": null,
+      "following": null,
+      "name": "Blastoise Uchiha",
+      "recipe": null,
+      "hasCompany": false,
+      "right": null,
+      "email": "blastoise@email",
+      "age": 20
+    },
     "following": [
       "parkunhg@hotmail.com"
     ],
     "name": "jorge",
-    "recipe": ["Pollo"],
+    "recipe": [
+      "Pollo"
+    ],
     "hasCompany": false,
     "right": null,
     "email": "jorge@email",
@@ -25,7 +39,9 @@
     "parkunhg@hotmail.com"
   ],
   "name": "Juan",
-  "recipe": ["Pasta"],
+  "recipe": [
+    "Pasta"
+  ],
   "hasCompany": false,
   "right": {
     "image": null,
