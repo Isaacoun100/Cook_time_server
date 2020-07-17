@@ -3,7 +3,6 @@ package com.itcr.datos.cooktimeserver.restfull;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
 import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
@@ -28,9 +27,8 @@ public class TreeManagement {
         }
         return null;
     }
-    public static AlphNodeAVL<Recipe> BinarySearchAvl(String data){
-        System.out.println("EOOOOOOOOO ENTRE PUTO");
-        return BinarySearchAvl(RecipeTree.getAvlRecipeTree().getRoot(), data);
+    public static Recipe BinarySearchAvl(String data){
+        return BinarySearchAvl(RecipeTree.getAvlRecipeTree().getRoot(), data).getData();
     }
     private static AlphNodeAVL<Recipe> BinarySearchAvl(AlphNodeAVL<Recipe> reference, String data){
         if(reference.getKey().equals(data)){
@@ -74,9 +72,5 @@ public class TreeManagement {
         }
         if(key.length() > leaf.length()){ return "key";}
         else{ return "leaf";}
-    }
-
-    public static Recipe BinarySearchAVL(String title) {
-        return new Recipe();
     }
 }
