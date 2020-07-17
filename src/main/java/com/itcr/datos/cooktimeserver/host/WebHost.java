@@ -1,10 +1,8 @@
 package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
-import com.itcr.datos.cooktimeserver.restfull.TreeManagement;
-import com.itcr.datos.cooktimeserver.restfull.TypeConversion;
-import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
-import com.itcr.datos.cooktimeserver.restfull.UserTree;
+import com.itcr.datos.cooktimeserver.object.Company;
+import com.itcr.datos.cooktimeserver.restfull.*;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.object.User;
