@@ -1,14 +1,14 @@
 package com.itcr.datos.cooktimeserver.host;
 
-import com.itcr.datos.cooktimeserver.object.Recipe;
-import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.restfull.TreeManagement;
 import com.itcr.datos.cooktimeserver.restfull.TypeConversion;
+import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
 import com.itcr.datos.cooktimeserver.restfull.UserTree;
+import com.itcr.datos.cooktimeserver.object.Recipe;
+import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.*;
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
  */
@@ -29,7 +29,7 @@ public class WebHost {
                 + System.lineSeparator() +
                 "Access the users in the following link http://localhost:6969/user "
                 + System.lineSeparator() +
-                "Add new users using the link http://localhost:6969/newUser/ using a POST request "
+                "Add new users using the link http://localhost:6969/newUser using a POST request "
                 + System.lineSeparator() +
                 "Access a specific user by typing the link http://localhost:6969/email/getUser/[USER EMAIL]"
                 + System.lineSeparator() +
@@ -92,6 +92,13 @@ public class WebHost {
         else{ return TypeConversion.userToJSON(new AlphNodeTree<User>(null,null)); }
     }
 
+    /**
+     * This method will modify an specific value of a given user.
+     * @param userKey the user email
+     * @param userData the data type to be modified
+     * @param request The response from the client
+     * @return
+     */
     @PostMapping("/setUser/{userKey}/{userData}")
     public String setUser(@PathVariable String userKey, @PathVariable String userData, @RequestBody String request){
         AlphNodeTree<User> user = TreeManagement.BinarySearch(userKey);
@@ -138,14 +145,15 @@ public class WebHost {
     }
 
     @PostMapping("/newRecipe")
-    public Recipe addRecipe(@RequestBody JSONObject newRecipe){
+    public Recipe addRecipe(@RequestBody Recipe incomingRecipe){
 
         try{
-            Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
+            //Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
             User user = TreeManagement.BinarySearch(incomingRecipe.getAuthor()).getData();
-            if (newRecipe != null){
+            if (incomingRecipe != null){
                 System.out.println(incomingRecipe.toString());
-                user.addRecipe(incomingRecipe);
+                user.addRecipe(incomingRecipe.getTitle());
+                UserTree.updateUserList();
                 RecipeTree.addRecipe(incomingRecipe);
                 return incomingRecipe;
             }
@@ -158,4 +166,10 @@ public class WebHost {
             return new Recipe();
         }
     }
+
+    @GetMapping("/getRecipe/{recipe}")
+    public static Recipe getRecipe(@PathVariable String recipe){
+        return RecipeTree.getAvlRecipeTree().getRoot().getData();
+    }
+
 }
