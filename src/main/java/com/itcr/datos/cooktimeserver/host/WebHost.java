@@ -207,9 +207,15 @@ public class WebHost {
     public static SinglyList<Recipe> getRecipeID(@PathVariable String email){
         SinglyList<Recipe> recipeSinglyList = new SinglyList<Recipe>();
         User user = TreeManagement.BinarySearch(email).getData();
-       while(){
+        int count, size = count = 0;
+        try{ size = user.getRecipe().getLength(); }
+        catch (NullPointerException e){ e.printStackTrace();}
 
+       while(count<size){
+           Recipe recipe = TreeManagement.BinarySearchAVL(user.getRecipe().get(count).getData());
+           recipeSinglyList.add(recipe);
+           count++;
        }
-
+       return recipeSinglyList;
     }
 }
