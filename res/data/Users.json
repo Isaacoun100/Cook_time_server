@@ -15,34 +15,7 @@
       "parkunhg@hotmail.com"
     ],
     "name": "jorge",
-    "recipe": [
-      {
-        "date": "12\/12\/12",
-        "image": "https:\/\/i.picsum.photos\/id\/233\/200\/300.jpg?hmac=aVpewfxURvNso_n34jznb-DOcy5vizCqhqwd-YIcKAM",
-        "comments": [
-          {
-            "author": "juanra@gmai.com",
-            "comment": "Muy rico"
-          },
-          {
-            "author": "isaac@hotmail",
-            "comment": "Espléndido"
-          }
-        ],
-        "author": "jorge@email",
-        "rating": 5,
-        "description": "IZI",
-        "title": "Pollo",
-        "type": "meal",
-        "steps": "first you.... then you",
-        "duration": "1-2 h",
-        "difficulty": 75,
-        "servings": 2,
-        "price": 1500,
-        "time": "brunch",
-        "diet": "Vegan"
-      }
-    ],
+    "recipe": ["Pollo"],
     "hasCompany": false,
     "right": null,
     "email": "jorge@email",
@@ -52,25 +25,7 @@
     "parkunhg@hotmail.com"
   ],
   "name": "Juan",
-  "recipe": [
-    {
-      "date": "12\/12\/12",
-      "image": "https:\/\/i.picsum.photos\/id\/233\/200\/300.jpg?hmac=aVpewfxURvNso_n34jznb-DOcy5vizCqhqwd-YIcKAM",
-      "comments": [],
-      "author": "juan@email",
-      "rating": 5,
-      "description": "IZI",
-      "title": "Pasta",
-      "type": "lunch",
-      "steps": "first you.... then you",
-      "duration": "1-3 h",
-      "difficulty": 50,
-      "servings": 2,
-      "price": 1500,
-      "time": "brunch",
-      "diet": "Vegan"
-    }
-  ],
+  "recipe": ["Pasta"],
   "hasCompany": false,
   "right": {
     "image": null,

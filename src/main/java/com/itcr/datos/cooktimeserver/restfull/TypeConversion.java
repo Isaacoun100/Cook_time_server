@@ -42,7 +42,7 @@ public class TypeConversion {
         recipe.setServings(Integer.parseInt(jsonObject.get("servings").toString()));
         recipe.setRating(Integer.parseInt(jsonObject.get("rating").toString()));
         recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString()));
-        recipe.setComments(makeCommentList((JSONArray) jsonObject.get("comments"), new SinglyList<Comment>()));
+        recipe.setComments(makeCommentList((JSONArray) jsonObject.get("comments"), new SinglyList<>()));
         return recipe;
     }
     public static Company makeCompany(JSONObject jsonObject){
@@ -200,7 +200,7 @@ public class TypeConversion {
         try{jsonObject.put("image",user.getData().getImage());}
         catch (NullPointerException e){jsonObject.put("image",null);}
 
-        try{jsonObject.put("recipe",TypeConversion.makeRecipeArray(user.getData().getRecipe(),new JSONArray()));}
+        try{jsonObject.put("recipe",TypeConversion.makeStringArray(user.getData().getRecipe(),new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("recipe",null);}
 
         try{jsonObject.put("followers",TypeConversion.makeStringArray(user.getData().getFollowers(), new JSONArray()));}

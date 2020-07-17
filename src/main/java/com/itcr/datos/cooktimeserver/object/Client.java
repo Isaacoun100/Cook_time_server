@@ -71,14 +71,14 @@ public abstract class Client {
      *
      * @return recipe
      */
-    public abstract SinglyList<Recipe> getRecipe();
+    public abstract SinglyList<String> getRecipe();
 
     /**
      * Adds a new recipe to the recipe list
      *
      * @param recipe
      */
-    public abstract void addRecipe(Recipe recipe);
+    public abstract void addRecipe(String recipe);
 
     /**
      * Adds a new follower to the lis of followers
@@ -123,7 +123,7 @@ public abstract class Client {
      *
      * @param recipe that we're going to use
      */
-    public abstract void setRecipe(SinglyList<Recipe> recipe);
+    public abstract void setRecipe(SinglyList<String> recipe);
 
     /**
      * Setter for the followers Singly list

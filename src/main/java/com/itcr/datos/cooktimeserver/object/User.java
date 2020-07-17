@@ -11,7 +11,7 @@ public class User extends Client {
     private String email;
     private String image;
     private String password;
-    private SinglyList<Recipe> recipe;
+    private SinglyList<String> recipe;
     private SinglyList<String> followers;
     private SinglyList<String> following;
     private boolean hasCompany;
@@ -123,7 +123,7 @@ public class User extends Client {
      * @return recipe
      */
     @Override
-    public SinglyList<Recipe> getRecipe() {
+    public SinglyList<String> getRecipe() {
         return recipe;
     }
 
@@ -133,7 +133,7 @@ public class User extends Client {
      * @param recipe that is going to be added
      */
     @Override
-    public void addRecipe(Recipe recipe) {
+    public void addRecipe(String recipe) {
         this.recipe.add(recipe);
     }
 
@@ -203,7 +203,7 @@ public class User extends Client {
      * @param recipe that we're going to use
      */
     @Override
-    public void setRecipe(SinglyList<Recipe> recipe) {
+    public void setRecipe(SinglyList<String> recipe) {
         this.recipe=recipe;
     }
 

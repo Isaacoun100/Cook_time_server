@@ -3,7 +3,6 @@ package com.itcr.datos.cooktimeserver.restfull;
 import com.itcr.datos.cooktimeserver.data_structures.AlphBinaryTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
@@ -59,8 +58,8 @@ public class UserTree {
         try{newUser.setPassword(jsonObject.get("password").toString());}
         catch (NullPointerException e){newUser.setPassword(null);}
 
-        try{newUser.setRecipe(TypeConversion.toSinglyList((JSONArray) jsonObject.get("recipe"),new SinglyList<Recipe>()));}
-        catch (NullPointerException e){ newUser.setRecipe(new SinglyList<Recipe>());}
+        try{newUser.setRecipe(TypeConversion.makeStringList((JSONArray) jsonObject.get("recipe"),new SinglyList<String>()));}
+        catch (NullPointerException e){ newUser.setRecipe(new SinglyList<String>());}
 
         try{newUser.setHasCompany((Boolean) jsonObject.get("hasCompany"));}
         catch (NullPointerException e){newUser.setHasCompany(false);}
