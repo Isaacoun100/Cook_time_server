@@ -14,7 +14,7 @@ public class Chef extends Client {
     private String email;
     private String image;
     private String password;
-    private SinglyList<Recipe> recipe;
+    private SinglyList<String> recipe;
     private SinglyList<String> followers;
     private SinglyList<String> following;
     private boolean hasCompany;
@@ -145,7 +145,7 @@ public class Chef extends Client {
      * @return recipe
      */
     @Override
-    public SinglyList<Recipe> getRecipe() {
+    public SinglyList<String> getRecipe() {
         return recipe;
     }
 
@@ -155,7 +155,7 @@ public class Chef extends Client {
      * @param newRecipe that is going to be added
      */
     @Override
-    public void addRecipe(Recipe newRecipe) {
+    public void addRecipe(String newRecipe) {
         recipe.add(newRecipe);
     }
 
@@ -225,7 +225,7 @@ public class Chef extends Client {
      * @param recipe that we're going to use
      */
     @Override
-    public void setRecipe(SinglyList<Recipe> recipe) {
+    public void setRecipe(SinglyList<String> recipe) {
         this.recipe=recipe;
     }
 
