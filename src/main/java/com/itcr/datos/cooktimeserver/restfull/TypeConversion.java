@@ -2,10 +2,7 @@ package com.itcr.datos.cooktimeserver.restfull;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import com.itcr.datos.cooktimeserver.object.Comment;
-import com.itcr.datos.cooktimeserver.object.Company;
-import com.itcr.datos.cooktimeserver.object.Recipe;
-import com.itcr.datos.cooktimeserver.object.User;
+import com.itcr.datos.cooktimeserver.object.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -214,5 +211,42 @@ public class TypeConversion {
 
         return jsonObject;
     }
+    @SuppressWarnings("unchecked")
+    public static JSONObject chefToJSON(AlphNodeTree<Chef> chef){
+        JSONObject jsonObject = new JSONObject();
+
+        try{jsonObject.put("name",chef.getData().getName());}
+        catch (NullPointerException e){jsonObject.put("name",null);}
+
+        try{ jsonObject.put("password",chef.getData().getPassword());}
+        catch (NullPointerException e){jsonObject.put("password",null);}
+
+        try{jsonObject.put("email",chef.getData().getEmail());}
+        catch (NullPointerException e){jsonObject.put("email",null);}
+
+        try{jsonObject.put("age",chef.getData().getAge());}
+        catch (NullPointerException e){jsonObject.put("age",0);}
+
+        try{jsonObject.put("image",chef.getData().getImage());}
+        catch (NullPointerException e){jsonObject.put("image",null);}
+
+        try{jsonObject.put("recipe",TypeConversion.makeStringArray(chef.getData().getRecipe(),new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("recipe",null);}
+
+        try{jsonObject.put("followers",TypeConversion.makeStringArray(chef.getData().getFollowers(), new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("followers",null);}
+
+        try{jsonObject.put("following",TypeConversion.makeStringArray(chef.getData().getFollowing(), new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("following",null);}
+
+        try{jsonObject.put("hasCompany",chef.getData().isHasCompany());}
+        catch (NullPointerException e){jsonObject.put("hasCompany",false);}
+
+        try{jsonObject.put("verify",chef.getData().isVerify());}
+        catch (NullPointerException e){jsonObject.put("hasCompany",false);}
+
+        return jsonObject;
+    }
+
 
 }
