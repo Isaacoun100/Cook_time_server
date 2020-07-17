@@ -2,6 +2,7 @@ package com.itcr.datos.cooktimeserver;
 
 import com.itcr.datos.cooktimeserver.restfull.CompanyTree;
 import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
+import com.itcr.datos.cooktimeserver.restfull.UserTree;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.itcr.datos.cooktimeserver.restfull.ChefTree;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,7 @@ public class CookTimeServerApplication {
      */
     public static void main(String[] args) {
 
-        ChefTree.initUserList();
+        UserTree.initUserList();
         RecipeTree.initRecipeList();
         CompanyTree.initCompanyList();
 
