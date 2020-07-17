@@ -2,7 +2,9 @@ package com.itcr.datos.cooktimeserver.restfull;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
+import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
 import com.itcr.datos.cooktimeserver.object.Company;
+import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
 
 public class TreeManagement {
@@ -56,4 +58,7 @@ public class TreeManagement {
         else{ return "leaf";}
     }
 
+    public static Recipe BinarySearchAVL(String title) {
+        return new Recipe();
+    }
 }
