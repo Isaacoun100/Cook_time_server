@@ -1,13 +1,13 @@
 package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
+import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.*;
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
  */
@@ -35,6 +35,14 @@ public class WebHost {
                 "Change a value from a specific user with http://localhost:6969/setUser/[USER EMAIL]/[[KEY TO MODIFY]]"
                 + System.lineSeparator() +
                 "Verify the user is in the server http://localhost:6969/login/[USER EMAIL]/[[PASSWORD]]"
+                + System.lineSeparator() +
+                "Add a recipe to a user with http://localhost:6969/newRecipe using a post method"
+                + System.lineSeparator() +
+                "Get an specific recipe with http://localhost:6969/getRecipe/title/[RECIPE TITLE] using the title"
+                + System.lineSeparator() +
+                "Or access to all of the recipes of a user http://localhost:6969/getRecipe/client/[USER NAME] using the user name, this returns a list"
+                + System.lineSeparator() +
+                "Add a new company with the link http://localhost:6969/newCompany using a post method"
                 + System.lineSeparator() +
                 "Read more about HTTP Methods here: https://restfulapi.net/http-methods/ ";
 
@@ -190,9 +198,18 @@ public class WebHost {
         }
     }
 
-    @GetMapping("/getRecipe/{recipe}")
+    @GetMapping("/getRecipe/title/{recipe}")
     public static Recipe getRecipe(@PathVariable String recipe){
         return RecipeTree.getAvlRecipeTree().getRoot().getData();
     }
 
+    @GetMapping("/getRecipe/client/{email}")
+    public static SinglyList<Recipe> getRecipeID(@PathVariable String email){
+        SinglyList<Recipe> recipeSinglyList = new SinglyList<Recipe>();
+        User user = TreeManagement.BinarySearch(email).getData();
+       while(){
+
+       }
+
+    }
 }
