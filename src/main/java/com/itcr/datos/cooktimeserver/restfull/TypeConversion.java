@@ -8,6 +8,10 @@ import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * This class will manage the conversion between types JSON and others
@@ -26,7 +30,7 @@ public class TypeConversion {
         return  recipeSinglyList;
     }
 
-    public static Recipe makeRecipe(JSONObject jsonObject){
+    public static Recipe makeRecipe(JSONObject jsonObject) {
         Recipe recipe = new Recipe();
         recipe.setTitle(jsonObject.get("title").toString());
         recipe.setDescription(jsonObject.get("description").toString());
@@ -42,9 +46,54 @@ public class TypeConversion {
         recipe.setServings(Integer.parseInt(jsonObject.get("servings").toString()));
         recipe.setRating(Integer.parseInt(jsonObject.get("rating").toString()));
         recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString()));
-        recipe.setComments(makeCommentList((JSONArray) jsonObject.get("comments"), new SinglyList<>()));
+        recipe.setComments(toCommentList(objectArray(jsonObject.get("comments"))));
         return recipe;
     }
+
+    public static ArrayList<Object> objectArray(Object object){
+        return (ArrayList<Object>) object;
+    }
+
+    public static JSONArray objectToJSONArray(Object object){
+        JSONArray jsonArray = new JSONArray();
+        ArrayList<Object> arrayList = objectArray(object);
+        int count, size = count = 0;
+
+        try{ size=arrayList.size(); }
+        catch (NullPointerException e){ e.printStackTrace(); }
+
+        while (count<size){
+            jsonArray.add(arrayList.get(count));
+            count++;
+        }
+        return jsonArray;
+    }
+
+    private static SinglyList<Comment> toCommentList(ArrayList<Object> arrayList){
+        SinglyList<Comment> commentSinglyList = new SinglyList<Comment>();
+        int size, count=size=0;
+
+        try{size=arrayList.size();}
+        catch (NullPointerException e){ e.printStackTrace();}
+
+        while(count<size){
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = (JSONObject) jsonParser.parse(JSONObject.toJSONString((Map) arrayList.get(count)));
+                commentSinglyList.add(new Comment(jsonObject.get("author").toString(), jsonObject.get("comment").toString()));
+            }
+            catch (ParseException | NullPointerException e) {
+                e.printStackTrace();
+                count=size;
+            }
+            count++;
+        }
+        return  commentSinglyList;
+    }
+
+
+
     public static Company makeCompany(JSONObject jsonObject){
         Company newCompany = new Company();
 
@@ -69,34 +118,15 @@ public class TypeConversion {
         try{newCompany.setPosts(Integer.parseInt(jsonObject.get("posts").toString()));}
         catch (NullPointerException e){newCompany.setPosts(0);}
 
-        try{newCompany.setFollowers(TypeConversion.makeStringList((JSONArray)jsonObject.get("followers"), new SinglyList<String>()));}
+        try{newCompany.setFollowers(TypeConversion.makeStringList(objectToJSONArray(jsonObject.get("followers")), new SinglyList<String>()));}
         catch (NullPointerException e){newCompany.setFollowers(new SinglyList<String>());}
 
-        try{newCompany.setFollowing(TypeConversion.makeStringList((JSONArray) jsonObject.get("following"), new SinglyList<String>()));}
+        try{newCompany.setFollowing(TypeConversion.makeStringList(objectToJSONArray(jsonObject.get("following")), new SinglyList<String>()));}
         catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
 
-        try{newCompany.setMembers(TypeConversion.makeStringList((JSONArray) jsonObject.get("members"), new SinglyList<String>()));}
+        try{newCompany.setMembers(TypeConversion.makeStringList(objectToJSONArray(jsonObject.get("members")), new SinglyList<String>()));}
         catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
         return newCompany;
-    }
-
-    private static SinglyList<Comment> makeCommentList(JSONArray jsonArray,SinglyList<Comment> result){
-        int count,size=count=0;
-        try{size=jsonArray.size();}
-        catch (NullPointerException e){e.printStackTrace();}
-
-        while(count<size){
-            JSONObject jsonObject = (JSONObject) jsonArray.get(count);
-            result.add(makeComment(jsonObject));
-            count++;
-        }
-
-        return result;
-
-    }
-
-    private static Comment makeComment(JSONObject jsonObject){
-        return new Comment(jsonObject.get("author").toString(), jsonObject.get("comment").toString());
     }
 
     public static SinglyList<String> makeStringList(JSONArray jsonArray, SinglyList<String> singlyList){
@@ -113,47 +143,6 @@ public class TypeConversion {
         return singlyList;
     }
 
-    @SuppressWarnings("unchecked")
-    public static JSONArray makeRecipeArray(SinglyList<Recipe> recipeSinglyList, JSONArray jsonArray){
-
-        int count=0;
-
-        while(count<recipeSinglyList.getLength()){
-            JSONObject jsonObject = new JSONObject();
-
-            jsonObject.put("title", recipeSinglyList.get(count).getData().getTitle());
-            jsonObject.put("description", recipeSinglyList.get(count).getData().getDescription());
-            jsonObject.put("author", recipeSinglyList.get(count).getData().getAuthor());
-            jsonObject.put("type", recipeSinglyList.get(count).getData().getType());
-            jsonObject.put("duration", recipeSinglyList.get(count).getData().getDuration());
-            jsonObject.put("time", recipeSinglyList.get(count).getData().getTime());
-            jsonObject.put("diet", recipeSinglyList.get(count).getData().getDiet());
-            jsonObject.put("price",recipeSinglyList.get(count).getData().getPrice());
-            jsonObject.put("rating",recipeSinglyList.get(count).getData().getRating());
-            jsonObject.put("steps", recipeSinglyList.get(count).getData().getSteps());
-            jsonObject.put("image", recipeSinglyList.get(count).getData().getImage());
-            jsonObject.put("date", recipeSinglyList.get(count).getData().getDate());
-            jsonObject.put("servings", recipeSinglyList.get(count).getData().getServings());
-            jsonObject.put("difficulty", recipeSinglyList.get(count).getData().getDifficulty());
-
-            SinglyList<Comment> commentSinglyList = recipeSinglyList.get(count).getData().getComments();
-            JSONArray newJSONArray = new JSONArray();
-            int value=0;
-            while(value<commentSinglyList.getLength()){
-                JSONObject newJSONObject = new JSONObject();
-                newJSONObject.put("author", commentSinglyList.get(value).getData().getAuthor());
-                newJSONObject.put("comment", commentSinglyList.get(value).getData().getComment());
-                newJSONArray.add(newJSONObject);
-                value++;
-            }
-
-            jsonObject.put("comments",newJSONArray);
-            jsonArray.add(jsonObject);
-            count++;
-        }
-
-        return jsonArray;
-    }
 
     @SuppressWarnings("unchecked")
     public static JSONArray makeCommentArray(SinglyList<Comment> commentSinglyList, JSONArray jsonArray){
@@ -214,5 +203,7 @@ public class TypeConversion {
 
         return jsonObject;
     }
+
+
 
 }
