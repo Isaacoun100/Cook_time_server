@@ -47,7 +47,7 @@ public class CompanyTree {
     }
 
     /**
-     * Function that casts the json object into company object
+     * Function that creates a company object and
      * @param jsonObject
      */
     private static void getBranch(JSONObject jsonObject){

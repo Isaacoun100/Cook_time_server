@@ -45,6 +45,10 @@ public class ChefTree {
         System.out.println(binaryChefTree.toString());
     }
 
+    /**
+     * Function that creates a chef object and adds the chef to the tree
+     * @param jsonObject
+     */
     private static void getBranch(JSONObject jsonObject){
         Chef newChef = new Chef();
 
@@ -119,8 +123,14 @@ public class ChefTree {
         catch (IOException e) { e.printStackTrace();}
     }
 
+    /**
+     * Function that adds the data to Chefs.json
+     * @param chef
+     * @param jsonObject
+     * @return returns jsonobject
+     */
     @SuppressWarnings("unchecked")
-        public static JSONObject binaryTravel(AlphNodeTree<Chef> chef, JSONObject jsonObject){
+    public static JSONObject binaryTravel(AlphNodeTree<Chef> chef, JSONObject jsonObject){
         jsonObject=TypeConversion.chefToJSON(chef);
         jsonObject.put("left", null);
         jsonObject.put("right",null);
