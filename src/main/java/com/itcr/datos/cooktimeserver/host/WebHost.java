@@ -9,6 +9,7 @@ import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONObject;
+
 /**
  * This class manages all of the paths for the client to access from the local host http://localhost:6969/
  */
@@ -45,6 +46,11 @@ public class WebHost {
                 + System.lineSeparator() +
                 "Add a new company with the link http://localhost:6969/newCompany using a post method"
                 + System.lineSeparator() +
+                "Add a follower to a user and assing the following http://localhost:6969/user/[FOLLOWED_EMAIL]/addFollower/[FOLLOWING_EMAIL]"
+                + System.lineSeparator() +
+                "the first parameter FOLLOWED is the user that FOLLOWING is following, this will set the list for both FOLLOWED and FOLLOWING"
+                + System.lineSeparator() +
+
                 "Read more about HTTP Methods here: https://restfulapi.net/http-methods/ ";
 
         System.out.println(Welcome);
@@ -150,6 +156,23 @@ public class WebHost {
     public String getRecipeTree(){
         RecipeTree.updateRecipeList();
         return RecipeTree.getAvlRecipeTree().toString();
+    }
+
+    @GetMapping("/user/{email}/addFollower/{incoming}")
+    public static String addValue(@PathVariable String email , @PathVariable String incoming){
+        User follower, followed = follower = null;
+        try{
+            followed = TreeManagement.BinarySearch(email).getData();
+            follower = TreeManagement.BinarySearch(incoming).getData();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return "Something went wrong, please check the data";
+        }
+        followed.addFollower(follower.getEmail());
+        follower.addFollowing(followed.getEmail());
+        UserTree.saveUser();
+        return incoming +"  now follows  "+ email;
     }
 
     @PostMapping("/newRecipe")

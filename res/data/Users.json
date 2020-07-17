@@ -2,7 +2,8 @@
   "image": null,
   "password": "sdf54sd",
   "followers": [
-    "parkunhg@hotmail.com"
+    "parkunhg@hotmail.com",
+    "blastoise@email"
   ],
   "left": {
     "image": null,
@@ -11,13 +12,15 @@
       "parkunhg@hotmail.com"
     ],
     "left": {
-      "image": "https:\/\/picsum.photos\/200\/300",
+      "image": null,
       "password": "sdñlkfjsñldkf",
-      "followers": null,
+      "followers": [],
       "left": null,
-      "following": null,
+      "following": [
+        "juan@email"
+      ],
       "name": "Blastoise Uchiha",
-      "recipe": null,
+      "recipe": [],
       "hasCompany": false,
       "right": null,
       "email": "blastoise@email",
