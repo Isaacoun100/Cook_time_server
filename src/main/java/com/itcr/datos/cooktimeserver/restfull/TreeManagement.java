@@ -47,7 +47,6 @@ public class TreeManagement {
      * @return returns the recursive function
      */
     public static AlphNodeAVL<Recipe> BinarySearchAvl(String data){
-        System.out.println("EOOOOOOOOO ENTRE PUTO");
         return BinarySearchAvl(RecipeTree.getAvlRecipeTree().getRoot(), data);
     }
 

@@ -214,7 +214,7 @@ public class WebHost {
 
         while(count<size){
             Recipe recipe = new Recipe();
-            try{ recipe = TreeManagement.BinarySearchAvl(user.getRecipe().get(count).getData()); }
+            try{ recipe = TreeManagement.BinarySearchAvl(user.getRecipe().get(count).getData()).getData(); }
             catch (NullPointerException e){ e.printStackTrace();}
             recipeSinglyList.add(recipe);
             count++;
