@@ -1,5 +1,8 @@
 package com.itcr.datos.cooktimeserver.object;
 
+/**
+ * Class for the comment object
+ */
 public class Comment {
 
     private final String author;

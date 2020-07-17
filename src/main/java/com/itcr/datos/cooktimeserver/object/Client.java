@@ -2,6 +2,9 @@ package com.itcr.datos.cooktimeserver.object;
 
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 
+/**
+ * Class for the client object
+ */
 public abstract class Client {
 
     /**
