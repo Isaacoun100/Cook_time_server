@@ -2,6 +2,8 @@ package com.itcr.datos.cooktimeserver.restfull;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphAvlTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
+import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -69,53 +71,73 @@ public class RecipeTree {
         }catch (IOException e ){ e.printStackTrace(); }
     }
 
-    @SuppressWarnings("unchecked")
-    public static JSONObject avlTravel(AlphNodeAVL<Recipe> recipe, JSONObject jsonObject){
-        try{jsonObject.put("title", recipe.getData().getTitle());}
+    public static JSONArray recipeListToJSON(SinglyList<Recipe> recipeSinglyList){
+        int count, size = count = 0;
+        JSONArray jsonArray = new JSONArray();
+        try{ size=recipeSinglyList.getLength(); }
+        catch (NullPointerException e){ e.printStackTrace();}
+
+        while(count<size){
+            jsonArray.add(recipeToJSONObject(recipeSinglyList.get(count).getData()));
+            count++;
+        }
+        return jsonArray;
+    }
+
+    public static JSONObject recipeToJSONObject(Recipe recipe){
+        JSONObject jsonObject = new JSONObject();
+
+        try{jsonObject.put("title", recipe.getTitle());}
         catch (NullPointerException e){jsonObject.put("title",null);}
 
-        try{jsonObject.put("description", recipe.getData().getDescription());}
+        try{jsonObject.put("description", recipe.getDescription());}
         catch (NullPointerException e){jsonObject.put("description",null);}
 
-        try{jsonObject.put("author", recipe.getData().getAuthor());}
+        try{jsonObject.put("author", recipe.getAuthor());}
         catch (NullPointerException e){jsonObject.put("author",null);}
 
-        try{jsonObject.put("type", recipe.getData().getType());}
+        try{jsonObject.put("type", recipe.getType());}
         catch (NullPointerException e){jsonObject.put("type",null);}
 
-        try{jsonObject.put("duration", recipe.getData().getDuration());}
+        try{jsonObject.put("duration", recipe.getDuration());}
         catch (NullPointerException e){jsonObject.put("duration",null);}
 
-        try{jsonObject.put("time", recipe.getData().getTime());}
+        try{jsonObject.put("time", recipe.getTime());}
         catch (NullPointerException e){jsonObject.put("time",null);}
 
-        try{jsonObject.put("diet", recipe.getData().getDiet());}
+        try{jsonObject.put("diet", recipe.getDiet());}
         catch (NullPointerException e){jsonObject.put("diet",null);}
 
-        try{jsonObject.put("steps", recipe.getData().getSteps());}
+        try{jsonObject.put("steps", recipe.getSteps());}
         catch (NullPointerException e){jsonObject.put("steps",null);}
 
-        try{jsonObject.put("image", recipe.getData().getImage());}
+        try{jsonObject.put("image", recipe.getImage());}
         catch (NullPointerException e){jsonObject.put("image",null);}
 
-        try{jsonObject.put("date", recipe.getData().getDate());}
+        try{jsonObject.put("date", recipe.getDate());}
         catch (NullPointerException e){jsonObject.put("date",null);}
 
-        try{jsonObject.put("price", recipe.getData().getPrice());}
+        try{jsonObject.put("price", recipe.getPrice());}
         catch (NullPointerException e){jsonObject.put("price",null);}
 
-        try{jsonObject.put("servings", recipe.getData().getServings());}
+        try{jsonObject.put("servings", recipe.getServings());}
         catch (NullPointerException e){jsonObject.put("servings",null);}
 
-        try{jsonObject.put("rating", recipe.getData().getRating());}
+        try{jsonObject.put("rating", recipe.getRating());}
         catch (NullPointerException e){jsonObject.put("rating",null);}
 
-        try{jsonObject.put("difficulty", recipe.getData().getDifficulty());}
+        try{jsonObject.put("difficulty", recipe.getDifficulty());}
         catch (NullPointerException e){jsonObject.put("difficulty",null);}
 
-        try{jsonObject.put("comments", TypeConversion.makeCommentArray(recipe.getData().getComments(), new JSONArray()));}
+        try{jsonObject.put("comments", TypeConversion.makeCommentArray(recipe.getComments(), new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("difficulty",null);}
 
+        return jsonObject;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static JSONObject avlTravel(AlphNodeAVL<Recipe> recipe, JSONObject jsonObject){
+        jsonObject=recipeToJSONObject(recipe.getData());
         jsonObject.put("left", null);
         jsonObject.put("right", null);
 
