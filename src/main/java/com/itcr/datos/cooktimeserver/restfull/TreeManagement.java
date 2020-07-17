@@ -1,8 +1,10 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
+import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.object.Company;
+import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
 
 public class TreeManagement {
@@ -25,6 +27,25 @@ public class TreeManagement {
         }
         return null;
     }
+    public static AlphNodeAVL<Recipe> BinarySearchAvl(String data){
+        System.out.println("EOOOOOOOOO ENTRE PUTO");
+        return BinarySearchAvl(RecipeTree.getAvlRecipeTree().getRoot(), data);
+    }
+    private static AlphNodeAVL<Recipe> BinarySearchAvl(AlphNodeAVL<Recipe> reference, String data){
+        if(reference.getKey().equals(data)){
+            return reference;
+        }
+        switch(greater(reference.getKey(),data)){
+            case "key":
+                if(reference.getRight()!=null){ return BinarySearchAvl(reference.getRight(),data);}
+                else{ return null;}
+            case "leaf":
+                if(reference.getLeft()!=null){return BinarySearchAvl(reference.getLeft(),data);}
+                else{ return null;}
+        }
+        return null;
+
+    }
     public static AlphNodeSplay<Company> BinarySearchSplay(String data){
         return BinarySearchSplay(CompanyTree.getUserTree().getRoot(),data);
     }
@@ -42,8 +63,6 @@ public class TreeManagement {
         }
         return null;
     }
-
-
     private static String greater(String leaf, String key){
         int size,count=0;
         size = Math.min(leaf.length(), key.length())-1;
