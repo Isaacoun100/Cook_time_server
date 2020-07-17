@@ -5,6 +5,7 @@ import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import com.itcr.datos.cooktimeserver.object.Recipe;
+import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.*;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONObject;
@@ -40,7 +41,7 @@ public class WebHost {
                 + System.lineSeparator() +
                 "Get an specific recipe with http://localhost:6969/getRecipe/title/[RECIPE TITLE] using the title"
                 + System.lineSeparator() +
-                "Or access to all of the recipes of a user http://localhost:6969/getRecipe/client/[USER NAME] using the user name, this returns a list"
+                "Or access to all of the recipes of a user http://localhost:6969/getRecipe/user/[USER NAME] using the user name, this returns a list"
                 + System.lineSeparator() +
                 "Add a new company with the link http://localhost:6969/newCompany using a post method"
                 + System.lineSeparator() +
@@ -203,19 +204,21 @@ public class WebHost {
         return RecipeTree.getAvlRecipeTree().getRoot().getData();
     }
 
-    @GetMapping("/getRecipe/client/{email}")
-    public static SinglyList<Recipe> getRecipeID(@PathVariable String email){
+    @GetMapping("/getRecipe/user/{email}")
+    public static JSONArray getRecipeID(@PathVariable String email){
         SinglyList<Recipe> recipeSinglyList = new SinglyList<Recipe>();
         User user = TreeManagement.BinarySearch(email).getData();
         int count, size = count = 0;
         try{ size = user.getRecipe().getLength(); }
         catch (NullPointerException e){ e.printStackTrace();}
 
-       while(count<size){
-           Recipe recipe = TreeManagement.BinarySearchAVL(user.getRecipe().get(count).getData());
-           recipeSinglyList.add(recipe);
-           count++;
-       }
-       return recipeSinglyList;
+        while(count<size){
+            Recipe recipe = new Recipe();
+            try{ recipe = TreeManagement.BinarySearchAvl(user.getRecipe().get(count).getData()); }
+            catch (NullPointerException e){ e.printStackTrace();}
+            recipeSinglyList.add(recipe);
+            count++;
+        }
+       return RecipeTree.recipeListToJSON(recipeSinglyList);
     }
 }
