@@ -43,6 +43,10 @@ public class UserTree {
         System.out.println(binaryUserTree.toString());
     }
 
+    /**
+     * Function that creates a user object and adds the user to the tree
+     * @param jsonObject
+     */
     private static void getBranch(JSONObject jsonObject){
         User newUser = new User();
 
@@ -114,6 +118,12 @@ public class UserTree {
         catch (IOException e) { e.printStackTrace();}
     }
 
+    /**
+     * Function that adds the data to Users.json
+     * @param user
+     * @param jsonObject
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public static JSONObject binaryTravel(AlphNodeTree<User> user, JSONObject jsonObject){
         jsonObject=TypeConversion.userToJSON(user);

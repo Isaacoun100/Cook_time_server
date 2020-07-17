@@ -28,7 +28,7 @@ public class ChefTree {
     }
 
     /**
-     * This method will access to the Users.json and load all of the users in the UsersList
+     * This method will access to the Chefs.json and load all of the users in the ChefsList
      */
     public static void updateChefList(){
         binaryChefTree.clear();

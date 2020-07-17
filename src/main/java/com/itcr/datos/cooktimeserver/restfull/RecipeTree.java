@@ -11,14 +11,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Class for the recipe tree
+ */
 public class RecipeTree {
     private static AlphAvlTree<Recipe> avlRecipeTree;
 
+    /**
+     * Function that initializes the recipe avl tree
+     */
     public static void initRecipeList(){
         avlRecipeTree = new AlphAvlTree<>();
         updateRecipeList();
 
     }
+
+    /**
+     * This method will access to the Recipes.json and load all of the recipes in the RecipesList
+     */
     public static void updateRecipeList(){
         avlRecipeTree.clear();
 
@@ -33,6 +43,11 @@ public class RecipeTree {
         }
         System.out.println(avlRecipeTree.toString());
     }
+
+    /**
+     * Function that creates a recipe object and adds the recipe to the tree
+     * @param jsonObject
+     */
     public static void getBranch(JSONObject jsonObject){
         Recipe newRecipe = new Recipe();
 
@@ -47,9 +62,19 @@ public class RecipeTree {
             getBranch((JSONObject) jsonObject.get("left"));
         }
     }
+
+    /**
+     * Getter for the avl tree
+     * @return returns the avl tree
+     */
     public static AlphAvlTree<Recipe> getAvlRecipeTree(){
         return avlRecipeTree;
     }
+
+    /**
+     * Function that adds the recipe
+     * @param newRecipe
+     */
     public static void addRecipe(Recipe newRecipe){
         if(newRecipe != null){
             avlRecipeTree.add(newRecipe, newRecipe.getTitle());
