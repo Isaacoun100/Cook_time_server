@@ -2,6 +2,13 @@ package com.itcr.datos.cooktimeserver.sorting;
 
 import com.itcr.datos.cooktimeserver.data_structures.*;
 
+import java.util.Arrays;
+
+
+/**
+ * Sorting Algorithms used
+ * The code used in the radix sort is based on https://www.geeksforgeeks.org/radix-sort/
+ */
 public class SortingAlgorithms {
     /**
      * Orders the singly list from lowest to highest using BubbleSort.
@@ -61,7 +68,7 @@ public class SortingAlgorithms {
 
     /**
      * Verifies if the list is sorted.
-     * @param list singlylist that gets verified.
+     * @param list singly list that gets verified.
      * @return returns true or false if the list is sorted or not.
      */
     public static boolean is_sorted(SinglyList<Integer> list){
@@ -109,5 +116,63 @@ public class SortingAlgorithms {
             i++;
         }
         return minPos;
+    }
+
+    /**
+     * The main function that sorts the singly list
+     * @param list the integer singly list
+     */
+    public static void radix_sort(SinglyList<Integer> list){
+        int length = list.getLength();
+
+        int max = getMax(list, length);
+
+        for (int exp = 1; max/exp > 0; exp *= 10)
+            countSort(list, length, exp);
+
+    }
+
+    /**
+     * A utility function to get maximum value in singly list
+     * @param list the singly list
+     * @param lenght the lenght
+     * @return returns the maximum value
+     */
+    private static int getMax(SinglyList<Integer> list, int lenght){
+        int max = list.getHead().getData();
+        for (int i = 1; i < lenght; i++)
+            if (list.get(i).getData() > max)
+                max = list.get(i).getData();
+        return max;
+    }
+
+    /**
+     * A function to do counting sort of SinglyList according to the digit represented by exp
+     * @param list the singly list
+     * @param lenght the length
+     * @param exp the exponent
+     */
+    private static void countSort(SinglyList<Integer> list, int lenght, int exp){
+        int[] output = new int[lenght];
+        int i;
+        int[] count = new int[10];
+        Arrays.fill(count, 0);
+
+
+        for (i = 0; i < lenght; i++)
+            count[ (list.get(i).getData()/exp) % 10 ]++;
+
+        for (i = 1; i < 10; i++)
+            count[i] += count[i - 1];
+
+        for (i = lenght - 1; i >= 0; i--)
+        {
+            output[count[ (list.get(i).getData()/exp)%10 ] - 1] = list.get(i).getData();
+            count[ (list.get(i).getData()/exp)%10 ]--;
+        }
+
+        for (i = 0; i < lenght; i++)
+            list.get(i).setData(output[i]);
+
     }
 }
