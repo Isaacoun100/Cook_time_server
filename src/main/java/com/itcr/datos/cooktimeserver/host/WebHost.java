@@ -60,7 +60,7 @@ public class WebHost {
     @PostMapping("/newUser")
     public User addUser( @RequestBody User newUser){
         if(newUser!=null){
-            System.out.println(newUser.toString());
+            System.out.println(newUser);
             UserTree.addUser(newUser);
             return newUser;
         }
@@ -145,7 +145,7 @@ public class WebHost {
 
     @PostMapping("/newRecipe")
     public Recipe addRecipe(@RequestBody JSONObject newRecipe){
-
+        System.out.println(newRecipe);
         try{
             Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
             User user = TreeManagement.BinarySearch(incomingRecipe.getAuthor()).getData();
@@ -175,7 +175,6 @@ public class WebHost {
     public Company addCompany(@RequestBody JSONObject newCompany){
         try{
             Company incomingCompany = TypeConversion.makeCompany(newCompany);
-            //Company company = TreeManagement.BinarySearchSplay(incomingCompany.getName()).getData();
             if (newCompany != null){
                 System.out.println(incomingCompany.toString());
                 CompanyTree.addCompany(incomingCompany);
