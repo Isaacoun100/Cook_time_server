@@ -17,7 +17,7 @@ public class SortingMethods {
      * @return returns the recursive function
      */
     private static SinglyList<RatingSort> BinarySearchRating(){
-        return BinarySearchRating(RecipeTree.getAvlRecipeTree().getRoot(), new SinglyList<RatingSort>());
+        return BinarySearchRating(RecipeTree.getAvlRecipeTree().getRoot(), new SinglyList<>());
     }
 
     /**
@@ -51,7 +51,7 @@ public class SortingMethods {
      * @return returns the recursive function
      */
     private static SinglyList<DifficultySort> BinarySearchDifficulty(){
-        return BinarySearchDifficulty(RecipeTree.getAvlRecipeTree().getRoot(), new SinglyList<DifficultySort>());
+        return BinarySearchDifficulty(RecipeTree.getAvlRecipeTree().getRoot(), new SinglyList<>());
     }
 
     /**
@@ -68,4 +68,16 @@ public class SortingMethods {
         return difficulty;
     }
 
+    /**
+     * Function that sorts the difficulty of the recipes
+     * @return the singly list
+     */
+    public static SinglyList<DifficultySort> DifficultySort(){
+        SinglyList<DifficultySort> list;
+        list = BinarySearchDifficulty();
+        SortingAlgorithms.radix_sort_difficulty(list);
+        list.print_list();
+
+        return list;
+    }
 }
