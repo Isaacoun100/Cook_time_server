@@ -5,7 +5,7 @@ package com.itcr.datos.cooktimeserver.object;
  */
 public class DifficultySort {
     private final String title;
-    private final int difficulty;
+    private int difficulty;
 
     /**
      * Constructor for the class
@@ -16,6 +16,26 @@ public class DifficultySort {
         this.title = title;
         this.difficulty = difficulty;
     }
+
+    /**
+     * Getter for title
+     * @return returns title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Getter for difficulty
+     * @return returns difficulty
+     */
+    public int getDifficulty() {
+        return difficulty;
+    }
+    public void setDifficulty(int difficulty){
+        this.difficulty = difficulty;
+    }
+
 
     /**
      *
