@@ -20,7 +20,6 @@ public class CookTimeServerApplication {
         UserTree.initUserList();
         RecipeTree.initRecipeList();
         CompanyTree.initCompanyList();
-        SortingMethods.RatingSort();
 
         SpringApplication.run(CookTimeServerApplication.class, args);
     }
