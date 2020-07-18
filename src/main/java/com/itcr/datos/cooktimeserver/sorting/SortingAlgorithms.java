@@ -1,6 +1,7 @@
 package com.itcr.datos.cooktimeserver.sorting;
 
 import com.itcr.datos.cooktimeserver.data_structures.*;
+import com.itcr.datos.cooktimeserver.object.RatingSort;
 
 import java.util.Arrays;
 
@@ -64,6 +65,34 @@ public class SortingAlgorithms {
             quick_sort_aux(list, first, j);}
         if (i < last) {
             quick_sort_aux(list, i, last);}
+    }
+
+    public static void quick_sort_ratings(SinglyList<RatingSort> list){
+        if (list.getLength() > 0 && list != null){
+            quick_sort_ratings(list,0, list.getLength()-1);}
+    }
+    private static void quick_sort_ratings(SinglyList<RatingSort> list, int first, int last){
+        int pivot = (first + (last - first) / 2);
+        int dataPivot = list.get(pivot).getData().getRating();
+        int i = first;
+        int j = last;
+        while (i <= j){
+            while (list.get(i).getData().getRating() < dataPivot){
+                i++;
+            }
+            while (list.get(j).getData().getRating() > dataPivot){
+                j--;
+            }
+            if (i <= j){
+                list.swap(i, j);
+                i++;
+                j--;
+            }
+        }
+        if (first < j) {
+            quick_sort_ratings(list, first, j);}
+        if (i < last) {
+            quick_sort_ratings(list, i, last);}
     }
 
     /**
