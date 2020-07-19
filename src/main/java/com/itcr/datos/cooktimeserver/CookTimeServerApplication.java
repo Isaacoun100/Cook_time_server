@@ -21,6 +21,7 @@ public class CookTimeServerApplication {
     public static void main(String[] args) {
 
         UserTree.initUserList();
+        ChefTree.initChefList();
         RecipeTree.initRecipeList();
         CompanyTree.initCompanyList();
 
