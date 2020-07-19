@@ -41,7 +41,6 @@ public class CompanyTree {
         }
         catch (IOException | ParseException e){
             e.printStackTrace();
-            getBranch(new JSONObject());
         }
         System.out.println(splayCompanyTree.toString());
     }
