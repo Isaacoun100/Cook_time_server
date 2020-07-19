@@ -68,21 +68,8 @@ public class SortingMethods {
             String yearString = Integer.toString(years.get(i).getData());
 
             datesort_list.get(i).getData().setDate(dayString + "/" + monthString + "/" + yearString);
-    /*
-            if (Integer.parseInt(dayString) < 10){
-                datesort_list.get(i).getData().setDate("0"+dayString + "/" + monthString + "/" + yearString);
-            }
-            if (Integer.parseInt(monthString) < 10){
-                datesort_list.get(i).getData().setDate(dayString + "/" + "0"+monthString + "/" + yearString);
-
-            }
-            if(Integer.parseInt(dayString) < 10 && Integer.parseInt(monthString) < 10) {
-                datesort_list.get(i).getData().setDate("0"+dayString + "/" + "0"+monthString + "/" + yearString);
-            }
-
-     */
-
         }
+        datesort_list = datesort_list.Inverter(datesort_list);
         datesort_list.print_list();
         return datesort_list;
     }
