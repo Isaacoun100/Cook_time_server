@@ -4,12 +4,14 @@ import com.itcr.datos.cooktimeserver.data_structures.AlphBinaryTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.User;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Random;
 
 /**
  * This class will be called whenever we need to modify, clear, add or access the list of users
@@ -48,9 +50,10 @@ public class UserTree {
      */
     private static void getBranch(JSONObject jsonObject){
         User newUser = new User();
+        Random random = new Random();
 
         try{newUser.setName(jsonObject.get("name").toString());}
-        catch (NullPointerException e){newUser.setName(null);}
+        catch (NullPointerException e){ newUser.setName(RandomStringUtils.randomAlphabetic(random.nextInt(20)));}
 
         try{newUser.setEmail(jsonObject.get("email").toString());}
         catch (NullPointerException e){newUser.setEmail(null);}
