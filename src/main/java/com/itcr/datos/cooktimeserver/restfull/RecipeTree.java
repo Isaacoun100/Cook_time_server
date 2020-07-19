@@ -41,7 +41,6 @@ public class RecipeTree {
         }
         catch (Exception e){
             e.printStackTrace();
-            getBranch(new JSONObject());
         }
         System.out.println(avlRecipeTree.toString());
     }
