@@ -1,10 +1,7 @@
 package com.itcr.datos.cooktimeserver;
 
-import com.itcr.datos.cooktimeserver.restfull.CompanyTree;
-import com.itcr.datos.cooktimeserver.restfull.RecipeTree;
-import com.itcr.datos.cooktimeserver.restfull.UserTree;
+import com.itcr.datos.cooktimeserver.restfull.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.itcr.datos.cooktimeserver.restfull.ChefTree;
 import org.springframework.boot.SpringApplication;
 
 

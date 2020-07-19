@@ -108,7 +108,7 @@ public class RecipeTree {
         }
         return jsonArray;
     }
-
+    @SuppressWarnings("unchecked")
     public static JSONObject recipeToJSONObject(Recipe recipe){
         JSONObject jsonObject = new JSONObject();
 

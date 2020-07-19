@@ -159,7 +159,23 @@ public class SinglyList<T> extends LinkedList<T> {
         SinglyNode<T> tmp = new SinglyNode<T>(this.get(pos1).getData());
         this.get(pos1).setData(this.get(pos2).getData());
         this.get(pos2).setData(tmp.getData());
+    }
 
+    /**
+     * Function that inverts the singly list
+     * @param oldList the list that´s gonna get inverted
+     * @return returns the new list
+     */
+    public SinglyList<T> Inverter(SinglyList<T> oldList){
+        SinglyList<T> singlyList = new SinglyList<>();
+
+        int size = oldList.getLength()-1;
+        while (0 <= size){
+            singlyList.add(oldList.get(size).getData());
+            size--;
+
+        }
+        return singlyList;
     }
 
     /**
@@ -212,6 +228,5 @@ public class SinglyList<T> extends LinkedList<T> {
         System.out.println(result);
         System.out.println("-----------------------------------------------------------------------------------------");
     }
-
 }
 
