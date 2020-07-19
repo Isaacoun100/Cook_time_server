@@ -2,12 +2,10 @@ package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import com.itcr.datos.cooktimeserver.object.Company;
+import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
-import com.itcr.datos.cooktimeserver.object.Recipe;
 import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.*;
-import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONObject;
 
 /**
@@ -244,4 +242,33 @@ public class WebHost {
         }
        return RecipeTree.recipeListToJSON(recipeSinglyList);
     }
+
+    /**
+     * Function that gets the dates sorted
+     * @return returns the singly list with the dates sorted
+     */
+    @GetMapping("/sorting/getDates")
+    public static SinglyList<DateSort> getDateSort(){
+        return SortingMethods.DateSort();
+    }
+
+    /**
+     * Function that gets the ratings sorted
+     * @return returns the singly list with the ratings sorted
+     */
+    @GetMapping("/sorting/getRatings")
+    public static SinglyList<RatingSort> getRatingSort(){
+        return SortingMethods.RatingSort();
+    }
+
+    /**
+     * Function that gets the difficulties sorted
+     * @return returns the singly list with the difficulties sorted
+     */
+    @GetMapping("/sorting/getDifficulty")
+    public static SinglyList<DifficultySort> getDifficultySort(){
+        return SortingMethods.DifficultySort();
+    }
+
+
 }
