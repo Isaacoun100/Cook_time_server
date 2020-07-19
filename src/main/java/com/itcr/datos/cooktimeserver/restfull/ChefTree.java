@@ -37,12 +37,11 @@ public class ChefTree {
         try {
             JSONObject chefsJSON = (JSONObject) chefParser.parse(new FileReader("res/data/Chefs.json"));
             getBranch(chefsJSON);
+            System.out.println(binaryChefTree.toString());
         }
         catch (Exception e) {
             e.printStackTrace();
-            getBranch(new JSONObject());
         }
-        System.out.println(binaryChefTree.toString());
     }
 
     /**
@@ -118,7 +117,6 @@ public class ChefTree {
         try(FileWriter file = new FileWriter("res/data/Chefs.json")){
             file.write(binaryTravel(binaryChefTree.getRoot(), new JSONObject()).toString());
             file.flush();
-
         }
         catch (IOException e) { e.printStackTrace();}
     }

@@ -2,7 +2,8 @@ package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import com.itcr.datos.cooktimeserver.object.*;
+import com.itcr.datos.cooktimeserver.object.Chef;
+import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.*;
@@ -161,6 +162,29 @@ public class WebHost {
     public String getRecipeTree(){
         RecipeTree.updateRecipeList();
         return RecipeTree.getAvlRecipeTree().toString();
+    }
+
+    @PostMapping("/newChef")
+    public static Chef addChef(@RequestBody Chef newChef){
+        if(newChef!=null){
+            System.out.println(newChef);
+            User newUser = new User();
+            newUser.setHasCompany(newChef.isHasCompany());
+            newUser.setFollowers(newChef.getFollowers());
+            newUser.setFollowing(newChef.getFollowing());
+            newUser.setPassword(newChef.getPassword());
+            newUser.setRecipe(newChef.getRecipe());
+            newUser.setEmail(newChef.getEmail());
+            newUser.setImage(newChef.getImage());
+            newUser.setName(newChef.getName());
+            newUser.setAge(newChef.getAge());
+            UserTree.addUser(newUser);
+            ChefTree.addChef(newChef);
+            return newChef;
+        }
+        else{
+            return new Chef();
+        }
     }
 
     @GetMapping("/user/{email}/addFollower/{incoming}")

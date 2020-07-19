@@ -20,9 +20,8 @@ public class AlphBinaryTree<T> {
      * @param key a value representing the value of the node
      */
     public void add(T data, String key){
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             root = new AlphNodeTree<T>(data, key);
-            length=1;
         }else{
             AlphNodeTree<T> tmp = root;
             while (tmp != null){

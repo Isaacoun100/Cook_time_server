@@ -38,7 +38,6 @@ public class UserTree {
         }
         catch (Exception e) {
             e.printStackTrace();
-            getBranch(new JSONObject());
         }
         System.out.println(binaryUserTree.toString());
     }
