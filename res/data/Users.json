@@ -3,7 +3,8 @@
   "password": "sdf54sd",
   "followers": [
     "parkunhg@hotmail.com",
-    "blastoise@email"
+    "blastoise@email",
+    "sdfssfd@gmail.com"
   ],
   "left": {
     "image": null,
@@ -15,7 +16,31 @@
       "image": null,
       "password": "sdñlkfjsñldkf",
       "followers": [],
-      "left": null,
+      "left": {
+        "image": null,
+        "password": "ñlkfdjfg",
+        "followers": [],
+        "left": {
+          "image": null,
+          "password": "porskj",
+          "followers": [],
+          "left": null,
+          "following": [],
+          "name": "JOJO",
+          "recipe": [],
+          "hasCompany": false,
+          "right": null,
+          "email": "JOJO@gmail.com",
+          "age": 0
+        },
+        "following": [],
+        "name": "Pedro",
+        "recipe": [],
+        "hasCompany": false,
+        "right": null,
+        "email": "Pedro@gmail.com",
+        "age": 0
+      },
       "following": [
         "juan@email"
       ],
@@ -41,7 +66,7 @@
   "following": [
     "parkunhg@hotmail.com"
   ],
-  "name": "Juan",
+  "name": "Juan Antonio Roman Fuertes",
   "recipe": [
     "Pasta"
   ],
@@ -50,8 +75,22 @@
     "image": null,
     "password": "sdfsdf",
     "followers": [],
-    "left": null,
-    "following": [],
+    "left": {
+      "image": null,
+      "password": "asldjflak",
+      "followers": [],
+      "left": null,
+      "following": [],
+      "name": "ratatuille",
+      "recipe": [],
+      "hasCompany": false,
+      "right": null,
+      "email": "ratataratatasisemepegavoyadarle@gmail.com",
+      "age": 0
+    },
+    "following": [
+      "juan@email"
+    ],
     "name": "sdfsdf",
     "recipe": [],
     "hasCompany": false,
