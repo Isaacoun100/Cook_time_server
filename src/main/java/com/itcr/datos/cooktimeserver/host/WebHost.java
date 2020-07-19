@@ -2,8 +2,7 @@ package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import com.itcr.datos.cooktimeserver.object.Chef;
-import com.itcr.datos.cooktimeserver.object.Company;
+import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +78,7 @@ public class WebHost {
      * @return the user that was just created
      */
     @PostMapping("/newUser")
-    public User addUser( @RequestBody User newUser){
+    public User addUser(@RequestBody User newUser){
         if(newUser!=null){
             System.out.println(newUser);
             UserTree.addUser(newUser);
