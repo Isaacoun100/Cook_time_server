@@ -204,7 +204,7 @@ public class WebHost {
     }
 
     @PostMapping("/newRecipe")
-    public Recipe addRecipe(@RequestBody JSONObject newRecipe){
+    public JSONObject addRecipe(@RequestBody JSONObject newRecipe){
         System.out.println(newRecipe);
         try{
             Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
@@ -212,17 +212,18 @@ public class WebHost {
             if (newRecipe != null){
                 System.out.println(incomingRecipe.toString());
                 user.addRecipe(incomingRecipe.getTitle());
-                UserTree.updateUserList();
+                UserTree.saveUser();
                 RecipeTree.addRecipe(incomingRecipe);
-                return incomingRecipe;
+                return RecipeTree.recipeToJSONObject(incomingRecipe);
             }
             else{
-                return new Recipe();
+                return RecipeTree.recipeToJSONObject(new Recipe());
             }
         }
         catch (NullPointerException e){
+            System.out.println("I shouldn't be here");
             e.printStackTrace();
-            return new Recipe();
+            return RecipeTree.recipeToJSONObject(new Recipe());
         }
     }
 

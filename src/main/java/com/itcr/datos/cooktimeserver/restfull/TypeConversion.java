@@ -43,7 +43,8 @@ public class TypeConversion {
         recipe.setServings(Integer.parseInt(jsonObject.get("servings").toString()));
         recipe.setRating(Integer.parseInt(jsonObject.get("rating").toString()));
         recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString()));
-        recipe.setComments(toCommentList(objectArray(jsonObject.get("comments"))));
+        try{ recipe.setComments(toCommentList(objectArray(jsonObject.get("comments"))));}
+        catch (NullPointerException e){ recipe.setComments(toCommentList(objectArray(new JSONArray())));}
         return recipe;
     }
 
