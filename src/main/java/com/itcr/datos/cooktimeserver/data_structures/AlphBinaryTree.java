@@ -216,7 +216,14 @@ public class AlphBinaryTree<T> {
      * @return returns the recursive function
      */
     public String toString() {
-        return this.toString(new StringBuilder(), true, new StringBuilder(),this.root).toString();
+        AlphNodeTree<T> newRoot = null;
+        try{
+            newRoot=this.root;
+            return this.toString(new StringBuilder(), true, new StringBuilder(),newRoot).toString();
+        } catch (NullPointerException e){
+            e.printStackTrace();
+            return null;
+        }
     }
     /**
      * Recursive function used for printing de AVL tree´s diagram
