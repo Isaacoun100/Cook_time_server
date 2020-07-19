@@ -3,12 +3,14 @@ package com.itcr.datos.cooktimeserver.restfull;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.*;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * This class will manage the conversion between types JSON and others
@@ -29,20 +31,54 @@ public class TypeConversion {
 
     public static Recipe makeRecipe(JSONObject jsonObject) {
         Recipe recipe = new Recipe();
-        recipe.setTitle(jsonObject.get("title").toString());
-        recipe.setDescription(jsonObject.get("description").toString());
-        recipe.setAuthor(jsonObject.get("author").toString());
-        recipe.setType(jsonObject.get("type").toString());
-        recipe.setDuration(jsonObject.get("duration").toString());
-        recipe.setTime(jsonObject.get("time").toString());
-        recipe.setDiet(jsonObject.get("diet").toString());
-        recipe.setSteps(jsonObject.get("steps").toString());
-        recipe.setImage(jsonObject.get("image").toString());
-        recipe.setDate(jsonObject.get("date").toString());
-        recipe.setPrice(Integer.parseInt(jsonObject.get("price").toString()));
-        recipe.setServings(Integer.parseInt(jsonObject.get("servings").toString()));
-        recipe.setRating(Integer.parseInt(jsonObject.get("rating").toString()));
-        recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString()));
+        Random random = new Random();
+        try{ recipe.setTitle(jsonObject.get("title").toString());}
+        catch (NullPointerException e){ recipe.setTitle(null);}
+
+        try{ recipe.setDescription(jsonObject.get("description").toString());}
+        catch (NullPointerException e){ recipe.setDescription(null); }
+
+        try{ recipe.setAuthor(jsonObject.get("author").toString()); }
+        catch (NullPointerException e) { recipe.setAuthor(RandomStringUtils.randomAlphabetic(random.nextInt(20))); }
+
+        try{ recipe.setType(jsonObject.get("type").toString()); }
+        catch (NullPointerException e) { recipe.setType(null); }
+
+        try{ recipe.setDuration(jsonObject.get("duration").toString());}
+        catch (NullPointerException e){ recipe.setDuration(null); }
+
+        try{ recipe.setDate(jsonObject.get("date").toString());}
+        catch (NullPointerException e){
+            String randDate = String.valueOf(random.nextInt(28))
+                    .concat("/").concat(String.valueOf(random.nextInt(12))).
+                            concat("/").concat(String.valueOf(random.nextInt(2020)));
+            recipe.setDate(randDate);
+        }
+
+        try{ recipe.setDiet(jsonObject.get("diet").toString());}
+        catch (NullPointerException e){ recipe.setDiet(null); }
+
+        try{ recipe.setSteps(jsonObject.get("steps").toString());}
+        catch (NullPointerException e){ recipe.setSteps(null); }
+
+        try{ recipe.setImage(jsonObject.get("image").toString());}
+        catch (NullPointerException e){ recipe.setImage(null); }
+
+        try{ recipe.setTime(jsonObject.get("time").toString()); }
+        catch (NullPointerException e){ recipe.setTime(null); }
+
+        try{ recipe.setPrice(Integer.parseInt(jsonObject.get("price").toString())); }
+        catch (NullPointerException e){ recipe.setPrice(0); }
+
+        try{ recipe.setServings(Integer.parseInt(jsonObject.get("servings").toString())); }
+        catch (NullPointerException e){ recipe.setServings(1); }
+
+        try{ recipe.setRating(Integer.parseInt(jsonObject.get("rating").toString())); }
+        catch (NullPointerException e){ recipe.setRating(0);}
+
+        try{ recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString())); }
+        catch (NullPointerException e){ recipe.setDifficulty(0); }
+
         try{ recipe.setComments(toCommentList(objectArray(jsonObject.get("comments"))));}
         catch (NullPointerException e){ recipe.setComments(toCommentList(objectArray(new JSONArray())));}
         return recipe;
@@ -171,9 +207,11 @@ public class TypeConversion {
     @SuppressWarnings("unchecked")
     public static JSONObject userToJSON(AlphNodeTree<User> user){
         JSONObject jsonObject = new JSONObject();
+        Random random= new Random();
 
         try{jsonObject.put("name",user.getData().getName());}
-        catch (NullPointerException e){jsonObject.put("name",null);}
+        catch (NullPointerException e){
+            jsonObject.put("name",RandomStringUtils.randomAlphabetic(random.nextInt(20)+1));}
 
         try{ jsonObject.put("password",user.getData().getPassword());}
         catch (NullPointerException e){jsonObject.put("password",null);}

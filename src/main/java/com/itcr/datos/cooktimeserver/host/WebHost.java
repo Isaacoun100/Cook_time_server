@@ -1,5 +1,6 @@
 package com.itcr.datos.cooktimeserver.host;
 
+import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.*;
@@ -205,12 +206,10 @@ public class WebHost {
 
     @PostMapping("/newRecipe")
     public JSONObject addRecipe(@RequestBody JSONObject newRecipe){
-        System.out.println(newRecipe);
         try{
             Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
             User user = TreeManagement.BinarySearch(incomingRecipe.getAuthor()).getData();
             if (newRecipe != null){
-                System.out.println(incomingRecipe.toString());
                 user.addRecipe(incomingRecipe.getTitle());
                 UserTree.saveUser();
                 RecipeTree.addRecipe(incomingRecipe);
@@ -221,7 +220,6 @@ public class WebHost {
             }
         }
         catch (NullPointerException e){
-            System.out.println("I shouldn't be here");
             e.printStackTrace();
             return RecipeTree.recipeToJSONObject(new Recipe());
         }
@@ -237,7 +235,6 @@ public class WebHost {
         try{
             Company incomingCompany = TypeConversion.makeCompany(newCompany);
             if (newCompany != null){
-                System.out.println(incomingCompany.toString());
                 CompanyTree.addCompany(incomingCompany);
                 return incomingCompany;
             }
@@ -257,21 +254,34 @@ public class WebHost {
     }
 
     @GetMapping("/getRecipe/user/{email}")
-    public static JSONArray getRecipeID(@PathVariable String email){
+    public static SinglyList<Recipe> getRecipeID(@PathVariable String email){
         SinglyList<Recipe> recipeSinglyList = new SinglyList<Recipe>();
-        User user = TreeManagement.BinarySearch(email).getData();
+        User user = new User();
+
+        try{
+            user = TreeManagement.BinarySearch(email).getData();
+        }
+        catch (NullPointerException e){ e.printStackTrace();}
+
         int count, size = count = 0;
-        try{ size = user.getRecipe().getLength(); }
+
+        try{
+            size = user.getRecipe().getLength();
+        }
         catch (NullPointerException e){ e.printStackTrace();}
 
         while(count<size){
             Recipe recipe = new Recipe();
             try{ recipe = TreeManagement.BinarySearchAvl(user.getRecipe().get(count).getData()).getData(); }
             catch (NullPointerException e){ e.printStackTrace();}
+
+            try{ if(recipe.getComments().getLength()==0){ recipe.setComments(null);} }
+            catch (NullPointerException e) { e.printStackTrace();}
+
             recipeSinglyList.add(recipe);
             count++;
         }
-       return RecipeTree.recipeListToJSON(recipeSinglyList);
+       return recipeSinglyList;
     }
 
     /**
