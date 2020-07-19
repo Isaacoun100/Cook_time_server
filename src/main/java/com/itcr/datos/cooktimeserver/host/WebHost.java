@@ -48,6 +48,13 @@ public class WebHost {
                 + System.lineSeparator() +
                 "the first parameter FOLLOWED is the user that FOLLOWING is following, this will set the list for both FOLLOWED and FOLLOWING"
                 + System.lineSeparator() +
+                "Access the the dates sorted in the following link http://localhost:6969/sorting/getDates"
+                + System.lineSeparator() +
+                "Access the the dates sorted in the following link http://localhost:6969/sorting/getRatings"
+                + System.lineSeparator() +
+                "Access the the dates sorted in the following link http://localhost:6969/sorting/getDifficulties"
+                + System.lineSeparator() +
+
 
                 "Read more about HTTP Methods here: https://restfulapi.net/http-methods/ ";
 
@@ -265,7 +272,7 @@ public class WebHost {
      * Function that gets the difficulties sorted
      * @return returns the singly list with the difficulties sorted
      */
-    @GetMapping("/sorting/getDifficulty")
+    @GetMapping("/sorting/getDifficulties")
     public static SinglyList<DifficultySort> getDifficultySort(){
         return SortingMethods.DifficultySort();
     }
