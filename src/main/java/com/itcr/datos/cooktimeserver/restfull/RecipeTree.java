@@ -3,7 +3,6 @@ package com.itcr.datos.cooktimeserver.restfull;
 import com.itcr.datos.cooktimeserver.data_structures.AlphAvlTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,7 +22,7 @@ public class RecipeTree {
      * Function that initializes the recipe avl tree
      */
     public static void initRecipeList(){
-        avlRecipeTree = new AlphAvlTree<>();
+        avlRecipeTree = new AlphAvlTree<Recipe>();
         updateRecipeList();
 
     }
@@ -50,10 +49,7 @@ public class RecipeTree {
      * @param jsonObject
      */
     public static void getBranch(JSONObject jsonObject){
-        Recipe newRecipe = new Recipe();
-
-        newRecipe = TypeConversion.makeRecipe(jsonObject);
-
+        Recipe newRecipe  = TypeConversion.makeRecipe(jsonObject);
         avlRecipeTree.add(newRecipe, newRecipe.getTitle());
 
         if(jsonObject.get("right") != null){
