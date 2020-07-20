@@ -96,15 +96,19 @@ public class WebHost {
         }
     }
 
-    /**
-     * This will
-     * @param userKey
-     * @return
-     */
     @GetMapping("/getUser/{userKey}")
     public String getUser(@PathVariable String userKey){
         JSONObject jsonObject = TypeConversion.userToJSON(TreeManagement.BinarySearch(userKey));
         return jsonObject.toString();
+    }
+
+    /**
+     * Getter for the user singly list
+     * @return returns the singly list of users shuffled
+     */
+    @GetMapping("/getUser/userLinkedList")
+    public static SinglyList<User> getUsersList(){
+        return UserTree.getUserList();
     }
 
     @GetMapping("/login/{userKey}/{password}")
@@ -352,5 +356,7 @@ public class WebHost {
     public static SinglyList<DifficultySort> getSortedDifficulties(@PathVariable String id){
         return SortingMethods.DifficultySortUser(id);
     }
+
+
 
 }
