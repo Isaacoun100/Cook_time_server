@@ -1,8 +1,6 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
+import com.itcr.datos.cooktimeserver.data_structures.*;
 import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
@@ -100,6 +98,72 @@ public class TreeManagement {
                 else{ return null;}
         }
         return null;
+    }
+
+    /**
+     * Function that returns the user singly list
+     * @return returns the function getUserList()
+     */
+    public static SinglyList<User> getUserList(){
+        return getUserList(UserTree.getUserTree().getRoot(), new SinglyList<>());
+    }
+
+    /**
+     * Recursive function that gets the singly user list
+     * @param reference the tree´s root
+     * @param userList the  new user list
+     * @return returns the user list
+     */
+    private static SinglyList<User> getUserList(AlphNodeTree<User> reference, SinglyList<User> userList){
+        if (reference != null){ userList.add(reference.getData());}
+        if(reference.getRight()!=null){return getUserList(reference.getRight(), userList);}
+        if(reference.getLeft()!=null){return getUserList(reference.getLeft(), userList);}
+        userList.print_list();
+        return userList;
+    }
+
+    /**
+     * Function that returns the recipe singly list
+     * @return returns the function getRecipeList()
+     */
+    public static SinglyList<Recipe> getRecipeList(){
+        return getRecipeList(RecipeTree.getAvlRecipeTree().getRoot(), new SinglyList<>());
+    }
+
+    /**
+     * Recursive function that gets the singly recipe list
+     * @param reference the tree´s root
+     * @param recipeList the  new user list
+     * @return returns the recipe list
+     */
+    private static SinglyList<Recipe> getRecipeList(AlphNodeAVL<Recipe> reference, SinglyList<Recipe> recipeList){
+        if (reference != null){ recipeList.add(reference.getData());}
+        if(reference.getRight()!=null){return getRecipeList(reference.getRight(), recipeList);}
+        if(reference.getLeft()!=null){return getRecipeList(reference.getLeft(), recipeList);}
+        recipeList.print_list();
+        return recipeList;
+    }
+
+    /**
+     * Function that returns the company singly list
+     * @return returns the function getCompanyList()
+     */
+    public static SinglyList<Company> getCompanyList(){
+        return getCompanyList(CompanyTree.getSplayCompanyTree().getRoot(), new SinglyList<>());
+    }
+
+    /**
+     * Recursive function that gets the singly company list
+     * @param reference the tree´s root
+     * @param companyList the  new user list
+     * @return returns the company list
+     */
+    private static SinglyList<Company> getCompanyList(AlphNodeSplay<Company> reference, SinglyList<Company> companyList){
+        if (reference != null){ companyList.add(reference.getData());}
+        if(reference.getRight()!=null){return getCompanyList(reference.getRight(), companyList);}
+        if(reference.getLeft()!=null){return getCompanyList(reference.getLeft(), companyList);}
+        companyList.print_list();
+        return companyList;
     }
 
     /**
