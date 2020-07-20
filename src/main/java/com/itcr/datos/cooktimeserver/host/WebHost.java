@@ -73,6 +73,12 @@ public class WebHost {
         return UserTree.getUserTree().toString();
     }
 
+    @GetMapping("/getCompany/{ID}")
+    public Company getCompany(@PathVariable String ID){
+        try{ return TreeManagement.BinarySearchSplay(ID).getData(); }
+        catch (NullPointerException e){ return new Company();}
+        }
+
     /**
      * This method is a post method that receives a user in json format and converts it into a User type
      * @param newUser
