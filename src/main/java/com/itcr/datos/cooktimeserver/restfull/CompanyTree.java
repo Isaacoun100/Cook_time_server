@@ -104,6 +104,22 @@ public class CompanyTree {
      */
     @SuppressWarnings("unchecked")
     public static JSONObject splayTravel(AlphNodeSplay<Company> company, JSONObject jsonObject){
+        jsonObject= companyToJSON(company);
+
+        jsonObject.put("left", null);
+        jsonObject.put("right",null);
+
+        if(company.getLeft()!=null){
+            jsonObject.replace("left", splayTravel(company.getLeft(), new JSONObject()));
+        }
+        if(company.getRight()!=null){
+            jsonObject.replace("right", splayTravel(company.getRight(), new JSONObject()));
+        }
+        return jsonObject;
+    }
+
+    public static JSONObject companyToJSON(AlphNodeSplay<Company> company){
+        JSONObject jsonObject =  new JSONObject();
 
         try{jsonObject.put("name", company.getData().getName());}
         catch (NullPointerException e){jsonObject.put("name",null);}
@@ -126,25 +142,16 @@ public class CompanyTree {
         try{jsonObject.put("posts", company.getData().getPosts());}
         catch (NullPointerException e){jsonObject.put("posts",null);}
 
-
         try{jsonObject.put("followers",TypeConversion.makeStringArray(company.getData().getFollowers(), new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("followers",null);}
 
         try{jsonObject.put("following",TypeConversion.makeStringArray(company.getData().getFollowing(), new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("following",null);}
 
-       try{jsonObject.put("members", TypeConversion.makeStringArray(company.getData().getMembers(),new JSONArray()));}
-       catch (NullPointerException e){jsonObject.put("members",null);}
+        try{jsonObject.put("members", TypeConversion.makeStringArray(company.getData().getMembers(),new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("members",null);}
 
-        jsonObject.put("left", null);
-        jsonObject.put("right",null);
-
-        if(company.getLeft()!=null){
-            jsonObject.replace("left", splayTravel(company.getLeft(), new JSONObject()));
-        }
-        if(company.getRight()!=null){
-            jsonObject.replace("right", splayTravel(company.getRight(), new JSONObject()));
-        }
         return jsonObject;
     }
+
 }

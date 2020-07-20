@@ -126,8 +126,6 @@ public class TypeConversion {
         return  commentSinglyList;
     }
 
-
-
     public static Company makeCompany(JSONObject jsonObject){
         Company newCompany = new Company();
 
@@ -239,6 +237,8 @@ public class TypeConversion {
         try{jsonObject.put("hasCompany",user.getData().isHasCompany());}
         catch (NullPointerException e){jsonObject.put("hasCompany",false);}
 
+        try{jsonObject.put("company",user.getData().getCompany());}
+        catch (NullPointerException e){ jsonObject.put("company", null);}
         return jsonObject;
     }
     @SuppressWarnings("unchecked")

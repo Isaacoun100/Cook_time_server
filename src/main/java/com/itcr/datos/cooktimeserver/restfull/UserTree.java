@@ -76,6 +76,9 @@ public class UserTree {
         try{newUser.setFollowing(TypeConversion.makeStringList((JSONArray) jsonObject.get("following"), new SinglyList<String>()));}
         catch (NullPointerException e){newUser.setFollowing(new SinglyList<String>());}
 
+        try{newUser.setCompany(jsonObject.get("company").toString());}
+        catch (NullPointerException e){ newUser.setCompany(null); }
+
         binaryUserTree.add(newUser, newUser.getEmail());
 
         if(jsonObject.get("right")!=null){
