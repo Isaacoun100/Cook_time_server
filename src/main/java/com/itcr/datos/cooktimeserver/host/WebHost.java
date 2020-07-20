@@ -96,6 +96,11 @@ public class WebHost {
         }
     }
 
+    /**
+     * This will get the user by its user key
+     * @param userKey the user
+     * @return returns the user in which the user key is contained
+     */
     @GetMapping("/getUser/{userKey}")
     public String getUser(@PathVariable String userKey){
         JSONObject jsonObject = TypeConversion.userToJSON(TreeManagement.BinarySearch(userKey));
