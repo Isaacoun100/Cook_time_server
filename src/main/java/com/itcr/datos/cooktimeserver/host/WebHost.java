@@ -202,6 +202,17 @@ public class WebHost {
         }
     }
 
+    @GetMapping("/addFeedRecipe/{Recipe}/{User}")
+    public static String addFeedRecipe(@PathVariable String User, @PathVariable String recipe){
+        try{
+            User user = TreeManagement.BinarySearch(User).getData();
+            Recipe newRecipe = TreeManagement.BinarySearchAvl(recipe).getData();
+            user.addRecipe(recipe);
+            return recipe;
+        }
+        catch (NullPointerException e){ return null; }
+    }
+
     @GetMapping("/user/{email}/addFollower/{incoming}")
     public static String addValue(@PathVariable String email , @PathVariable String incoming){
         User follower, followed = follower = null;
