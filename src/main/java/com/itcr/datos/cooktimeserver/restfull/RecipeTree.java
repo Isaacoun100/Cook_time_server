@@ -190,16 +190,4 @@ public class RecipeTree {
         }
         return jsonObject;
     }
-
-    public static SinglyList<Recipe> getRecipeList(){
-        return getRecipeList(RecipeTree.getAvlRecipeTree().getRoot(), new SinglyList<>());
-    }
-    private static SinglyList<Recipe> getRecipeList(AlphNodeAVL<Recipe> reference, SinglyList<Recipe> recipeList){
-       if (reference != null){ recipeList.add(reference.getData());}
-        if(reference.getRight()!=null){return getRecipeList(reference.getRight(), recipeList);}
-        if(reference.getLeft()!=null){return getRecipeList(reference.getLeft(), recipeList);}
-        recipeList.print_list();
-        return recipeList;
-
-    }
 }
