@@ -113,7 +113,7 @@ public class WebHost {
      */
     @GetMapping("/getUser/userLinkedList")
     public static SinglyList<User> getUsersList(){
-        return UserTree.getUserList();
+        return UserTree.getUserShuffledList();
     }
 
     @GetMapping("/login/{userKey}/{password}")
@@ -319,7 +319,7 @@ public class WebHost {
      * @return returns the singly list with the dates sorted
      */
     @GetMapping("/sorting/getDates")
-    public static SinglyList<DateSort> getDateSort(){
+    public static SinglyList<Recipe> getDateSort(){
         return SortingMethods.DateSort();
     }
 
@@ -328,7 +328,7 @@ public class WebHost {
      * @return returns the singly list with the ratings sorted
      */
     @GetMapping("/sorting/getRatings")
-    public static SinglyList<RatingSort> getRatingSort(){
+    public static SinglyList<Recipe> getRatingSort(){
         return SortingMethods.RatingSort();
     }
 
@@ -337,7 +337,7 @@ public class WebHost {
      * @return returns the singly list with the difficulties sorted
      */
     @GetMapping("/sorting/getDifficulties")
-    public static SinglyList<DifficultySort> getDifficultySort(){
+    public static SinglyList<Recipe> getDifficultySort(){
         return SortingMethods.DifficultySort();
     }
 
@@ -347,7 +347,7 @@ public class WebHost {
      */
     @GetMapping("/getRecipeList")
     public static SinglyList<Recipe> getRecipeList(){
-        try{ return RecipeTree.getRecipeList(); }
+        try{ return TreeManagement.getRecipeList(); }
         catch (NullPointerException e){ return new SinglyList<Recipe>(); }
     }
 
@@ -369,7 +369,7 @@ public class WebHost {
      * @return returns the singly list
      */
     @GetMapping("/sorting/getDates/{id}")
-    public static SinglyList<DateSort> getSortedDates(@PathVariable String id){
+    public static SinglyList<Recipe> getSortedDates(@PathVariable String id){
         return SortingMethods.DateSortUser(id);
     }
 
@@ -379,8 +379,8 @@ public class WebHost {
      * @return returns the singly list
      */
     @GetMapping("/sorting/getRatings/{id}")
-    public static SinglyList<RatingSort> getSortedRatings(@PathVariable String id){
-        return SortingMethods.ratingSortUser(id);
+    public static SinglyList<Recipe> getSortedRatings(@PathVariable String id){
+        return SortingMethods.RatingSortUser(id);
     }
 
     /**
@@ -389,7 +389,7 @@ public class WebHost {
      * @return returns the singly list
      */
     @GetMapping("/sorting/getDifficulties/{id}")
-    public static SinglyList<DifficultySort> getSortedDifficulties(@PathVariable String id){
+    public static SinglyList<Recipe> getSortedDifficulties(@PathVariable String id){
         return SortingMethods.DifficultySortUser(id);
     }
 
