@@ -15,7 +15,16 @@ public class User extends Client {
     private SinglyList<String> followers;
     private SinglyList<String> following;
     private boolean hasCompany;
+    private String company = null;
     private int age;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
     /**
      * Getter for the String name
