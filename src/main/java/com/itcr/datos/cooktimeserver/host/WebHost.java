@@ -73,11 +73,13 @@ public class WebHost {
         return UserTree.getUserTree().toString();
     }
 
-    @GetMapping("/getCompany/{ID}")
+    @GetMapping("/getCompany/name/{ID}")
     public Company getCompany(@PathVariable String ID){
         try{ return TreeManagement.BinarySearchSplay(ID).getData(); }
         catch (NullPointerException e){ return new Company();}
-        }
+    }
+
+
 
     /**
      * This method is a post method that receives a user in json format and converts it into a User type
@@ -241,17 +243,35 @@ public class WebHost {
         try{
             Company incomingCompany = TypeConversion.makeCompany(newCompany);
             if (newCompany != null){
+                int count=0;
+                while(count<incomingCompany.getMembers().getLength()){
+                    User user = TreeManagement.BinarySearch(incomingCompany.getMembers().get(count).getData()).getData();
+                    user.setCompany(incomingCompany.getName());
+                    UserTree.saveUser();
+                    count++;
+                }
+
                 CompanyTree.addCompany(incomingCompany);
                 return incomingCompany;
             }
-            else{
-                return new Company();
-            }
+            else{ return new Company(); }
         }
         catch (NullPointerException e){
             e.printStackTrace();
             return new Company();
         }
+    }
+
+    @GetMapping("/getCompany/user/{ID}")
+    public static Company getUserCompany(@PathVariable String ID){
+        User user;
+        Company company;
+        try{
+            user=TreeManagement.BinarySearch(ID).getData();
+            company=TreeManagement.BinarySearchSplay(user.getCompany()).getData();
+            return company;
+        }
+        catch (NullPointerException e){ System.out.println("null");return new Company(); }
     }
 
     @GetMapping("/getRecipe/title/{recipe}")

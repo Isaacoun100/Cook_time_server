@@ -151,9 +151,6 @@ public class CompanyTree {
         try{jsonObject.put("members", TypeConversion.makeStringArray(company.getData().getMembers(),new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("members",null);}
 
-        try{jsonObject.put("admin",company.getData().getAdmin());}
-        catch (NullPointerException e){ jsonObject.put("admin",null);}
-
         return jsonObject;
     }
 
