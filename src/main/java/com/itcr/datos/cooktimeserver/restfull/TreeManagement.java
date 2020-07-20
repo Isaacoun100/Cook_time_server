@@ -76,7 +76,7 @@ public class TreeManagement {
      * @return returns the recursive function
      */
     public static AlphNodeSplay<Company> BinarySearchSplay(String data){
-        return BinarySearchSplay(CompanyTree.getUserTree().getRoot(),data);
+        return BinarySearchSplay(CompanyTree.getSplayCompanyTree().getRoot(),data);
     }
 
     /**
