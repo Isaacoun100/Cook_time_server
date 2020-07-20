@@ -261,7 +261,8 @@ public class Recipe {
      * @param comment
      */
     public void addComment(String comment){
-        this.comments=comments.concat(comment);
+        if(this.comments==null){this.comments=comment; }
+        else{ this.comments=comments.concat(",").concat(comment); }
     }
 
     /**

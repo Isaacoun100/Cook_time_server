@@ -269,7 +269,7 @@ public class WebHost {
             company=TreeManagement.BinarySearchSplay(user.getCompany()).getData();
             return company;
         }
-        catch (NullPointerException e){ System.out.println("null");return new Company(); }
+        catch (NullPointerException e){return new Company(); }
     }
 
     @GetMapping("/getRecipe/{recipe}/title")
@@ -334,8 +334,20 @@ public class WebHost {
 
     @GetMapping("/getRecipeList")
     public static SinglyList<Recipe> getRecipeList(){
-        return RecipeTree.getRecipeList();
+        try{ return RecipeTree.getRecipeList(); }
+        catch (NullPointerException e){ return new SinglyList<Recipe>(); }
     }
 
+    @PostMapping("/addComment/{recipe}/{commentator}/")
+    public static String addComment(@RequestBody String comment, @PathVariable String recipe, @PathVariable String commentator){
+        try{
+            Recipe newRecipe= TreeManagement.BinarySearchAvl(recipe).getData();
+            newRecipe.addComment(commentator.concat(":").concat(comment));
+            RecipeTree.saveRecipe();
+            return newRecipe.getComments();
+        }
+        catch (NullPointerException e){ return null; }
+
+    }
 
 }
