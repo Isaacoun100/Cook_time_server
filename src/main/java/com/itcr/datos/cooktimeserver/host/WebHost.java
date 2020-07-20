@@ -352,14 +352,16 @@ public class WebHost {
     }
 
     @PostMapping("/addComment/{recipe}/{commentator}/")
-    public static String addComment(@RequestBody String comment, @PathVariable String recipe, @PathVariable String commentator){
-        try{
-            Recipe newRecipe= TreeManagement.BinarySearchAvl(recipe).getData();
+    public static String addComment(@RequestBody String comment, @PathVariable String recipe, @PathVariable String commentator) {
+        try {
+            Recipe newRecipe = TreeManagement.BinarySearchAvl(recipe).getData();
             newRecipe.addComment(commentator.concat(":").concat(comment));
             RecipeTree.saveRecipe();
             return newRecipe.getComments();
+        } catch (NullPointerException e) {
+            return null;
         }
-        catch (NullPointerException e){ return null; }
+    }
 
     /**
      * Getter for the dates sorted for each user
@@ -376,7 +378,7 @@ public class WebHost {
      * @param id the id of the user
      * @return returns the singly list
      */
-    @GetMapping("/sorting/getDates/{id}")
+    @GetMapping("/sorting/getRatings/{id}")
     public static SinglyList<RatingSort> getSortedRatings(@PathVariable String id){
         return SortingMethods.ratingSortUser(id);
     }
@@ -386,7 +388,7 @@ public class WebHost {
      * @param id the id of the user
      * @return returns the singly list
      */
-    @GetMapping("/sorting/getDates/{id}")
+    @GetMapping("/sorting/getDifficulties/{id}")
     public static SinglyList<DifficultySort> getSortedDifficulties(@PathVariable String id){
         return SortingMethods.DifficultySortUser(id);
     }
