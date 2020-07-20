@@ -21,7 +21,7 @@ public class Recipe {
     private int servings;
     private int rating;
     private int difficulty;
-    private SinglyList<Comment> comments;
+    private SinglyList<String> comments;
 
     /**
      * Getter for title
@@ -251,7 +251,7 @@ public class Recipe {
      * Getter for comments
      * @return returns comments
      */
-    public SinglyList<Comment> getComments() {
+    public SinglyList<String> getComments() {
         return comments;
     }
 
@@ -260,15 +260,15 @@ public class Recipe {
      * @param author
      * @param comment
      */
-    public void addComment(String author, String comment){
-        this.comments.add(new Comment(author, comment));
+    public void addComment(String comment){
+        this.comments.add(comment);
     }
 
     /**
      * Setter for comments
      * @param comments
      */
-    public void setComments(SinglyList<Comment> comments) {
+    public void setComments(SinglyList<String> comments) {
         this.comments = comments;
     }
     /**
