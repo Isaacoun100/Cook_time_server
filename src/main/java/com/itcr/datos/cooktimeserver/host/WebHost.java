@@ -394,5 +394,28 @@ public class WebHost {
     }
 
 
+    @GetMapping("/searchUser/{criteria}/")
+    public static SinglyList<User> searchUser(@PathVariable String criteria){
+        try{ return UserTree.searchUser(criteria); }
+        catch (NullPointerException e){ return new SinglyList<>(); }
+    }
+
+    @GetMapping("/searchChef/{criteria}/")
+    public static SinglyList<Chef> searchChef(@PathVariable String criteria){
+        try{ return ChefTree.searchChef(criteria); }
+        catch (NullPointerException e){ return new SinglyList<>(); }
+    }
+
+    @GetMapping("/searchRecipe/{criteria}/")
+    public static SinglyList<Recipe> searchRecipe(@PathVariable String criteria){
+        try{ return RecipeTree.searchRecipe(criteria); }
+        catch (NullPointerException e){ return new SinglyList<>(); }
+    }
+
+    @GetMapping("/searchCompany/{criteria}/")
+    public static SinglyList<Company> searchCompany(@PathVariable String criteria){
+        try{ return CompanyTree.searchCompany(criteria); }
+        catch (NullPointerException e){ return new SinglyList<>(); }
+    }
 
 }
