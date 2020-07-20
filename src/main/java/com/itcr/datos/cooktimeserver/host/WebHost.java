@@ -97,9 +97,9 @@ public class WebHost {
     }
 
     /**
-     * This will get the user by its user key
-     * @param userKey the user
-     * @return returns the user in which the user key is contained
+     * This will
+     * @param userKey
+     * @return
      */
     @GetMapping("/getUser/{userKey}")
     public String getUser(@PathVariable String userKey){
