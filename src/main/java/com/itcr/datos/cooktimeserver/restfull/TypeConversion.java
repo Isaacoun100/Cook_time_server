@@ -180,8 +180,10 @@ public class TypeConversion {
 
     @SuppressWarnings("unchecked")
     public static JSONArray makeCommentArray(SinglyList<Comment> commentSinglyList, JSONArray jsonArray){
-        int count = 0;
-        while(count < commentSinglyList.getLength()){
+        int count, size  = count = 0;
+        try{size=commentSinglyList.getLength();}
+        catch (NullPointerException e){ e.printStackTrace();}
+        while(count < size){
             JSONObject newJSONObject = new JSONObject();
             newJSONObject.put("author", commentSinglyList.get(count).getData().getAuthor());
             newJSONObject.put("comment", commentSinglyList.get(count).getData().getComment());

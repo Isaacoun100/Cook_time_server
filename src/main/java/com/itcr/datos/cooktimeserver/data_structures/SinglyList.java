@@ -72,11 +72,16 @@ public class SinglyList<T> extends LinkedList<T> {
      */
     @Override
     public SinglyNode<T> getLast() {
-        SinglyNode<T> lastNode = (SinglyNode<T>) this.head;
-        while (lastNode.getNext() != null) {
-            lastNode = (SinglyNode<T>) lastNode.getNext();
+        if(this.head!=null){
+            SinglyNode<T> lastNode = (SinglyNode<T>) this.head;
+            while (lastNode.getNext() != null) {
+                lastNode = (SinglyNode<T>) lastNode.getNext();
+            }
+            return lastNode;
         }
-        return lastNode;
+        else{
+            return null;
+        }
     }
 
     /**

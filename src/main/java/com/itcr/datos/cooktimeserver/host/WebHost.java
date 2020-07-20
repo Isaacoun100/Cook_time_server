@@ -275,9 +275,6 @@ public class WebHost {
             try{ recipe = TreeManagement.BinarySearchAvl(user.getRecipe().get(count).getData()).getData(); }
             catch (NullPointerException e){ e.printStackTrace();}
 
-            try{ if(recipe.getComments().getLength()==0){ recipe.setComments(null);} }
-            catch (NullPointerException e) { e.printStackTrace();}
-
             recipeSinglyList.add(recipe);
             count++;
         }
