@@ -125,9 +125,9 @@ public class UserTree {
 
     /**
      * Function that adds the data to Users.json
-     * @param user
-     * @param jsonObject
-     * @return
+     * @param user root
+     * @param jsonObject needed to search
+     * @return JSONObject you where looking for
      */
     @SuppressWarnings("unchecked")
     public static JSONObject binaryTravel(AlphNodeTree<User> user, JSONObject jsonObject){
@@ -155,5 +155,16 @@ public class UserTree {
         return userList;
     }
 
+
+    public static SinglyList<User> searchUser(String data){
+        return searchUser(data, getUserTree().getRoot(), new SinglyList<User>());
+    }
+
+    public static SinglyList<User> searchUser(String data, AlphNodeTree<User> root, SinglyList<User> result){
+        if(root.getData().getName().contains(data)){ result.add(root.getData()); }
+        if(root.getRight()!=null){ searchUser(data, root.getRight(), result); }
+        if(root.getLeft()!=null){ searchUser(data, root.getLeft(), result); }
+        return result;
+    }
 
 }
