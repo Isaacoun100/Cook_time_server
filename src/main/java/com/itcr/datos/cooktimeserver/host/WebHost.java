@@ -1,11 +1,9 @@
 package com.itcr.datos.cooktimeserver.host;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
-import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.*;
 import org.json.simple.JSONObject;
 
@@ -213,7 +211,7 @@ public class WebHost {
     }
 
     @PostMapping("/newRecipe")
-    public JSONObject addRecipe(@RequestBody JSONObject newRecipe){
+    public Recipe addRecipe(@RequestBody JSONObject newRecipe){
         try{
             Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
             User user = TreeManagement.BinarySearch(incomingRecipe.getAuthor()).getData();
@@ -221,15 +219,15 @@ public class WebHost {
                 user.addRecipe(incomingRecipe.getTitle());
                 UserTree.saveUser();
                 RecipeTree.addRecipe(incomingRecipe);
-                return RecipeTree.recipeToJSONObject(incomingRecipe);
+                return incomingRecipe;
             }
             else{
-                return RecipeTree.recipeToJSONObject(new Recipe());
+                return new Recipe();
             }
         }
         catch (NullPointerException e){
             e.printStackTrace();
-            return RecipeTree.recipeToJSONObject(new Recipe());
+            return new Recipe();
         }
     }
 
@@ -274,12 +272,12 @@ public class WebHost {
         catch (NullPointerException e){ System.out.println("null");return new Company(); }
     }
 
-    @GetMapping("/getRecipe/title/{recipe}")
+    @GetMapping("/getRecipe/{recipe}/title")
     public static Recipe getRecipe(@PathVariable String recipe){
         return RecipeTree.getAvlRecipeTree().getRoot().getData();
     }
 
-    @GetMapping("/getRecipe/user/{email}")
+    @GetMapping("/getRecipe/{email}/user")
     public static SinglyList<Recipe> getRecipeID(@PathVariable String email){
         SinglyList<Recipe> recipeSinglyList = new SinglyList<Recipe>();
         User user = new User();

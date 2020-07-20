@@ -164,7 +164,7 @@ public class RecipeTree {
         try{jsonObject.put("difficulty", recipe.getDifficulty());}
         catch (NullPointerException e){jsonObject.put("difficulty",null);}
 
-        try{jsonObject.put("comments", TypeConversion.makeStringArray(recipe.getComments(), new JSONArray()));}
+        try{jsonObject.put("comments", recipe.getComments());}
         catch (NullPointerException e){jsonObject.put("comments",null);}
 
         return jsonObject;

@@ -79,8 +79,8 @@ public class TypeConversion {
         try{ recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString())); }
         catch (NullPointerException e){ recipe.setDifficulty(0); }
 
-        try{ recipe.setComments(makeStringList(objectToJSONArray(jsonObject.get("comments")),new SinglyList<>()));}
-        catch (NullPointerException e){ recipe.setComments(new SinglyList<String>());}
+        try{ recipe.setComments(jsonObject.get("comments").toString());}
+        catch (NullPointerException e){ recipe.setComments(null);}
         return recipe;
     }
 
