@@ -67,7 +67,7 @@ public class CompanyTree {
      * This method is a getter for the UserList
      * @return UserList
      */
-    public static AlphSplayTree<Company> getUserTree(){
+    public static AlphSplayTree<Company> getSplayCompanyTree(){
         return splayCompanyTree;
     }
     /**
