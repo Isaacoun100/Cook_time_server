@@ -142,4 +142,15 @@ public class ChefTree {
         return jsonObject;
     }
 
+    public static SinglyList<Chef> searchChef(String data){
+        return searchChef(data, getChefTree().getRoot(), new SinglyList<Chef>());
+    }
+
+    public static SinglyList<Chef> searchChef(String data, AlphNodeTree<Chef> root, SinglyList<Chef> result){
+        if(root.getData().getName().contains(data)){ result.add(root.getData()); }
+        if(root.getRight()!=null){ searchChef(data, root.getRight(), result); }
+        if(root.getLeft()!=null){ searchChef(data, root.getLeft(), result); }
+        return result;
+    }
+
 }
