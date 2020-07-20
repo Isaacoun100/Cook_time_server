@@ -314,5 +314,10 @@ public class WebHost {
         return SortingMethods.DifficultySort();
     }
 
+    @GetMapping("/getRecipeList")
+    public static SinglyList<Recipe> getRecipeList(){
+        return RecipeTree.getRecipeList();
+    }
+
 
 }

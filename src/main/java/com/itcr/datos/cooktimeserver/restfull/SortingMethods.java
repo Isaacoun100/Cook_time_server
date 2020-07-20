@@ -71,6 +71,7 @@ public class SortingMethods {
         }
         datesort_list = datesort_list.Inverter(datesort_list);
         datesort_list.print_list();
+
         return datesort_list;
     }
 
@@ -104,6 +105,7 @@ public class SortingMethods {
         SinglyList<RatingSort> list;
         list = BinarySearchRating();
         SortingAlgorithms.quick_sort_ratings(list);
+        list.Inverter(list);
         list.print_list();
 
         return list;
