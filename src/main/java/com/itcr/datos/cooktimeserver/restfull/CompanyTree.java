@@ -154,4 +154,15 @@ public class CompanyTree {
         return jsonObject;
     }
 
+    public static SinglyList<Company> searchCompany(String data){
+        return searchCompany(data, getSplayCompanyTree().getRoot(), new SinglyList<Company>());
+    }
+
+    public static SinglyList<Company> searchCompany(String data, AlphNodeSplay<Company> root, SinglyList<Company> result){
+        if(root.getData().getName().contains(data)){ result.add(root.getData()); }
+        if(root.getRight()!=null){ searchCompany(data, root.getRight(), result); }
+        if(root.getLeft()!=null){ searchCompany(data, root.getLeft(), result); }
+        return result;
+    }
+
 }

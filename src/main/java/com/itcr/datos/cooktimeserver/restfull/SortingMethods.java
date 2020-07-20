@@ -29,9 +29,7 @@ public class SortingMethods {
             String date = recipeList.get(i).getData().getDate();
 
             days.add(Integer.parseInt(String.valueOf(date.charAt(0)) + date.charAt(1)));
-
             months.add(Integer.parseInt(String.valueOf(date.charAt(3)) + date.charAt(4)));
-
             years.add(Integer.parseInt(String.valueOf(date.charAt(6)) + date.charAt(7) + date.charAt(8) + date.charAt(9)));
 
 
