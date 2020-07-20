@@ -107,6 +107,15 @@ public class WebHost {
         return jsonObject.toString();
     }
 
+    /**
+     * Getter for the user singly list
+     * @return returns the singly list of users shuffled
+     */
+    @GetMapping("/getUser/userLinkedList")
+    public static SinglyList<User> getUsersList(){
+        return UserTree.getUserList();
+    }
+
     @GetMapping("/login/{userKey}/{password}")
     public JSONObject LoginMethod(@PathVariable String userKey, @PathVariable String password){
         JSONObject jsonObject;
@@ -332,6 +341,10 @@ public class WebHost {
         return SortingMethods.DifficultySort();
     }
 
+    /**
+     * Getter for all the recipes in a singly list
+     * @return returns the singly list
+     */
     @GetMapping("/getRecipeList")
     public static SinglyList<Recipe> getRecipeList(){
         try{ return RecipeTree.getRecipeList(); }
@@ -348,6 +361,36 @@ public class WebHost {
         }
         catch (NullPointerException e){ return null; }
 
+    /**
+     * Getter for the dates sorted for each user
+     * @param id the id of the user
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getDates/{id}")
+    public static SinglyList<DateSort> getSortedDates(@PathVariable String id){
+        return SortingMethods.DateSortUser(id);
     }
+
+    /**
+     * Getter for the ratings sorted for each user
+     * @param id the id of the user
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getDates/{id}")
+    public static SinglyList<RatingSort> getSortedRatings(@PathVariable String id){
+        return SortingMethods.ratingSortUser(id);
+    }
+
+    /**
+     * Getter for the difficulties sorted for each user
+     * @param id the id of the user
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getDates/{id}")
+    public static SinglyList<DifficultySort> getSortedDifficulties(@PathVariable String id){
+        return SortingMethods.DifficultySortUser(id);
+    }
+
+
 
 }

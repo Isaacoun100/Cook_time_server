@@ -1,5 +1,7 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
+import java.util.Random;
+
 /**
  * LinkedList where each Node contains a reference to the next
  * @param <T> Data type on Nodes
@@ -205,6 +207,27 @@ public class SinglyList<T> extends LinkedList<T> {
         return result;
 
     }
+    /**
+     * Shuffles the list .
+     * @return returns the list with its elements shuffled
+     */
+    public SinglyList<T> shuffle(){
+        if (this.length == 0){throw new IllegalStateException("La lista está vacía");}
+        SinglyList<T> aux = new SinglyList<>();
+        SinglyList<T> result = new SinglyList<>();
+        int i = 0;
+        while (i < this.getLength()){
+            aux.add(this.get(i).getData());
+            i++;
+        }
+        while (aux.length != 0){
+            int random = new Random().nextInt(aux.getLength());
+            result.add(aux.get(random).getData());
+            aux.remove(random);
+        }
+        return result;
+    }
+
     /**
      * Prints the list with its attributes, from the first to the last value.
      * @return Returns true if there's no problems with printing the list, false if there is.
