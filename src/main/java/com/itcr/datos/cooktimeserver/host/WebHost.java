@@ -314,10 +314,43 @@ public class WebHost {
         return SortingMethods.DifficultySort();
     }
 
+    /**
+     * Getter for all the recipes in a singly list
+     * @return returns the singly list
+     */
     @GetMapping("/getRecipeList")
     public static SinglyList<Recipe> getRecipeList(){
         return RecipeTree.getRecipeList();
     }
 
+    /**
+     * Getter for the dates sorted for each user
+     * @param id the id of the user
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getDates/{id}")
+    public static SinglyList<DateSort> getSortedDates(@PathVariable String id){
+        return SortingMethods.DateSortUser(id);
+    }
+
+    /**
+     * Getter for the ratings sorted for each user
+     * @param id the id of the user
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getDates/{id}")
+    public static SinglyList<RatingSort> getSortedRatings(@PathVariable String id){
+        return SortingMethods.ratingSortUser(id);
+    }
+
+    /**
+     * Getter for the difficulties sorted for each user
+     * @param id the id of the user
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getDates/{id}")
+    public static SinglyList<DifficultySort> getSortedDifficulties(@PathVariable String id){
+        return SortingMethods.DifficultySortUser(id);
+    }
 
 }
