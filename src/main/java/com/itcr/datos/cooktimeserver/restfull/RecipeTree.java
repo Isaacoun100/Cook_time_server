@@ -3,6 +3,7 @@ package com.itcr.datos.cooktimeserver.restfull;
 import com.itcr.datos.cooktimeserver.data_structures.AlphAvlTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.object.Comment;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -75,7 +76,7 @@ public class RecipeTree {
     public static void addRecipe(Recipe newRecipe){
         if(newRecipe != null){
             avlRecipeTree.add(newRecipe, newRecipe.getTitle());
-            saveUser();
+            saveRecipe();
             updateRecipeList();
         }
         else{
@@ -84,13 +85,21 @@ public class RecipeTree {
         }
     }
 
-    public static void saveUser(){
+    /**
+     * Function that saves a new recipe
+     */
+    public static void saveRecipe(){
         try (FileWriter file = new FileWriter("res/data/Recipes.json")){
             file.write(avlTravel(avlRecipeTree.getRoot(), new JSONObject()).toString());
             file.flush();
         }catch (IOException e ){ e.printStackTrace(); }
     }
 
+    /**
+     * Function that casts a recipe list to JSON
+     * @param recipeSinglyList the recipe singly list
+     * @return returns the jsonarray
+     */
     public static JSONArray recipeListToJSON(SinglyList<Recipe> recipeSinglyList){
         int count, size = count = 0;
         JSONArray jsonArray = new JSONArray();
@@ -103,6 +112,12 @@ public class RecipeTree {
         }
         return jsonArray;
     }
+
+    /**
+     * Function that casts recipe to JSON object
+     * @param recipe
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public static JSONObject recipeToJSONObject(Recipe recipe){
         JSONObject jsonObject = new JSONObject();
@@ -155,6 +170,12 @@ public class RecipeTree {
         return jsonObject;
     }
 
+    /**
+     * Function that travels the avl tree in finds the data
+     * @param recipe the recioe avl node
+     * @param jsonObject the JSON object
+     * @return returns the updated JSON object
+     */
     @SuppressWarnings("unchecked")
     public static JSONObject avlTravel(AlphNodeAVL<Recipe> recipe, JSONObject jsonObject){
         jsonObject=recipeToJSONObject(recipe.getData());
@@ -168,5 +189,17 @@ public class RecipeTree {
             jsonObject.replace("right", avlTravel(recipe.getRight(), new JSONObject()));
         }
         return jsonObject;
+    }
+
+    public static SinglyList<Recipe> getRecipeList(){
+        return getRecipeList(RecipeTree.getAvlRecipeTree().getRoot(), new SinglyList<>());
+    }
+    private static SinglyList<Recipe> getRecipeList(AlphNodeAVL<Recipe> reference, SinglyList<Recipe> recipeList){
+       if (reference != null){ recipeList.add(reference.getData());}
+        if(reference.getRight()!=null){return getRecipeList(reference.getRight(), recipeList);}
+        if(reference.getLeft()!=null){return getRecipeList(reference.getLeft(), recipeList);}
+        recipeList.print_list();
+        return recipeList;
+
     }
 }
