@@ -108,12 +108,21 @@ public class WebHost {
     }
 
     /**
-     * Getter for the user singly list
-     * @return returns the singly list of users shuffled
+     * Getter for the shuffled user singly list
+     * @return returns the first 3 users of the shuffled singly list
      */
-    @GetMapping("/getUser/userLinkedList")
-    public static SinglyList<User> getUsersList(){
+    @GetMapping("/getUser/userShuffledList")
+    public static SinglyList<User> getShuffledUserList(){
         return UserTree.getUserShuffledList();
+    }
+
+    /**
+     * Getter for the shuffled company singly list
+     * @return returns the first 3 companies of the shuffled singly list
+     */
+    @GetMapping("/getCompany/companyShuffledList")
+    public static SinglyList<Company> getShuffledCompanyList(){
+        return CompanyTree.getCompanyShuffledList();
     }
 
     @GetMapping("/login/{userKey}/{password}")
@@ -428,5 +437,6 @@ public class WebHost {
         try{ return CompanyTree.searchCompany(criteria); }
         catch (NullPointerException e){ return new SinglyList<>(); }
     }
+
 
 }
