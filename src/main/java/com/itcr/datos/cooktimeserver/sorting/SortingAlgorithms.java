@@ -3,6 +3,7 @@ package com.itcr.datos.cooktimeserver.sorting;
 import com.itcr.datos.cooktimeserver.data_structures.*;
 import com.itcr.datos.cooktimeserver.object.DifficultySort;
 import com.itcr.datos.cooktimeserver.object.RatingSort;
+import com.itcr.datos.cooktimeserver.object.Recipe;
 
 import java.util.Arrays;
 
@@ -68,11 +69,22 @@ public class SortingAlgorithms {
             quick_sort_aux(list, i, last);}
     }
 
-    public static void quick_sort_ratings(SinglyList<RatingSort> list){
+    /**
+     * QuickSort algorithm for sorting the recipe´s ratings
+     * @param list the recipe singly list
+     */
+    public static void quick_sort_ratings(SinglyList<Recipe> list){
         if (list.getLength() > 0 && list != null){
             quick_sort_ratings(list,0, list.getLength()-1);}
     }
-    private static void quick_sort_ratings(SinglyList<RatingSort> list, int first, int last){
+
+    /**
+     * QuickSort Recursive Algorithm
+     * @param list the recipe singly list
+     * @param first the first data
+     * @param last the last data
+     */
+    private static void quick_sort_ratings(SinglyList<Recipe> list, int first, int last){
         int pivot = (first + (last - first) / 2);
         int dataPivot = list.get(pivot).getData().getRating();
         int i = first;
@@ -163,6 +175,20 @@ public class SortingAlgorithms {
     }
 
     /**
+     * The main function that sorts the singly list
+     * @param list the integer singly list
+     */
+    public static void radix_sort_difficulty(SinglyList<Recipe> list){
+        int length = list.getLength();
+
+        int max = get_max_difficulty(list, length);
+
+        for (int exp = 1; max/exp > 0; exp *= 10)
+            count_sort_difficulty(list, length, exp);
+
+    }
+
+    /**
      * A utility function to get maximum value in singly list
      * @param list the singly list
      * @param lenght the lenght
@@ -175,7 +201,6 @@ public class SortingAlgorithms {
                 max = list.get(i).getData();
         return max;
     }
-
     /**
      * A function to do counting sort of SinglyList according to the digit represented by exp
      * @param list the singly list
@@ -205,19 +230,6 @@ public class SortingAlgorithms {
             list.get(i).setData(output[i]);
 
     }
-    /**
-     * The main function that sorts the singly list
-     * @param list the integer singly list
-     */
-    public static void radix_sort_difficulty(SinglyList<DifficultySort> list){
-        int length = list.getLength();
-
-        int max = get_max_difficulty(list, length);
-
-        for (int exp = 1; max/exp > 0; exp *= 10)
-            count_sort_difficulty(list, length, exp);
-
-    }
 
     /**
      * A utility function to get maximum value in singly list
@@ -225,7 +237,7 @@ public class SortingAlgorithms {
      * @param lenght the lenght
      * @return returns the maximum value
      */
-    private static int get_max_difficulty(SinglyList<DifficultySort> list, int lenght){
+    private static int get_max_difficulty(SinglyList<Recipe> list, int lenght){
         int max = list.getHead().getData().getDifficulty();
         for (int i = 1; i < lenght; i++)
             if (list.get(i).getData().getDifficulty() > max)
@@ -238,7 +250,7 @@ public class SortingAlgorithms {
      * @param lenght the length
      * @param exp the exponent
      */
-    private static void count_sort_difficulty(SinglyList<DifficultySort> list, int lenght, int exp){
+    private static void count_sort_difficulty(SinglyList<Recipe> list, int lenght, int exp){
         int[] output = new int[lenght];
         int i;
         int[] count = new int[10];

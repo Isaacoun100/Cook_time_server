@@ -143,18 +143,11 @@ public class UserTree {
         }
         return jsonObject;
     }
-    public static SinglyList<User> getUserList(){
-        return getUserList(UserTree.getUserTree().getRoot(), new SinglyList<>());
+    public static SinglyList<User> getUserShuffledList(){
+        SinglyList<User> userSinglyList = TreeManagement.getUserList();
+        userSinglyList = userSinglyList.shuffle();
+        return userSinglyList;
     }
-    private static SinglyList<User> getUserList(AlphNodeTree<User> reference, SinglyList<User> userList){
-        if (reference != null){ userList.add(reference.getData());}
-        if(reference.getRight()!=null){return getUserList(reference.getRight(), userList);}
-        if(reference.getLeft()!=null){return getUserList(reference.getLeft(), userList);}
-        userList.print_list();
-        userList = userList.shuffle();
-        return userList;
-    }
-
 
     public static SinglyList<User> searchUser(String data){
         return searchUser(data, getUserTree().getRoot(), new SinglyList<User>());

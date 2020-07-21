@@ -123,8 +123,8 @@ public class TreeManagement {
      */
     private static SinglyList<User> getUserList(AlphNodeTree<User> reference, SinglyList<User> userList){
         if (reference != null){ userList.add(reference.getData());}
-        if(reference.getRight()!=null){return getUserList(reference.getRight(), userList);}
-        if(reference.getLeft()!=null){return getUserList(reference.getLeft(), userList);}
+        if(reference.getRight()!=null){ getUserList(reference.getRight(), userList);}
+        if(reference.getLeft()!=null){ getUserList(reference.getLeft(), userList);}
         userList.print_list();
         return userList;
     }
@@ -145,8 +145,8 @@ public class TreeManagement {
      */
     private static SinglyList<Recipe> getRecipeList(AlphNodeAVL<Recipe> reference, SinglyList<Recipe> recipeList){
         if (reference != null){ recipeList.add(reference.getData());}
-        if(reference.getRight()!=null){return getRecipeList(reference.getRight(), recipeList);}
-        if(reference.getLeft()!=null){return getRecipeList(reference.getLeft(), recipeList);}
+        if(reference.getRight()!=null){ getRecipeList(reference.getRight(), recipeList);}
+        if(reference.getLeft()!=null){ getRecipeList(reference.getLeft(), recipeList);}
         recipeList.print_list();
         return recipeList;
     }
@@ -167,8 +167,8 @@ public class TreeManagement {
      */
     private static SinglyList<Company> getCompanyList(AlphNodeSplay<Company> reference, SinglyList<Company> companyList){
         if (reference != null){ companyList.add(reference.getData());}
-        if(reference.getRight()!=null){return getCompanyList(reference.getRight(), companyList);}
-        if(reference.getLeft()!=null){return getCompanyList(reference.getLeft(), companyList);}
+        if(reference.getRight()!=null){ getCompanyList(reference.getRight(), companyList);}
+        if(reference.getLeft()!=null){ getCompanyList(reference.getLeft(), companyList);}
         companyList.print_list();
         return companyList;
     }
