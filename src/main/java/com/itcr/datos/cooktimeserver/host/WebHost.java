@@ -50,6 +50,8 @@ public class WebHost {
                 +System.lineSeparator() +
                 "    *Search for a user by typing http://localhost:6969/searchUser/[criteria]"
                 +System.lineSeparator() +
+                "    *Get the first 3 users of the shuffled user list by typing http://localhost:6969//getUser/userShuffledList"
+                +System.lineSeparator() +
                 "     to change a value from a specified user using name, email, image, password, hasCompany and age"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
@@ -99,6 +101,8 @@ public class WebHost {
                 "    *Search for a company by typing http://localhost:6969/searchCompany/[criteria]/"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Access the company of an user by typing http://localhost:6969/getCompany/user/[User_email]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Get the first 3 companies of the shuffled company list by typing http://localhost:6969//getCompany/companyShuffledList"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
 
