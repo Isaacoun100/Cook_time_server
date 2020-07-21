@@ -89,7 +89,7 @@ public class SortingMethods {
     }
 
     /**
-     * Function that sorts the ratings with bubble sort
+     * Function that sorts the ratings with bubble sort and returns the 3 best ratings
      * @return returns the list sorted
      */
     public static SinglyList<Recipe> RatingSort(){
@@ -97,9 +97,19 @@ public class SortingMethods {
 
         SortingAlgorithms.quick_sort_ratings(list);
         list = list.Inverter(list);
-        list.print_list();
 
-        return list;
+        if (list.getLength() >= 3){
+            SinglyList<Recipe> newRecipeList = new SinglyList<>();
+            for (int i = 0; i < 3; i++){
+                newRecipeList.add(list.get(i).getData());
+            }
+            newRecipeList.print_list();
+            return  newRecipeList;
+        }
+        else {
+            list.print_list();
+            return list;
+        }
     }
 
     /**
