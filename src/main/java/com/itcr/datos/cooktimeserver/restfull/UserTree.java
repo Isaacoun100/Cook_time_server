@@ -3,6 +3,7 @@ package com.itcr.datos.cooktimeserver.restfull;
 import com.itcr.datos.cooktimeserver.data_structures.AlphBinaryTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.json.simple.parser.JSONParser;
@@ -143,21 +144,50 @@ public class UserTree {
         }
         return jsonObject;
     }
-    public static SinglyList<User> getUserShuffledList(){
-        SinglyList<User> userSinglyList = TreeManagement.getUserList();
-        userSinglyList = userSinglyList.shuffle();
-        return userSinglyList;
-    }
 
+    /**
+     * Function for finding user in singly list
+     * @param data the name of the user in the list
+     * @return returns the function searchUser()
+     */
     public static SinglyList<User> searchUser(String data){
         return searchUser(data, getUserTree().getRoot(), new SinglyList<User>());
     }
 
+    /**
+     * Recursive Function that returns the user searched
+     * @param data the name of the user searched
+     * @param root the tree node
+     * @param result the new singly list
+     * @return returns the singly list user
+     */
     public static SinglyList<User> searchUser(String data, AlphNodeTree<User> root, SinglyList<User> result){
         if(root.getData().getName().contains(data)){ result.add(root.getData()); }
         if(root.getRight()!=null){ searchUser(data, root.getRight(), result); }
         if(root.getLeft()!=null){ searchUser(data, root.getLeft(), result); }
         return result;
+    }
+
+    /**
+     * Function that gets the 3 first users in the shuffled user singly list
+     * @return returns the singly list of users
+     */
+    public static SinglyList<User> getUserShuffledList(){
+        SinglyList<User> userSinglyList = TreeManagement.getUserList();
+        userSinglyList = userSinglyList.shuffle();
+
+        if (userSinglyList.getLength() >= 3){
+            SinglyList<User> newUserList = new SinglyList<>();
+            for (int i = 0; i < 3; i++){
+                newUserList.add(userSinglyList.get(i).getData());
+            }
+            newUserList.print_list();
+            return  newUserList;
+        }
+        else {
+            userSinglyList.print_list();
+            return userSinglyList;
+        }
     }
 
 }
