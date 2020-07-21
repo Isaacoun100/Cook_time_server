@@ -322,6 +322,27 @@ public class WebHost {
         }
     }
 
+    @PostMapping("/company/newRecipe")
+    public Recipe addCompanyRecipe(@RequestBody JSONObject newRecipe){
+        try {
+            Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
+            Company company = TreeManagement.BinarySearchSplay(incomingRecipe.getAuthor()).getData();
+            if (newRecipe != null){
+                company.addRecipe(incomingRecipe.getTitle());
+                CompanyTree.saveCompany();
+                RecipeTree.addRecipe(incomingRecipe);
+                return incomingRecipe;
+            }
+            else{
+                return new Recipe();
+            }
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return new Recipe();
+        }
+    }
+
     /**
      * This method is a post method that receives a company in json format and converts it into a User type
      * @param newCompany
