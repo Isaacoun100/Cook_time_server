@@ -55,7 +55,7 @@ public class CompanyTree {
 
        newCompany = TypeConversion.makeCompany(jsonObject);
 
-        splayCompanyTree.add(newCompany, newCompany.getName());
+        splayCompanyTree.add(newCompany, newCompany.getEmail());
 
         if(jsonObject.get("right")!=null){
             getBranch((JSONObject) jsonObject.get("right"));
@@ -77,7 +77,7 @@ public class CompanyTree {
      */
     public static void addCompany(Company newCompany){
         if(newCompany!=null){
-            splayCompanyTree.add(newCompany, newCompany.getName());
+            splayCompanyTree.add(newCompany, newCompany.getEmail());
             saveCompany();
             updateCompanyList();
         }
@@ -151,6 +151,9 @@ public class CompanyTree {
 
         try{jsonObject.put("members", TypeConversion.makeStringArray(company.getData().getMembers(),new JSONArray()));}
         catch (NullPointerException e){jsonObject.put("members",null);}
+
+        try{jsonObject.put("recipe", TypeConversion.makeStringArray(company.getData().getRecipe(),new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("recipe",null);}
 
         return jsonObject;
     }

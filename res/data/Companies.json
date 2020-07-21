@@ -1,0 +1,37 @@
+{
+  "recipe": [],
+  "right": {
+    "recipe": [
+      null,
+      null,
+      "Paty a lo noguera"
+    ],
+    "right": null,
+    "posts": 0,
+    "schedule": null,
+    "number": 0,
+    "followers": [],
+    "left": null,
+    "following": [],
+    "members": [
+      "froto@email.com"
+    ],
+    "name": "Los pollos hermanos",
+    "logo": null,
+    "location": null,
+    "email": "polloshermanos@email.com"
+  },
+  "posts": 0,
+  "schedule": null,
+  "number": 0,
+  "followers": [],
+  "left": null,
+  "following": [],
+  "members": [
+    "crotolamo@emil.com"
+  ],
+  "name": "PolloLandia",
+  "logo": null,
+  "location": null,
+  "email": "polloLandia@email.com"
+}

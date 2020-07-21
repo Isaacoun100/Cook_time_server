@@ -1,5 +1,6 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
+import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.*;
@@ -158,6 +159,10 @@ public class TypeConversion {
 
         try{newCompany.setMembers(TypeConversion.makeStringList(objectToJSONArray(jsonObject.get("members")), new SinglyList<String>()));}
         catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
+
+        try{newCompany.setRecipe(TypeConversion.makeStringList(objectToJSONArray(jsonObject.get("recipe")), new SinglyList<String>()));}
+        catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
+
         return newCompany;
     }
 
@@ -275,6 +280,45 @@ public class TypeConversion {
         try{jsonObject.put("verify",chef.getData().isVerify());}
         catch (NullPointerException e){jsonObject.put("hasCompany",false);}
 
+        return jsonObject;
+    }
+    @SuppressWarnings("unchecked")
+    public static JSONObject companyToJSON(AlphNodeSplay<Company> company){
+        JSONObject jsonObject = new JSONObject();
+
+        try{jsonObject.put("name",company.getData().getName());}
+        catch (NullPointerException e){jsonObject.put("name",null);}
+
+        try{jsonObject.put("email",company.getData().getEmail());}
+        catch (NullPointerException e){jsonObject.put("email",null);}
+
+        try{ jsonObject.put("schedule",company.getData().getSchedule());}
+        catch (NullPointerException e){jsonObject.put("schedule",null);}
+
+        try{jsonObject.put("logo",company.getData().getLogo());}
+        catch (NullPointerException e){jsonObject.put("logo",0);}
+
+        try{jsonObject.put("location",company.getData().getLocation());}
+        catch (NullPointerException e){jsonObject.put("location",null);}
+
+        try{jsonObject.put("number",company.getData().getNumber());}
+        catch (NullPointerException e){jsonObject.put("number",null);}
+
+        try{jsonObject.put("posts",company.getData().getPosts());}
+        catch (NullPointerException e){jsonObject.put("posts",null);}
+
+
+        try{jsonObject.put("followers",TypeConversion.makeStringArray(company.getData().getFollowers(), new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("followers",null);}
+
+        try{jsonObject.put("following",TypeConversion.makeStringArray(company.getData().getFollowing(), new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("following",null);}
+
+        try{jsonObject.put("members",TypeConversion.makeStringArray(company.getData().getMembers(), new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("following",null);}
+
+        try{jsonObject.put("recipe",TypeConversion.makeStringArray(company.getData().getRecipe(),new JSONArray()));}
+        catch (NullPointerException e){jsonObject.put("recipe",null);}
         return jsonObject;
     }
 

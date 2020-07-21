@@ -192,7 +192,7 @@ public class Chef extends Client {
     /**
      * This will add a new user or chef that the user is following
      *
-     * @param name
+     * @param newFollowing
      */
     @Override
     public void addFollowing(String newFollowing) {

@@ -97,7 +97,9 @@ public class WebHost {
 
 
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
-                "    *Add a new company with the link http://localhost:6969/newCompany using a post method"
+                "    *Add a new company with the link http://localhost:6969/newCompany/{user} using a post method"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Add a new recipe to the company with the link http://localhost:6969/company/newRecipe using a post method"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Search for a company by typing http://localhost:6969/searchCompany/[criteria]/"
                 + System.lineSeparator() +System.lineSeparator() +
@@ -191,8 +193,16 @@ public class WebHost {
      * @return returns the first 3 companies of the shuffled singly list
      */
     @GetMapping("/getCompany/companyShuffledList")
-    public static SinglyList<Company> getShuffledCompanyList(){
-        return CompanyTree.getCompanyShuffledList();
+    public static SinglyList<JSONObject> getShuffledCompanyList(){
+        SinglyList<Company> companyList = CompanyTree.getCompanyShuffledList();
+        SinglyList<JSONObject> response = new SinglyList<JSONObject>();
+        int count=0;
+        while(count<companyList.getLength()){
+            response.add(TypeConversion.companyToJSON(new AlphNodeSplay<Company>
+                    (companyList.get(count).getData(),companyList.get(count).getData().getName())));
+            count++;
+        }
+        return response;
     }
 
     @GetMapping("/login/{userKey}/{password}")
@@ -318,6 +328,27 @@ public class WebHost {
             if (newRecipe != null){
                 user.addRecipe(incomingRecipe.getTitle());
                 UserTree.saveUser();
+                RecipeTree.addRecipe(incomingRecipe);
+                return incomingRecipe;
+            }
+            else{
+                return new Recipe();
+            }
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return new Recipe();
+        }
+    }
+
+    @PostMapping("/company/newRecipe")
+    public Recipe addCompanyRecipe(@RequestBody JSONObject newRecipe){
+        try {
+            Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
+            Company company = TreeManagement.BinarySearchSplay(incomingRecipe.getAuthor()).getData();
+            if (newRecipe != null){
+                company.addRecipe(incomingRecipe.getTitle());
+                CompanyTree.saveCompany();
                 RecipeTree.addRecipe(incomingRecipe);
                 return incomingRecipe;
             }
