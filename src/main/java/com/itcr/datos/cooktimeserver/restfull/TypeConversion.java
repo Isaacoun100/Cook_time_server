@@ -165,7 +165,7 @@ public class TypeConversion {
         int count,size=count=0;
 
         try{size=jsonArray.size();}
-        catch (NullPointerException e){e.printStackTrace();}
+        catch (NullPointerException e){size=0;}
 
         while(count<size){
 

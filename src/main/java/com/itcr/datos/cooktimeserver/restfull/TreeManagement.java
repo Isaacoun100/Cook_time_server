@@ -18,6 +18,13 @@ public class TreeManagement {
         return BinarySearch(UserTree.getUserTree().getRoot(),data);
     }
 
+    public static String getSourceCodeLine() {
+        // An index of 1 references the calling method
+        StackTraceElement ste = new Throwable().getStackTrace()[1];
+        return "(" + ste.getFileName() + ":" + ste.getLineNumber() + ")";
+    }
+
+
     /**
      * Recursive function used for the binary search
      * @param reference the tree´s node

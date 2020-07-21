@@ -2,6 +2,7 @@ package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import org.springframework.web.bind.annotation.*;
@@ -22,39 +23,95 @@ public class WebHost {
     public String login(){
 
         String Welcome= "Welcome to the Cook Time server "
-                + System.lineSeparator() +
-                "You can"
-                + System.lineSeparator() +
-                "Access the users in the following link http://localhost:6969/user "
-                + System.lineSeparator() +
-                "Add new users using the link http://localhost:6969/newUser using a POST request "
-                + System.lineSeparator() +
-                "Access a specific user by typing the link http://localhost:6969/email/getUser/[USER EMAIL]"
-                + System.lineSeparator() +
-                "Change a value from a specific user with http://localhost:6969/setUser/[USER EMAIL]/[[KEY TO MODIFY]]"
-                + System.lineSeparator() +
-                "Verify the user is in the server http://localhost:6969/login/[USER EMAIL]/[[PASSWORD]]"
-                + System.lineSeparator() +
-                "Add a recipe to a user with http://localhost:6969/newRecipe using a post method"
-                + System.lineSeparator() +
-                "Get an specific recipe with http://localhost:6969/getRecipe/title/[RECIPE TITLE] using the title"
-                + System.lineSeparator() +
-                "Or access to all of the recipes of a user http://localhost:6969/getRecipe/user/[USER NAME] using the user name, this returns a list"
-                + System.lineSeparator() +
-                "Add a new company with the link http://localhost:6969/newCompany using a post method"
-                + System.lineSeparator() +
-                "Add a follower to a user and assing the following http://localhost:6969/user/[FOLLOWED_EMAIL]/addFollower/[FOLLOWING_EMAIL]"
-                + System.lineSeparator() +
-                "the first parameter FOLLOWED is the user that FOLLOWING is following, this will set the list for both FOLLOWED and FOLLOWING"
-                + System.lineSeparator() +
-                "Access the the dates sorted in the following link http://localhost:6969/sorting/getDates"
-                + System.lineSeparator() +
-                "Access the the dates sorted in the following link http://localhost:6969/sorting/getRatings"
-                + System.lineSeparator() +
-                "Access the the dates sorted in the following link http://localhost:6969/sorting/getDifficulties"
-                + System.lineSeparator() +
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
 
+                "User management:"
+
+
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the users in the following link http://localhost:6969/user "
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Add new users using the link http://localhost:6969/newUser using a POST request "
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access a specific user by typing the link http://localhost:6969/email/getUser/[USER EMAIL]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Change a value from a specific user with http://localhost:6969/setUser/[USER EMAIL]/[[KEY TO MODIFY]]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Verify the user is in the server http://localhost:6969/login/[USER EMAIL]/[[PASSWORD]]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Add a follower to a user and assing the following http://localhost:6969/user/[FOLLOWED_EMAIL]/addFollower/[FOLLOWING_EMAIL]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *the first parameter FOLLOWED is the user that FOLLOWING is following, this will set the list for both FOLLOWED and FOLLOWING"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the a linked list of all users using http://localhost:6969/getUser/userLinkedList"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Set a users value using http://localhost:6969/setUser/[Email]/[Data] , in this last field you'll be able"
+                +System.lineSeparator() +
+                "    *Search for a user by typing http://localhost:6969/searchUser/[criteria]"
+                +System.lineSeparator() +
+                "     to change a value from a specified user using name, email, image, password, hasCompany and age"
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+
+
+                "Chef management:"
+
+
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+                "    *You can access the chef tree using http://localhost:6969/chef"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Search for a chef by typing http://localhost:6969/searchChef/[criteria]/"
+                +System.lineSeparator() +
+                "    *You can add a chef using http://localhost:6969/newChef"
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+
+
+                "Recipe management:"
+
+
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+                "You can access the recipe tree using http://localhost:6969/recipe"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Add a recipe to a user with http://localhost:6969/newRecipe using a post method"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Get an specific recipe with http://localhost:6969/getRecipe/title/[RECIPE TITLE] using the title"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Or access to all of the recipes of a user http://localhost:6969/getRecipe/user/[USER NAME] using the user name, this returns a list"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Add a recipe to the feed by using http://localhost:6969/addFeedRecipe/[Recipe_Title]/[User_email]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Get a recipe list by typing http://localhost:6969/getRecipeList"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Add a comment to a recipe by using the link http://localhost:6969/addComment/[Recipe_Title]/[Email]"
+                +System.lineSeparator() +
+                "    *Search for a recipe by typing http://localhost:6969/searchRecipe and the JSON with the query form"
+                +System.lineSeparator() +
+                "     where the email corresponds to the user email, this is a post that will recieve the comment in plain text"
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+
+
+                "Company management:"
+
+
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+                "    *Add a new company with the link http://localhost:6969/newCompany using a post method"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Search for a company by typing http://localhost:6969/searchCompany/[criteria]/"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the company of an user by typing http://localhost:6969/getCompany/user/[User_email]"
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+
+
+                "    *Data management"
+
+
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the the dates sorted in the following link http://localhost:6969/sorting/getDates"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the the dates sorted in the following link http://localhost:6969/sorting/getRatings"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the the dates sorted in the following link http://localhost:6969/sorting/getDifficulties"
+                + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
                 "Read more about HTTP Methods here: https://restfulapi.net/http-methods/ ";
 
         System.out.println(Welcome);
@@ -173,6 +230,7 @@ public class WebHost {
         }
 
     }
+
     @GetMapping("/recipe")
     public String getRecipeTree(){
         RecipeTree.updateRecipeList();
@@ -404,7 +462,6 @@ public class WebHost {
         return SortingMethods.DifficultySortUser(id);
     }
 
-
     @GetMapping("/searchUser/{criteria}/")
     public static SinglyList<User> searchUser(@PathVariable String criteria){
         try{ return UserTree.searchUser(criteria); }
@@ -417,10 +474,29 @@ public class WebHost {
         catch (NullPointerException e){ return new SinglyList<>(); }
     }
 
-    @GetMapping("/searchRecipe/{criteria}/")
-    public static SinglyList<Recipe> searchRecipe(@PathVariable String criteria){
-        try{ return RecipeTree.searchRecipe(criteria); }
+    @PostMapping("/searchRecipe")
+    public static SinglyList<Recipe> searchRecipe(@RequestBody JSONObject criteria){
+        SinglyList<Recipe> recipeSinglyList, finalSinglyList = recipeSinglyList = new SinglyList<Recipe>();
+        try{ recipeSinglyList = RecipeTree.searchRecipe(criteria.get("search").toString()); }
         catch (NullPointerException e){ return new SinglyList<>(); }
+        for(int x=0; x<recipeSinglyList.getLength(); x++){
+            Recipe recipe = recipeSinglyList.get(x).getData();
+            if(criteria.get("type")==null ||
+                    recipe.getType().equals(criteria.get("type"))){
+
+                if(criteria.get("duration") == null ||
+                        recipe.getDuration().equals(criteria.get("duration"))){
+
+                    if(criteria.get("servings") == null ||
+                            recipe.getServings() == Integer.parseInt(criteria.get("servings").toString())){
+
+                        finalSinglyList.add(recipeSinglyList.get(x).getData());
+                    }
+                }
+            }
+        }
+
+        return finalSinglyList;
     }
 
     @GetMapping("/searchCompany/{criteria}/")
