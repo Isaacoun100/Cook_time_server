@@ -5,7 +5,6 @@ import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.AlphSplayTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.Company;
-import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -164,28 +163,6 @@ public class CompanyTree {
         if(root.getRight()!=null){ searchCompany(data, root.getRight(), result); }
         if(root.getLeft()!=null){ searchCompany(data, root.getLeft(), result); }
         return result;
-    }
-
-    /**
-     * Function that gets the 3 first users in the shuffled user singly list
-     * @return returns the singly list of users
-     */
-    public static SinglyList<Company> getCompanyShuffledList(){
-        SinglyList<Company> companyList = TreeManagement.getCompanyList();
-        companyList = companyList.shuffle();
-
-        if (companyList.getLength() >= 3){
-            SinglyList<Company> newCompanyList = new SinglyList<>();
-            for (int i = 0; i < 3; i++){
-                newCompanyList.add(companyList.get(i).getData());
-            }
-            newCompanyList.print_list();
-            return  newCompanyList;
-        }
-        else {
-            companyList.print_list();
-            return companyList;
-        }
     }
 
 }
