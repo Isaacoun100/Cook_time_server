@@ -335,6 +335,7 @@ public class WebHost {
                 User newUser = TreeManagement.BinarySearch(user).getData();
                 newUser.setCompany(incomingCompany.getName());
                 UserTree.saveUser();
+                incomingCompany.addMember(user);
                 CompanyTree.addCompany(incomingCompany);
                 return incomingCompany;
             }

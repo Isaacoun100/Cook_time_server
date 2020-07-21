@@ -17,6 +17,9 @@ public class Company {
     private SinglyList<String> following;
     private SinglyList<String> members;
 
+    public void addMember(String member){
+        members.add(member);
+    }
     /**
      * getter for name
      * @return returns the name
