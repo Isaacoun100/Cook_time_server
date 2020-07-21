@@ -39,11 +39,11 @@ public class CompanyTree {
         try{
             JSONObject companyJSON = (JSONObject) companyParser.parse(new FileReader("res/data/Companies.json"));
             getBranch(companyJSON);
-            System.out.println(splayCompanyTree.toString());
         }
         catch (IOException | ParseException e){
-            System.out.println("Empty company JSON, error at line "+(TreeManagement.getSourceCodeLine()));
+            e.printStackTrace();
         }
+        System.out.println(splayCompanyTree.toString());
     }
 
     /**
@@ -166,25 +166,26 @@ public class CompanyTree {
         return result;
     }
 
+
     /**
      * Function that gets the 3 first users in the shuffled user singly list
      * @return returns the singly list of users
      */
     public static SinglyList<Company> getCompanyShuffledList(){
-        SinglyList<Company> companyList = TreeManagement.getCompanyList();
-        companyList = companyList.shuffle();
+        SinglyList<Company> companySinglyList = TreeManagement.getCompanyList();
+        companySinglyList = companySinglyList.shuffle();
 
-        if (companyList.getLength() >= 3){
+        if (companySinglyList.getLength() >= 3){
             SinglyList<Company> newCompanyList = new SinglyList<>();
             for (int i = 0; i < 3; i++){
-                newCompanyList.add(companyList.get(i).getData());
+                newCompanyList.add(companySinglyList.get(i).getData());
             }
             newCompanyList.print_list();
             return  newCompanyList;
         }
         else {
-            companyList.print_list();
-            return companyList;
+            companySinglyList.print_list();
+            return companySinglyList;
         }
     }
 
