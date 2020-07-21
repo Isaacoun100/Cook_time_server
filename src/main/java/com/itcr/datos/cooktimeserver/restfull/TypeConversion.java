@@ -162,6 +162,7 @@ public class TypeConversion {
 
         try{newCompany.setRecipe(TypeConversion.makeStringList(objectToJSONArray(jsonObject.get("recipe")), new SinglyList<String>()));}
         catch (NullPointerException e){newCompany.setFollowing(new SinglyList<String>());}
+
         return newCompany;
     }
 
