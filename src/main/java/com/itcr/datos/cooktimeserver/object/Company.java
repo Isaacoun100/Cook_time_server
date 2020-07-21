@@ -16,6 +16,7 @@ public class Company {
     private SinglyList<String> followers;
     private SinglyList<String> following;
     private SinglyList<String> members;
+    private SinglyList<String> recipe;
 
     public void addMember(String member){
         members.add(member);
@@ -174,6 +175,18 @@ public class Company {
      */
     public void setMembers(SinglyList<String> members) {
         this.members = members;
+    }
+
+    public SinglyList<String> getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(SinglyList<String> recipe) {
+        this.recipe = recipe;
+    }
+
+    public void addRecipe(String recipe){
+        this.recipe.add(recipe);
     }
 
     /**
