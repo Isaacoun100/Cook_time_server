@@ -1,5 +1,6 @@
 package com.itcr.datos.cooktimeserver.host;
 
+import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
@@ -182,8 +183,16 @@ public class WebHost {
      * @return returns the first 3 companies of the shuffled singly list
      */
     @GetMapping("/getCompany/companyShuffledList")
-    public static SinglyList<Company> getShuffledCompanyList(){
-        return CompanyTree.getCompanyShuffledList();
+    public static SinglyList<JSONObject> getShuffledCompanyList(){
+        SinglyList<Company> companyList = CompanyTree.getCompanyShuffledList();
+        SinglyList<JSONObject> response = new SinglyList<JSONObject>();
+        int count=0;
+        while(count<companyList.getLength()){
+            response.add(TypeConversion.companyToJSON(new AlphNodeSplay<Company>
+                    (companyList.get(count).getData(),companyList.get(count).getData().getName())));
+            count++;
+        }
+        return response;
     }
 
     @GetMapping("/login/{userKey}/{password}")
