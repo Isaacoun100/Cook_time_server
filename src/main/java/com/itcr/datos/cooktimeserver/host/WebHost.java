@@ -44,7 +44,7 @@ public class WebHost {
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *the first parameter FOLLOWED is the user that FOLLOWING is following, this will set the list for both FOLLOWED and FOLLOWING"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Access the a linked list of all users using http://localhost:6969/getUser/userLinkedList"
+                "    *Access the a linked list of all users using http://localhost:6969/getUser/userShuffledList"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Set a users value using http://localhost:6969/setUser/[Email]/[Data] , in this last field you'll be able"
                 +System.lineSeparator() +
