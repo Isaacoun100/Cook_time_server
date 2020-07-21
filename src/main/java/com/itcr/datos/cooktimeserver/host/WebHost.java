@@ -1,5 +1,6 @@
 package com.itcr.datos.cooktimeserver.host;
 
+import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
@@ -348,15 +349,14 @@ public class WebHost {
     }
 
     @GetMapping("/getCompany/user/{ID}")
-    public static Company getUserCompany(@PathVariable String ID){
+    public static JSONObject getUserCompany(@PathVariable String ID){
         User user;
         Company company;
         try{
             user=TreeManagement.BinarySearch(ID).getData();
-            company=TreeManagement.BinarySearchSplay(user.getCompany()).getData();
-            return company;
+            return CompanyTree.companyToJSON(TreeManagement.BinarySearchSplay(user.getCompany()));
         }
-        catch (NullPointerException e){return new Company(); }
+        catch (NullPointerException e){return CompanyTree.companyToJSON(null); }
     }
 
     @GetMapping("/getRecipe/{recipe}/title")
