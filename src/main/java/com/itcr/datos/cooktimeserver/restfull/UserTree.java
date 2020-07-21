@@ -37,11 +37,11 @@ public class UserTree {
         try {
             JSONObject usersJSON = (JSONObject) userParser.parse(new FileReader("res/data/Users.json"));
             getBranch(usersJSON);
+            System.out.println(binaryUserTree.toString());
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Empty user JSON, error at line "+(TreeManagement.getSourceCodeLine()));
         }
-        System.out.println(binaryUserTree.toString());
     }
 
     /**

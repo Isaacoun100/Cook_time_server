@@ -40,7 +40,7 @@ public class ChefTree {
             System.out.println(binaryChefTree.toString());
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Empty chef JSON, error at line" +(TreeManagement.getSourceCodeLine()));
         }
     }
 

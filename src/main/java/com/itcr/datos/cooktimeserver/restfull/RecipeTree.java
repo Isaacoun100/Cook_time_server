@@ -38,11 +38,11 @@ public class RecipeTree {
         try{
             JSONObject recipeJSON =  (JSONObject) recipeParser.parse(new FileReader("res/data/Recipes.json"));
             getBranch(recipeJSON);
+            System.out.println(avlRecipeTree.toString());
         }
         catch (Exception e){
-            e.printStackTrace();
+            System.out.println("Empty recipe JSON, error at line "+(TreeManagement.getSourceCodeLine()));
         }
-        System.out.println(avlRecipeTree.toString());
     }
 
     /**

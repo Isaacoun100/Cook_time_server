@@ -2,6 +2,7 @@ package com.itcr.datos.cooktimeserver.host;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import org.springframework.web.bind.annotation.*;
@@ -417,10 +418,29 @@ public class WebHost {
         catch (NullPointerException e){ return new SinglyList<>(); }
     }
 
-    @GetMapping("/searchRecipe/{criteria}/")
-    public static SinglyList<Recipe> searchRecipe(@PathVariable String criteria){
-        try{ return RecipeTree.searchRecipe(criteria); }
+    @PostMapping("/searchRecipe")
+    public static SinglyList<Recipe> searchRecipe(@RequestBody JSONObject criteria){
+        SinglyList<Recipe> recipeSinglyList, finalSinglyList = recipeSinglyList = new SinglyList<Recipe>();
+        try{ recipeSinglyList = RecipeTree.searchRecipe(criteria.get("search").toString()); }
         catch (NullPointerException e){ return new SinglyList<>(); }
+        for(int x=0; x<recipeSinglyList.getLength(); x++){
+            Recipe recipe = recipeSinglyList.get(x).getData();
+            if(criteria.get("type")==null ||
+                    recipe.getType().equals(criteria.get("type"))){
+
+                if(criteria.get("duration") == null ||
+                        recipe.getDuration().equals(criteria.get("duration"))){
+
+                    if(criteria.get("servings") == null ||
+                            recipe.getServings() == Integer.parseInt(criteria.get("servings").toString())){
+
+                        finalSinglyList.add(recipeSinglyList.get(x).getData());
+                    }
+                }
+            }
+        }
+
+        return finalSinglyList;
     }
 
     @GetMapping("/searchCompany/{criteria}/")

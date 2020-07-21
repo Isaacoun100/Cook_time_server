@@ -38,11 +38,11 @@ public class CompanyTree {
         try{
             JSONObject companyJSON = (JSONObject) companyParser.parse(new FileReader("res/data/Companies.json"));
             getBranch(companyJSON);
+            System.out.println(splayCompanyTree.toString());
         }
         catch (IOException | ParseException e){
-            e.printStackTrace();
+            System.out.println("Empty company JSON, error at line "+(TreeManagement.getSourceCodeLine()));
         }
-        System.out.println(splayCompanyTree.toString());
     }
 
     /**
