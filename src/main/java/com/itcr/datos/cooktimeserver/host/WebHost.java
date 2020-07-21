@@ -174,10 +174,18 @@ public class WebHost {
      * @return returns the first 3 users of the shuffled singly list
      */
     @GetMapping("/getUser/userShuffledList")
-    public static SinglyList<User> getShuffledUserList(){
-        return UserTree.getUserShuffledList();
+    public static SinglyList<JSONObject> getShuffledUserList(){
+        SinglyList<User> list = UserTree.getUserShuffledList();
+        SinglyList<JSONObject> response = new SinglyList<JSONObject>();
+        int count=0;
+        while(count<list.getLength()){
+            response.add(TypeConversion.userToJSON(new AlphNodeTree<User>
+                    (list.get(count).getData(),list.get(count).getData().getEmail())));
+            count++;
+        }
+        return response;
+        
     }
-
     /**
      * Getter for the shuffled company singly list
      * @return returns the first 3 companies of the shuffled singly list
