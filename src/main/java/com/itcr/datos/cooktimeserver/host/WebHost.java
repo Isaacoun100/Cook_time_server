@@ -97,7 +97,9 @@ public class WebHost {
 
 
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
-                "    *Add a new company with the link http://localhost:6969/newCompany using a post method"
+                "    *Add a new company with the link http://localhost:6969/newCompany/{user} using a post method"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Add a new recipe to the company with the link http://localhost:6969/company/newRecipe using a post method"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Search for a company by typing http://localhost:6969/searchCompany/[criteria]/"
                 + System.lineSeparator() +System.lineSeparator() +
