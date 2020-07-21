@@ -327,19 +327,13 @@ public class WebHost {
      * @param newCompany
      * @return the company object
      */
-    @PostMapping("/newCompany")
-    public Company addCompany(@RequestBody JSONObject newCompany){
+    @PostMapping("/newCompany/{user}")
+    public Company addCompany(@RequestBody JSONObject newCompany, @PathVariable String user){
         try{
             Company incomingCompany = TypeConversion.makeCompany(newCompany);
             if (newCompany != null){
-                int count=0;
-                while(count<incomingCompany.getMembers().getLength()){
-                    User user = TreeManagement.BinarySearch(incomingCompany.getMembers().get(count).getData()).getData();
-                    user.setCompany(incomingCompany.getName());
-                    UserTree.saveUser();
-                    count++;
-                }
-
+                User newUser = TreeManagement.BinarySearch(user).getData();
+                newUser.setCompany(incomingCompany.getName());
                 CompanyTree.addCompany(incomingCompany);
                 return incomingCompany;
             }
