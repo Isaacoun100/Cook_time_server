@@ -448,7 +448,18 @@ public class WebHost {
      */
     @GetMapping("/sorting/getRatings")
     public static SinglyList<Recipe> getRatingSort(){
-        return SortingMethods.RatingSort();
+        SinglyList<Recipe> list = SortingMethods.RatingSort(RecipeTree.getRecipeList());
+        if (list.getLength() >= 3){
+            SinglyList<Recipe> newRecipeList = new SinglyList<>();
+            for (int i = 0; i < 3; i++){
+                newRecipeList.add(list.get(i).getData());
+            }
+            newRecipeList.print_list();
+            return  newRecipeList;
+        }
+        else {
+            return list;
+        }
     }
 
     /**
@@ -457,7 +468,7 @@ public class WebHost {
      */
     @GetMapping("/sorting/getDifficulties")
     public static SinglyList<Recipe> getDifficultySort(){
-        return SortingMethods.DifficultySort();
+        return SortingMethods.DifficultySort(RecipeTree.getRecipeList());
     }
 
     /**

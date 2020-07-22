@@ -58,23 +58,12 @@ public class SortingMethods {
      * Function that sorts the ratings with bubble sort and returns the 3 best ratings
      * @return returns the list sorted
      */
-    public static SinglyList<Recipe> RatingSort(){
-        SinglyList<Recipe> list = TreeManagement.getRecipeList();
+    public static SinglyList<Recipe> RatingSort(SinglyList<Recipe> list){
 
         SortingAlgorithms.quick_sort_ratings(list);
         list = list.Inverter(list);
 
-        if (list.getLength() >= 3){
-            SinglyList<Recipe> newRecipeList = new SinglyList<>();
-            for (int i = 0; i < 3; i++){
-                newRecipeList.add(list.get(i).getData());
-            }
-            newRecipeList.print_list();
-            return  newRecipeList;
-        }
-        else {
-            return list;
-        }
+        return list;
     }
 
     /**
@@ -83,24 +72,21 @@ public class SortingMethods {
      * @return returns the new singly list sorted
      */
     public static SinglyList<Recipe> RatingSortUser(String user){
+        SinglyList<String> oldList = TreeManagement.binarySearch(user).getData().getRecipe();
+
         SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
 
-        AlphNodeAVL<Recipe> recipeAlphNodeAVL = TreeManagement.binarySearchAvl(user);
+        for(int i = 0; i < oldList.getLength();i++){
+            recipeSinglyList.add(TreeManagement.binarySearchAvl(oldList.get(i).getData()).getData());
+        }
 
-        recipeSinglyList.add(recipeAlphNodeAVL.getData());
-        SortingAlgorithms.quick_sort_ratings(recipeSinglyList);
-
-        recipeSinglyList = recipeSinglyList.Inverter(recipeSinglyList);
-
-        return recipeSinglyList;
+        return RatingSort(recipeSinglyList);
     }
     /**
      * Function that sorts the difficulty of the recipes
      * @return the singly list
      */
-    public static SinglyList<Recipe> DifficultySort(){
-        SinglyList<Recipe> list = TreeManagement.getRecipeList();
-
+    public static SinglyList<Recipe> DifficultySort(SinglyList<Recipe> list){
         SortingAlgorithms.radix_sort_difficulty(list);
         list = list.Inverter(list);
         list.print_list();
@@ -114,14 +100,15 @@ public class SortingMethods {
      * @return returns the new singly list sorted
      */
     public static SinglyList<Recipe> DifficultySortUser(String user){
+        SinglyList<String> oldList = TreeManagement.binarySearch(user).getData().getRecipe();
+
         SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
 
-        AlphNodeAVL<Recipe> recipeAlphNodeAVL = TreeManagement.binarySearchAvl(user);
-        recipeSinglyList.add(recipeAlphNodeAVL.getData());
+        for(int i = 0; i < oldList.getLength();i++){
+            recipeSinglyList.add(TreeManagement.binarySearchAvl(oldList.get(i).getData()).getData());
+        }
 
-        SortingAlgorithms.radix_sort_difficulty(recipeSinglyList);
-        recipeSinglyList = recipeSinglyList.Inverter(recipeSinglyList);
-        return recipeSinglyList;
+        return DifficultySort(recipeSinglyList);
     }
 
 
