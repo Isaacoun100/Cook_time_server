@@ -1,11 +1,14 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.sorting.SortingAlgorithms;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Class for doing the sorting methods
@@ -16,76 +19,39 @@ public class SortingMethods {
      * Function that sorts the ratings with bubble sort
      * @return returns the list sorted
      */
-    public static SinglyList<Recipe> DateSort(){
-        SinglyList<Recipe> recipeList = TreeManagement.getRecipeList();
+    public static SinglyList<Recipe> DateSort(SinglyList<Recipe> recipeList){
+        SinglyList<Recipe> result = new SinglyList<Recipe>();
+        SinglyList<DateSort> dateList = new SinglyList<DateSort>();
 
-        SinglyList<DateSort> dateSortSinglyList = new SinglyList<>();
-        SinglyList<Integer> days = new SinglyList<>();
-        SinglyList<Integer> months = new SinglyList<>();
-        SinglyList<Integer> years = new SinglyList<>();
-
-
-        for (int i = 0; i < recipeList.getLength(); i++){
-            String date = recipeList.get(i).getData().getDate();
-
-            days.add(Integer.parseInt(String.valueOf(date.charAt(0)) + date.charAt(1)));
-            months.add(Integer.parseInt(String.valueOf(date.charAt(3)) + date.charAt(4)));
-            years.add(Integer.parseInt(String.valueOf(date.charAt(6)) + date.charAt(7) + date.charAt(8) + date.charAt(9)));
-
-
+        for(int x=0;x<recipeList.getLength();x++){
+            Recipe newRecipe = recipeList.get(x).getData();
+            Date date = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try { date = format.parse(newRecipe.getDate());}
+            catch (ParseException e) { e.printStackTrace();}
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            dateList.add(new DateSort(newRecipe, calendar));
         }
-        SortingAlgorithms.bubble_sort(days);
-        SortingAlgorithms.bubble_sort(months);
-        SortingAlgorithms.bubble_sort(years);
-        for (int i = 0; i < recipeList.getLength(); i++){
-            String dayString = Integer.toString(days.get(i).getData());
-            String monthString = Integer.toString(months.get(i).getData());
-            String yearString = Integer.toString(years.get(i).getData());
 
-            recipeList.get(i).getData().setDate(dayString + "/" + monthString + "/" + yearString);
-        }
-        recipeList = recipeList.Inverter(recipeList);
-        recipeList.print_list();
+        SortingAlgorithms.bubble_sort(dateList);
 
-        return recipeList;
+        for(int x=0;x<recipeList.getLength();x++){ result.add(dateList.get(x).getData().getRecipe()); }
+
+        return result;
+
     }
 
     public static SinglyList<Recipe> DateSortUser(String user){
-        AlphNodeAVL<Recipe> recipeAlphNodeAVL = TreeManagement.BinarySearchAvl(user);
 
-        SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
+        SinglyList<String> oldList = TreeManagement.binarySearch(user).getData().getRecipe();
+        SinglyList<Recipe> newList = new SinglyList<>();
 
-        recipeSinglyList.add(recipeAlphNodeAVL.getData());
-
-        SinglyList<Integer> days = new SinglyList<>();
-        SinglyList<Integer> months = new SinglyList<>();
-        SinglyList<Integer> years = new SinglyList<>();
-
-        for (int i = 0; i < recipeSinglyList.getLength(); i++){
-            String date = recipeSinglyList.get(i).getData().getDate();
-
-            days.add(Integer.parseInt(String.valueOf(date.charAt(0)) + date.charAt(1)));
-
-            months.add(Integer.parseInt(String.valueOf(date.charAt(3)) + date.charAt(4)));
-
-            years.add(Integer.parseInt(String.valueOf(date.charAt(6)) + date.charAt(7) + date.charAt(8) + date.charAt(9)));
-
+        for(int x=0;x<oldList.getLength();x++){
+            newList.add(TreeManagement.binarySearchAvl(oldList.get(x).getData()).getData());
         }
-        SortingAlgorithms.bubble_sort(days);
-        SortingAlgorithms.bubble_sort(months);
-        SortingAlgorithms.bubble_sort(years);
-        for (int i = 0; i < recipeSinglyList.getLength(); i++){
-            String dayString = Integer.toString(days.get(i).getData());
-            String monthString = Integer.toString(months.get(i).getData());
-            String yearString = Integer.toString(years.get(i).getData());
 
-            recipeSinglyList.get(i).getData().setDate(dayString + "/" + monthString + "/" + yearString);
-        }
-        recipeSinglyList = recipeSinglyList.Inverter(recipeSinglyList);
-        recipeSinglyList.print_list();
-
-        return recipeSinglyList;
-
+        return DateSort(newList);
     }
 
     /**
@@ -107,7 +73,6 @@ public class SortingMethods {
             return  newRecipeList;
         }
         else {
-            list.print_list();
             return list;
         }
     }
@@ -120,7 +85,7 @@ public class SortingMethods {
     public static SinglyList<Recipe> RatingSortUser(String user){
         SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
 
-        AlphNodeAVL<Recipe> recipeAlphNodeAVL = TreeManagement.BinarySearchAvl(user);
+        AlphNodeAVL<Recipe> recipeAlphNodeAVL = TreeManagement.binarySearchAvl(user);
 
         recipeSinglyList.add(recipeAlphNodeAVL.getData());
         SortingAlgorithms.quick_sort_ratings(recipeSinglyList);
@@ -151,7 +116,7 @@ public class SortingMethods {
     public static SinglyList<Recipe> DifficultySortUser(String user){
         SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
 
-        AlphNodeAVL<Recipe> recipeAlphNodeAVL = TreeManagement.BinarySearchAvl(user);
+        AlphNodeAVL<Recipe> recipeAlphNodeAVL = TreeManagement.binarySearchAvl(user);
         recipeSinglyList.add(recipeAlphNodeAVL.getData());
 
         SortingAlgorithms.radix_sort_difficulty(recipeSinglyList);
