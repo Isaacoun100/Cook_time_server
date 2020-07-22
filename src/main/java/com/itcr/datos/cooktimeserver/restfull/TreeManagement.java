@@ -1,6 +1,7 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
 import com.itcr.datos.cooktimeserver.data_structures.*;
+import com.itcr.datos.cooktimeserver.object.Chef;
 import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
@@ -9,6 +10,13 @@ import com.itcr.datos.cooktimeserver.object.User;
  * Class for functions used for the tree
  */
 public class TreeManagement {
+    public static String getSourceCodeLine() {
+
+    // An index of 1 references the calling method
+    StackTraceElement ste = new Throwable().getStackTrace()[1];
+        return "(" + ste.getFileName() + ":" + ste.getLineNumber() + ")";
+    }
+
     /**
      * Function used for calling BinarySearch recursively
      * @param data the data string
@@ -17,13 +25,6 @@ public class TreeManagement {
     public static AlphNodeTree<User> BinarySearch(String data){
         return BinarySearch(UserTree.getUserTree().getRoot(),data);
     }
-
-    public static String getSourceCodeLine() {
-        // An index of 1 references the calling method
-        StackTraceElement ste = new Throwable().getStackTrace()[1];
-        return "(" + ste.getFileName() + ":" + ste.getLineNumber() + ")";
-    }
-
 
     /**
      * Recursive function used for the binary search
@@ -46,6 +47,35 @@ public class TreeManagement {
         return null;
     }
 
+    /**
+     * Function used for calling BinarySearch recursively for chefs
+     * @param data the data string
+     * @return returns the recursive function
+     */
+    public static AlphNodeTree<Chef> BinarySearchChefs(String data){
+        return BinarySearchChefs(ChefTree.getChefTree().getRoot(),data);
+    }
+
+    /**
+     * Recursive function used for the binary search for chefs
+     * @param reference the tree´s node
+     * @param data the string data
+     * @return returns the node searched
+     */
+    private static AlphNodeTree<Chef> BinarySearchChefs(AlphNodeTree<Chef> reference, String data){
+        if(reference.getKey().equals(data)){
+            return reference;
+        }
+        switch(greater(reference.getKey(),data)){
+            case "key":
+                if(reference.getRight()!=null){ return BinarySearchChefs(reference.getRight(),data);}
+                else{ return null;}
+            case "leaf":
+                if(reference.getLeft()!=null){return BinarySearchChefs(reference.getLeft(),data);}
+                else{ return null;}
+        }
+        return null;
+    }
     /**
      * Function used for calling BinarySearchAvl recursively
      * @param data the data string
