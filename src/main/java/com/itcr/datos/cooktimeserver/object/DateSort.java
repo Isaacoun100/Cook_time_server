@@ -1,19 +1,22 @@
 package com.itcr.datos.cooktimeserver.object;
 
+import java.util.Calendar;
+
 /**
  * Class for the object DateSort
  */
 public class DateSort {
-    private final String title;
-    private String date;
+    private final Recipe recipe;
+    private final Calendar date;
+
 
     /**
      * Constructor for the class DateSort
      * @param title the title
      * @param date the date
      */
-    public DateSort(String title, String date) {
-        this.title = title;
+    public DateSort(Recipe recipe, Calendar date) {
+        this.recipe = recipe;
         this.date = date;
     }
 
@@ -21,36 +24,23 @@ public class DateSort {
      * Getter for title
      * @return returns title
      */
-    public String getTitle() {
-        return title;
+    public Recipe getRecipe() {
+        return recipe;
     }
 
     /**
      * Getter for date
      * @return returns date
      */
-    public String getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    /**
-     * Setter for date
-     * @param date
-     */
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    /**
-     * Function that casts the object into a string
-     *
-     * @return returns the string version of the class
-     */
     @Override
     public String toString() {
         return "DateSort{" +
-                "title='" + title + '\'' +
-                ", date='" + date + '\'' +
+                "recipe=" + recipe +
+                ", date=" + date +
                 '}';
     }
 }
