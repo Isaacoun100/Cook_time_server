@@ -1,9 +1,7 @@
 package com.itcr.datos.cooktimeserver.host;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyNode;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import org.springframework.web.bind.annotation.*;
@@ -137,7 +135,7 @@ public class WebHost {
 
     @GetMapping("/getCompany/name/{ID}")
     public Company getCompany(@PathVariable String ID){
-        try{ return TreeManagement.BinarySearchSplay(ID).getData(); }
+        try{ return TreeManagement.binarySearchSplay(ID).getData(); }
         catch (NullPointerException e){ return new Company();}
     }
 
@@ -167,7 +165,7 @@ public class WebHost {
      */
     @GetMapping("/getUser/{userKey}")
     public String getUser(@PathVariable String userKey){
-        JSONObject jsonObject = TypeConversion.userToJSON(TreeManagement.BinarySearch(userKey));
+        JSONObject jsonObject = TypeConversion.userToJSON(TreeManagement.binarySearch(userKey));
         return jsonObject.toString();
     }
 
@@ -208,8 +206,8 @@ public class WebHost {
     @GetMapping("/login/{userKey}/{password}")
     public JSONObject LoginMethod(@PathVariable String userKey, @PathVariable String password){
         JSONObject jsonObject;
-        if(TreeManagement.BinarySearch(userKey)!=null){
-            jsonObject = TypeConversion.userToJSON(TreeManagement.BinarySearch(userKey));
+        if(TreeManagement.binarySearch(userKey)!=null){
+            jsonObject = TypeConversion.userToJSON(TreeManagement.binarySearch(userKey));
         }
         else{ return TypeConversion.userToJSON(new AlphNodeTree<User>(null,null)); }
         if(jsonObject.get("password").equals(password)){ return jsonObject; }
@@ -225,7 +223,7 @@ public class WebHost {
      */
     @PostMapping("/setUser/{userKey}/{userData}")
     public String setUser(@PathVariable String userKey, @PathVariable String userData, @RequestBody String request){
-        AlphNodeTree<User> user = TreeManagement.BinarySearch(userKey);
+        AlphNodeTree<User> user = TreeManagement.binarySearch(userKey);
         if(user==null){
             return "user not found";
         }
@@ -295,8 +293,8 @@ public class WebHost {
     @GetMapping("/addFeedRecipe/{Recipe}/{User}")
     public static String addFeedRecipe(@PathVariable String User, @PathVariable String recipe){
         try{
-            User user = TreeManagement.BinarySearch(User).getData();
-            Recipe newRecipe = TreeManagement.BinarySearchAvl(recipe).getData();
+            User user = TreeManagement.binarySearch(User).getData();
+            Recipe newRecipe = TreeManagement.binarySearchAvl(recipe).getData();
             user.addRecipe(recipe);
             return recipe;
         }
@@ -307,8 +305,8 @@ public class WebHost {
     public static String addValue(@PathVariable String email , @PathVariable String incoming){
         User follower, followed = follower = null;
         try{
-            followed = TreeManagement.BinarySearch(email).getData();
-            follower = TreeManagement.BinarySearch(incoming).getData();
+            followed = TreeManagement.binarySearch(email).getData();
+            follower = TreeManagement.binarySearch(incoming).getData();
         }
         catch (NullPointerException e){
             e.printStackTrace();
@@ -324,7 +322,7 @@ public class WebHost {
     public Recipe addRecipe(@RequestBody JSONObject newRecipe){
         try{
             Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
-            User user = TreeManagement.BinarySearch(incomingRecipe.getAuthor()).getData();
+            User user = TreeManagement.binarySearch(incomingRecipe.getAuthor()).getData();
             if (newRecipe != null){
                 user.addRecipe(incomingRecipe.getTitle());
                 UserTree.saveUser();
@@ -372,7 +370,7 @@ public class WebHost {
         try{
             Company incomingCompany = TypeConversion.makeCompany(newCompany);
             if (newCompany != null){
-                User newUser = TreeManagement.BinarySearch(user).getData();
+                User newUser = TreeManagement.binarySearch(user).getData();
                 newUser.setCompany(incomingCompany.getName());
                 UserTree.saveUser();
                 incomingCompany.addMember(user);
@@ -392,8 +390,8 @@ public class WebHost {
         User user;
         Company company;
         try{
-            user=TreeManagement.BinarySearch(ID).getData();
-            return CompanyTree.companyToJSON(TreeManagement.BinarySearchSplay(user.getCompany()));
+            user=TreeManagement.binarySearch(ID).getData();
+            return CompanyTree.companyToJSON(TreeManagement.binarySearchSplay(user.getCompany()));
         }
         catch (NullPointerException e){return CompanyTree.companyToJSON(null); }
     }
@@ -409,7 +407,7 @@ public class WebHost {
         User user = new User();
 
         try{
-            user = TreeManagement.BinarySearch(email).getData();
+            user = TreeManagement.binarySearch(email).getData();
         }
         catch (NullPointerException e){ e.printStackTrace();}
 
@@ -422,7 +420,7 @@ public class WebHost {
 
         while(count<size){
             Recipe recipe = new Recipe();
-            try{ recipe = TreeManagement.BinarySearchAvl(user.getRecipe().get(count).getData()).getData(); }
+            try{ recipe = TreeManagement.binarySearchAvl(user.getRecipe().get(count).getData()).getData(); }
             catch (NullPointerException e){ e.printStackTrace();}
 
             recipeSinglyList.add(recipe);
@@ -437,7 +435,7 @@ public class WebHost {
      */
     @GetMapping("/sorting/getDates")
     public static SinglyList<Recipe> getDateSort(){
-        return SortingMethods.DateSort();
+        return SortingMethods.DateSort(RecipeTree.getRecipeList());
     }
 
     /**
@@ -471,7 +469,7 @@ public class WebHost {
     @PostMapping("/addComment/{recipe}/{commentator}/")
     public static String addComment(@RequestBody String comment, @PathVariable String recipe, @PathVariable String commentator) {
         try {
-            Recipe newRecipe = TreeManagement.BinarySearchAvl(recipe).getData();
+            Recipe newRecipe = TreeManagement.binarySearchAvl(recipe).getData();
             newRecipe.addComment(commentator.concat(":").concat(comment));
             RecipeTree.saveRecipe();
             return newRecipe.getComments();

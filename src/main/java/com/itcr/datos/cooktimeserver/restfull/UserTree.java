@@ -161,7 +161,7 @@ public class UserTree {
      * @param result the new singly list
      * @return returns the singly list user
      */
-    public static SinglyList<User> searchUser(String data, AlphNodeTree<User> root, SinglyList<User> result){
+    private static SinglyList<User> searchUser(String data, AlphNodeTree<User> root, SinglyList<User> result){
         if(root.getData().getName().contains(data)){ result.add(root.getData()); }
         if(root.getRight()!=null){ searchUser(data, root.getRight(), result); }
         if(root.getLeft()!=null){ searchUser(data, root.getLeft(), result); }
