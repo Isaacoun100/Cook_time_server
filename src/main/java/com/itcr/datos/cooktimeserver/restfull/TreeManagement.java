@@ -14,8 +14,8 @@ public class TreeManagement {
      * @param data the data string
      * @return returns the recursive function
      */
-    public static AlphNodeTree<User> BinarySearch(String data){
-        return BinarySearch(UserTree.getUserTree().getRoot(),data);
+    public static AlphNodeTree<User> binarySearch(String data){
+        return binarySearch(UserTree.getUserTree().getRoot(),data);
     }
 
     public static String getSourceCodeLine() {
@@ -31,16 +31,16 @@ public class TreeManagement {
      * @param data the string data
      * @return returns the node searched
      */
-    private static AlphNodeTree<User> BinarySearch(AlphNodeTree<User> reference, String data){
+    private static AlphNodeTree<User> binarySearch(AlphNodeTree<User> reference, String data){
         if(reference.getKey().equals(data)){
             return reference;
         }
         switch(greater(reference.getKey(),data)){
             case "key":
-                if(reference.getRight()!=null){ return BinarySearch(reference.getRight(),data);}
+                if(reference.getRight()!=null){ return binarySearch(reference.getRight(),data);}
                 else{ return null;}
             case "leaf":
-                if(reference.getLeft()!=null){return BinarySearch(reference.getLeft(),data);}
+                if(reference.getLeft()!=null){return binarySearch(reference.getLeft(),data);}
                 else{ return null;}
         }
         return null;
@@ -51,8 +51,8 @@ public class TreeManagement {
      * @param data the data string
      * @return returns the recursive function
      */
-    public static AlphNodeAVL<Recipe> BinarySearchAvl(String data){
-        return BinarySearchAvl(RecipeTree.getAvlRecipeTree().getRoot(), data);
+    public static AlphNodeAVL<Recipe> binarySearchAvl(String data){
+        return binarySearchAvl(RecipeTree.getAvlRecipeTree().getRoot(), data);
     }
 
     /**
@@ -61,16 +61,16 @@ public class TreeManagement {
      * @param data the string data
      * @return returns the node searched
      */
-    private static AlphNodeAVL<Recipe> BinarySearchAvl(AlphNodeAVL<Recipe> reference, String data){
+    private static AlphNodeAVL<Recipe> binarySearchAvl(AlphNodeAVL<Recipe> reference, String data){
         if(reference.getKey().equals(data)){
             return reference;
         }
         switch(greater(reference.getKey(),data)){
             case "key":
-                if(reference.getRight()!=null){ return BinarySearchAvl(reference.getRight(),data);}
+                if(reference.getRight()!=null){ return binarySearchAvl(reference.getRight(),data);}
                 else{ return null;}
             case "leaf":
-                if(reference.getLeft()!=null){return BinarySearchAvl(reference.getLeft(),data);}
+                if(reference.getLeft()!=null){return binarySearchAvl(reference.getLeft(),data);}
                 else{ return null;}
         }
         return null;
@@ -82,8 +82,8 @@ public class TreeManagement {
      * @param data the string data
      * @return returns the recursive function
      */
-    public static AlphNodeSplay<Company> BinarySearchSplay(String data){
-        return BinarySearchSplay(CompanyTree.getSplayCompanyTree().getRoot(),data);
+    public static AlphNodeSplay<Company> binarySearchSplay(String data){
+        return binarySearchSplay(CompanyTree.getSplayCompanyTree().getRoot(),data);
     }
 
     /**
@@ -92,16 +92,16 @@ public class TreeManagement {
      * @param data the string data
      * @return returns the node searched
      */
-    private static AlphNodeSplay<Company> BinarySearchSplay(AlphNodeSplay<Company> reference, String data){
+    private static AlphNodeSplay<Company> binarySearchSplay(AlphNodeSplay<Company> reference, String data){
         if(reference.getKey().equals(data)){
             return reference;
         }
         switch(greater(reference.getKey(),data)){
             case "key":
-                if(reference.getRight()!=null){ return BinarySearchSplay(reference.getRight(),data);}
+                if(reference.getRight()!=null){ return binarySearchSplay(reference.getRight(),data);}
                 else{ return null;}
             case "leaf":
-                if(reference.getLeft()!=null){return BinarySearchSplay(reference.getLeft(),data);}
+                if(reference.getLeft()!=null){return binarySearchSplay(reference.getLeft(),data);}
                 else{ return null;}
         }
         return null;
@@ -125,7 +125,6 @@ public class TreeManagement {
         if (reference != null){ userList.add(reference.getData());}
         if(reference.getRight()!=null){ getUserList(reference.getRight(), userList);}
         if(reference.getLeft()!=null){ getUserList(reference.getLeft(), userList);}
-        userList.print_list();
         return userList;
     }
 
@@ -147,7 +146,6 @@ public class TreeManagement {
         if (reference != null){ recipeList.add(reference.getData());}
         if(reference.getRight()!=null){ getRecipeList(reference.getRight(), recipeList);}
         if(reference.getLeft()!=null){ getRecipeList(reference.getLeft(), recipeList);}
-        recipeList.print_list();
         return recipeList;
     }
 
@@ -169,7 +167,6 @@ public class TreeManagement {
         if (reference != null){ companyList.add(reference.getData());}
         if(reference.getRight()!=null){ getCompanyList(reference.getRight(), companyList);}
         if(reference.getLeft()!=null){ getCompanyList(reference.getLeft(), companyList);}
-        companyList.print_list();
         return companyList;
     }
 
