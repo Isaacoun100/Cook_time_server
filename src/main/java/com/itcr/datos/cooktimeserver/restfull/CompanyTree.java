@@ -41,7 +41,7 @@ public class CompanyTree {
             getBranch(companyJSON);
             System.out.println(splayCompanyTree.toString());
         }
-        catch (IOException | ParseException e){
+        catch (IOException | ParseException | NullPointerException e){
             System.out.println("Empty company JSON, error at line "+(TreeManagement.getSourceCodeLine()));
         }
     }

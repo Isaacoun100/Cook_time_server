@@ -1,9 +1,11 @@
 package com.itcr.datos.cooktimeserver.host;
 
+import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
 import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
+import com.sun.source.tree.Tree;
 import org.springframework.web.bind.annotation.*;
 import org.json.simple.JSONObject;
 
@@ -198,8 +200,7 @@ public class WebHost {
         SinglyList<JSONObject> response = new SinglyList<JSONObject>();
         int count=0;
         while(count<companyList.getLength()){
-            response.add(TypeConversion.companyToJSON(new AlphNodeSplay<Company>
-                    (companyList.get(count).getData(),companyList.get(count).getData().getName())));
+            response.add(TypeConversion.companyToJSON(new AlphNodeSplay<Company>(companyList.get(count).getData(),companyList.get(count).getData().getName())));
             count++;
         }
         return response;
@@ -345,7 +346,7 @@ public class WebHost {
     public Recipe addCompanyRecipe(@RequestBody JSONObject newRecipe){
         try {
             Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
-            Company company = TreeManagement.BinarySearchSplay(incomingRecipe.getAuthor()).getData();
+            Company company = TreeManagement.binarySearchSplay(incomingRecipe.getAuthor()).getData();
             if (newRecipe != null){
                 company.addRecipe(incomingRecipe.getTitle());
                 CompanyTree.saveCompany();

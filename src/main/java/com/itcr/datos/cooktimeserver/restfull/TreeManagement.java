@@ -92,7 +92,7 @@ public class TreeManagement {
      * @param data the string data
      * @return returns the node searched
      */
-    private static AlphNodeSplay<Company> binarySearchSplay(AlphNodeSplay<Company> reference, String data){
+    public static AlphNodeSplay<Company> binarySearchSplay(AlphNodeSplay<Company> reference, String data){
         if(reference.getKey().equals(data)){
             return reference;
         }
