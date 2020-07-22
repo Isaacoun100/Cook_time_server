@@ -85,7 +85,9 @@ public class WebHost {
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Add a comment to a recipe by using the link http://localhost:6969/addComment/[Recipe_Title]/[Email]"
                 +System.lineSeparator() +
-                "    *Search for a recipe by typing http://localhost:6969/searchRecipe and the JSON with the query form"
+                "    *Search for a recipe by typing http://localhost:6969/searchRecipe and the JSON with the query form or can be searched using the"
+                +System.lineSeparator() +
+                "    *Non query form using http://localhost:6969/searchRecipe/[query]"
                 +System.lineSeparator() +
                 "     where the email corresponds to the user email, this is a post that will recieve the comment in plain text"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
@@ -341,6 +343,7 @@ public class WebHost {
             if (newCompany != null){
                 User newUser = TreeManagement.binarySearch(user).getData();
                 newUser.setCompany(incomingCompany.getName());
+                newUser.setHasCompany(true);
                 UserTree.saveUser();
                 incomingCompany.addMember(user);
                 CompanyTree.addCompany(incomingCompany);
@@ -514,11 +517,15 @@ public class WebHost {
         return finalSinglyList;
     }
 
+    @GetMapping("/searchRecipe/{criteria}/")
+    public static SinglyList<Recipe> searchRecipe(@PathVariable String criteria){
+        return RecipeTree.searchRecipe(criteria);
+    }
+
     @GetMapping("/searchCompany/{criteria}/")
     public static SinglyList<Company> searchCompany(@PathVariable String criteria){
         try{ return CompanyTree.searchCompany(criteria); }
         catch (NullPointerException e){ return new SinglyList<>(); }
     }
-
 
 }
