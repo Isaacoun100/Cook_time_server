@@ -1,11 +1,11 @@
 package com.itcr.datos.cooktimeserver.sorting;
 
 import com.itcr.datos.cooktimeserver.data_structures.*;
-import com.itcr.datos.cooktimeserver.object.DifficultySort;
-import com.itcr.datos.cooktimeserver.object.RatingSort;
+import com.itcr.datos.cooktimeserver.object.DateSort;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 
 /**
@@ -13,23 +13,26 @@ import java.util.Arrays;
  * The code used in the radix sort is based on https://www.geeksforgeeks.org/radix-sort/
  */
 public class SortingAlgorithms {
+
     /**
      * Orders the singly list from lowest to highest using BubbleSort.
      * @param list the singly list that´s gonna be ordered.
      */
-    public static void bubble_sort(SinglyList<Integer> list){
+    public static SinglyList<DateSort> bubble_sort(SinglyList<DateSort> list){
         int i = 0;
         while (i < list.getLength() - 1){
-            int frst = list.get(i).getData();
-            int scnd = list.get(i+1).getData();
-            if (frst > scnd){
+            Calendar first = list.get(i).getData().getDate();
+            Calendar second = list.get(i+1).getData().getDate();
+            if (first.compareTo(second)<0){
                 list.swap(i, i+1);
                 i = 0;
             }else{
                 i++;
             }
         }
+        return list;
     }
+
     /**
      * Orders the singly list from lowest to highest using QuickSort.
      * @param list the singlylist about to be ordered.
