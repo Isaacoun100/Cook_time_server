@@ -53,6 +53,8 @@ public class WebHost {
                 +System.lineSeparator() +
                 "    *Get the first 3 users of the shuffled user list by typing http://localhost:6969//getUser/userShuffledList"
                 +System.lineSeparator() +
+                "    *Follow a company by typing http://localhost:6969/user/[userEmail]/addMember/[companyEmail]"
+                +System.lineSeparator() +
                 "     to change a value from a specified user using name, email, image, password, hasCompany and age"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
@@ -106,6 +108,8 @@ public class WebHost {
                 "    *Search for a company by typing http://localhost:6969/searchCompany/[criteria]/"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Access the company of an user by typing http://localhost:6969/getCompany/user/[User_email]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the recipes of a company by typing http://localhost:6969/company/getRecipe/{email}/"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Get the first 3 companies of the shuffled company list by typing http://localhost:6969//getCompany/companyShuffledList"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
@@ -374,7 +378,7 @@ public class WebHost {
             Company incomingCompany = TypeConversion.makeCompany(newCompany);
             if (newCompany != null){
                 User newUser = TreeManagement.binarySearch(user).getData();
-                newUser.setCompany(incomingCompany.getName());
+                newUser.setCompany(incomingCompany.getEmail());
                 newUser.setHasCompany(true);
                 UserTree.saveUser();
                 incomingCompany.addMember(user);
@@ -569,6 +573,52 @@ public class WebHost {
     public static SinglyList<Company> searchCompany(@PathVariable String criteria){
         try{ return CompanyTree.searchCompany(criteria); }
         catch (NullPointerException e){ return new SinglyList<>(); }
+    }
+
+    @GetMapping("/company/getRecipe/{email}/")
+    public static SinglyList<Recipe> getCompanyRecipe(@PathVariable String email){
+        SinglyList<String> recipeStringList = TreeManagement.binarySearchSplay(email).getData().getRecipe();
+        SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
+        for(int x=0;x<recipeStringList.getLength();x++){
+            try{ recipeSinglyList.add(TreeManagement.binarySearchAvl(recipeStringList.get(x).getData()).getData()); }
+            catch (NullPointerException e){ System.out.println("Missing recipe"); }
+        }
+
+        return recipeSinglyList;
+
+    }
+
+    @GetMapping("/user/{userEmail}/follow/{companyEmail}")
+    public static String followCompany(@PathVariable String companyEmail, @PathVariable String userEmail){
+
+        try {
+            User user = TreeManagement.binarySearch(userEmail).getData();
+            Company company = TreeManagement.binarySearchSplay(companyEmail).getData();
+            user.addFollowing(company.getEmail());
+            company.addFollower(user.getEmail());
+            UserTree.saveUser();
+            CompanyTree.saveCompany();
+            return userEmail+" now follows "+companyEmail;
+        }
+        catch (NullPointerException e){ return "Please check your info"; }
+
+    }
+
+    @GetMapping("/user/{userEmail}/addMember/{companyEmail}")
+    public static String memberCompany(@PathVariable String companyEmail, @PathVariable String userEmail){
+
+        try {
+            User user = TreeManagement.binarySearch(userEmail).getData();
+            Company company = TreeManagement.binarySearchSplay(companyEmail).getData();
+            user.setCompany(company.getEmail());
+            user.setHasCompany(true);
+            company.addMember(user.getEmail());
+            UserTree.saveUser();
+            CompanyTree.saveCompany();
+            return userEmail+" is now a member of "+companyEmail;
+        }
+        catch (NullPointerException e){ return "Please check your info"; }
+
     }
 
 }

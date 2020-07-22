@@ -18,6 +18,14 @@ public class Company {
     private SinglyList<String> members;
     private SinglyList<String> recipe;
 
+    public void addFollower(String follower){
+        this.followers.add(follower);
+    }
+
+    public void addFollowing(String following){
+        this.following.add(following);
+    }
+
     public void addMember(String member){
         members.add(member);
     }
