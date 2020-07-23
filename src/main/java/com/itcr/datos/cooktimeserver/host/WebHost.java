@@ -395,10 +395,8 @@ public class WebHost {
 
     @GetMapping("/getCompany/user/{ID}")
     public static JSONObject getUserCompany(@PathVariable String ID){
-        User user;
-        Company company;
         try{
-            user=TreeManagement.binarySearch(ID).getData();
+            User user = TreeManagement.binarySearch(ID).getData();
             return CompanyTree.companyToJSON(TreeManagement.binarySearchSplay(user.getCompany()));
         }
         catch (NullPointerException e){return CompanyTree.companyToJSON(null); }
