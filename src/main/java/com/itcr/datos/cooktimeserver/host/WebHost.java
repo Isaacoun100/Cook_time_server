@@ -619,4 +619,31 @@ public class WebHost {
 
     }
 
+
+    @GetMapping("/deleteUser/{email}/")
+    public static void deleteUser(@PathVariable String email){
+        UserTree.getUserTree().delete(email);
+        UserTree.saveUser();
+    }
+
+    @GetMapping("/deleteChef/{email}/")
+    public static void deleteChef(@PathVariable String email){
+        UserTree.getUserTree().delete(email);
+        ChefTree.getChefTree().delete(email);
+        UserTree.saveUser();
+        ChefTree.saveChef();
+    }
+
+    @GetMapping("/deleteCompany/{email}/")
+    public static void deleteCompany(@PathVariable String email){
+        CompanyTree.getSplayCompanyTree().delete(email);
+        CompanyTree.saveCompany();
+    }
+
+    @GetMapping("/deleteRecipe/{title}/")
+    public static void deleteRecipe(@PathVariable String title){
+        RecipeTree.getAvlRecipeTree().deleteNode(title);
+        RecipeTree.saveRecipe();
+    }
+
 }
