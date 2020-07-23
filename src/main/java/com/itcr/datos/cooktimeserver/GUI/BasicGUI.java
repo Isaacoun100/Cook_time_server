@@ -83,7 +83,7 @@ public class BasicGUI extends JFrame {
         verifyUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (TreeManagement.BinarySearch(userTextField.getText()) != null){
+                if (TreeManagement.binarySearch(userTextField.getText()) != null){
                     String key = userTextField.getText();
                     System.out.println(key);
                     userTextField.setText("");
@@ -104,7 +104,7 @@ public class BasicGUI extends JFrame {
         deleteUserButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (TreeManagement.BinarySearch(userTextField.getText()) != null){
+            if (TreeManagement.binarySearch(userTextField.getText()) != null){
                 String key = userTextField.getText();
                 System.out.println(key);
                 userTextField.setText("");
