@@ -6,6 +6,7 @@ import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import com.sun.source.tree.Tree;
+import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.*;
 import org.json.simple.JSONObject;
 
@@ -568,9 +569,18 @@ public class WebHost {
     }
 
     @GetMapping("/searchCompany/{criteria}/")
-    public static SinglyList<Company> searchCompany(@PathVariable String criteria){
-        try{ return CompanyTree.searchCompany(criteria); }
-        catch (NullPointerException e){ return new SinglyList<>(); }
+    public static SinglyList<JSONObject> searchCompany(@PathVariable String criteria){
+        try{
+            SinglyList<Company> companyList=  CompanyTree.searchCompany(criteria);
+            SinglyList<JSONObject> newCompany = new SinglyList<JSONObject>();
+            for (int i=0; i<companyList.getLength(); i++){
+                newCompany.add(TypeConversion.companyToJSON(new AlphNodeSplay<>(companyList.get(i).getData(),null)));
+            }
+
+            return  newCompany;
+
+        }
+        catch (NullPointerException e){ return new SinglyList<JSONObject>(); }
     }
 
     @GetMapping("/company/getRecipe/{email}/")
