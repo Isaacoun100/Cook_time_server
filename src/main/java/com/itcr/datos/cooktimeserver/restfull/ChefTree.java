@@ -147,7 +147,7 @@ public class ChefTree {
     }
 
     public static SinglyList<Chef> searchChef(String data, AlphNodeTree<Chef> root, SinglyList<Chef> result){
-        if(root.getData().getName().contains(data)){ result.add(root.getData()); }
+        if(root.getData().getName().toLowerCase().contains(data.toLowerCase())){ result.add(root.getData()); }
         if(root.getRight()!=null){ searchChef(data, root.getRight(), result); }
         if(root.getLeft()!=null){ searchChef(data, root.getLeft(), result); }
         return result;

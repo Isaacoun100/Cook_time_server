@@ -207,7 +207,7 @@ public class RecipeTree {
     }
 
     public static SinglyList<Recipe> searchRecipe(String data, AlphNodeAVL<Recipe> root, SinglyList<Recipe> result){
-        if(root.getData().getTitle().contains(data)){ result.add(root.getData()); }
+        if(root.getData().getTitle().toLowerCase().contains(data.toLowerCase())){ result.add(root.getData()); }
         if(root.getRight()!=null){ searchRecipe(data, root.getRight(), result); }
         if(root.getLeft()!=null){ searchRecipe(data, root.getLeft(), result); }
         return result;

@@ -163,7 +163,7 @@ public class CompanyTree {
     }
 
     public static SinglyList<Company> searchCompany(String data, AlphNodeSplay<Company> root, SinglyList<Company> result){
-        if(root.getData().getName().contains(data)){ result.add(root.getData()); }
+        if(root.getData().getName().toLowerCase().contains(data.toLowerCase())){ result.add(root.getData()); }
         if(root.getRight()!=null){ searchCompany(data, root.getRight(), result); }
         if(root.getLeft()!=null){ searchCompany(data, root.getLeft(), result); }
         return result;

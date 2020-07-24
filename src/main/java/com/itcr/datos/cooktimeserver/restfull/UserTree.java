@@ -162,7 +162,7 @@ public class UserTree {
      * @return returns the singly list user
      */
     private static SinglyList<User> searchUser(String data, AlphNodeTree<User> root, SinglyList<User> result){
-        if(root.getData().getName().contains(data)){ result.add(root.getData()); }
+        if(root.getData().getEmail().toLowerCase().contains(data.toLowerCase())){ result.add(root.getData()); }
         if(root.getRight()!=null){ searchUser(data, root.getRight(), result); }
         if(root.getLeft()!=null){ searchUser(data, root.getLeft(), result); }
         return result;
