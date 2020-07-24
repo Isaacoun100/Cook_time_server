@@ -215,8 +215,7 @@ public class TypeConversion {
         Random random= new Random();
 
         try{jsonObject.put("name",user.getData().getName());}
-        catch (NullPointerException e){
-            jsonObject.put("name",RandomStringUtils.randomAlphabetic(random.nextInt(20)+1));}
+        catch (NullPointerException e){ jsonObject.put("name",null);}
 
         try{ jsonObject.put("password",user.getData().getPassword());}
         catch (NullPointerException e){jsonObject.put("password",null);}
