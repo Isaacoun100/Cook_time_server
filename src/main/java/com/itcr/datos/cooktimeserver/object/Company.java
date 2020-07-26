@@ -18,6 +18,14 @@ public class Company {
     private SinglyList<String> members;
     private SinglyList<String> recipe;
 
+    public void removeRecipe(String data){
+        for(int x=0;x<this.getRecipe().getLength(); x++){
+            if(this.getRecipe().get(x).getData().equals(data)){
+                this.getRecipe().remove(x);
+            }
+        }
+    }
+
     public void addFollower(String follower){
         this.followers.add(follower);
     }
