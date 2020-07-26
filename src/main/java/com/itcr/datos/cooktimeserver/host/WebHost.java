@@ -5,8 +5,6 @@ import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
-import com.sun.source.tree.Tree;
-import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.*;
 import org.json.simple.JSONObject;
 
@@ -49,11 +47,11 @@ public class WebHost {
                 "    *Access the a linked list of all users using http://localhost:6969/getUser/userShuffledList"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Set a users value using http://localhost:6969/setUser/[Email]/[Data] , in this last field you'll be able"
-                +System.lineSeparator() +
+                +System.lineSeparator() +System.lineSeparator() +
                 "    *Search for a user by typing http://localhost:6969/searchUser/[criteria]"
-                +System.lineSeparator() +
+                +System.lineSeparator() +System.lineSeparator() +
                 "    *Get the first 3 users of the shuffled user list by typing http://localhost:6969//getUser/userShuffledList"
-                +System.lineSeparator() +
+                +System.lineSeparator() +System.lineSeparator() +
                 "    *Follow a company by typing http://localhost:6969/user/[userEmail]/addMember/[companyEmail]"
                 +System.lineSeparator() +
                 "     to change a value from a specified user using name, email, image, password, hasCompany and age"
@@ -89,12 +87,16 @@ public class WebHost {
                 "    *Get a recipe list by typing http://localhost:6969/getRecipeList"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Add a comment to a recipe by using the link http://localhost:6969/addComment/[Recipe_Title]/[Email]"
-                +System.lineSeparator() +
+                +System.lineSeparator() +System.lineSeparator() +
                 "    *Search for a recipe by typing http://localhost:6969/searchRecipe and the JSON with the query form or can be searched using the"
                 +System.lineSeparator() +
                 "    *Non query form using http://localhost:6969/searchRecipe/[query]"
                 +System.lineSeparator() +
-                "     where the email corresponds to the user email, this is a post that will recieve the comment in plain text"
+                "    *where the email corresponds to the user email, this is a post that will recieve the comment in plain text"
+                +System.lineSeparator() +System.lineSeparator() +
+                "    *Recipes can be deleted both from user by using http://localhost:6969/deleteRecipe/user/[Recipe title]/ or from a company"
+                +System.lineSeparator() +
+                "    *by typing http://localhost:6969/deleteRecipe/company/[Recipe title]/"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
 
@@ -113,6 +115,8 @@ public class WebHost {
                 "    *Access the recipes of a company by typing http://localhost:6969/company/getRecipe/{email}/"
                 + System.lineSeparator() +System.lineSeparator() +
                 "    *Get the first 3 companies of the shuffled company list by typing http://localhost:6969//getCompany/companyShuffledList"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access all of the members of a company by typing http://localhost:6969/[companyEmail]/memberList"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
 
@@ -618,6 +622,18 @@ public class WebHost {
         try {
             User user = TreeManagement.binarySearch(userEmail).getData();
             Company company = TreeManagement.binarySearchSplay(companyEmail).getData();
+
+            if(user.getCompany()!=null){
+                Company oldCompany = TreeManagement.binarySearchSplay(user.getCompany()).getData();
+                SinglyList<String> members = oldCompany.getMembers();
+                for(int i=0; i<members.getLength(); i++){
+                    if(members.get(i).getData().equals(user.getEmail())){
+                        members.remove(i);
+                    }
+                }
+                oldCompany.setMembers(members);
+            }
+
             user.setCompany(company.getEmail());
             user.setHasCompany(true);
             company.addMember(user.getEmail());
@@ -646,14 +662,71 @@ public class WebHost {
 
     @GetMapping("/deleteCompany/{email}/")
     public static void deleteCompany(@PathVariable String email){
+
+        Company company = TreeManagement.binarySearchSplay(email).getData();
+
+        for(int x=0; x<company.getMembers().getLength(); x++){
+            User user = TreeManagement.binarySearch(company.getMembers().get(x).getData()).getData();
+            user.setCompany(null);
+            user.setHasCompany(false);
+        }
+        UserTree.saveUser();
         CompanyTree.getSplayCompanyTree().delete(email);
         CompanyTree.saveCompany();
     }
 
-    @GetMapping("/deleteRecipe/{title}/")
-    public static void deleteRecipe(@PathVariable String title){
-        RecipeTree.getAvlRecipeTree().deleteNode(title);
-        RecipeTree.saveRecipe();
+    @GetMapping("/deleteRecipe/user/{title}/")
+    public static String deleteRecipeUser(@PathVariable String title){
+        try{
+            Recipe recipe = TreeManagement.binarySearchAvl(title).getData();
+            User user = TreeManagement.binarySearch(recipe.getAuthor()).getData();
+            user.removeRecipe(title);
+            RecipeTree.getAvlRecipeTree().deleteNode(title);
+            RecipeTree.saveRecipe();
+            UserTree.saveUser();
+        }
+        catch (NullPointerException e){
+            return "Please check your info";
+        }
+
+        return title;
+    }
+
+    @GetMapping("/deleteRecipe/company/{title}/")
+    public static String deleteRecipeCompany(@PathVariable String title){
+        try{
+            Recipe recipe = TreeManagement.binarySearchAvl(title).getData();
+            Company company = TreeManagement.binarySearchSplay(recipe.getAuthor()).getData();
+            company.removeRecipe(title);
+            RecipeTree.getAvlRecipeTree().deleteNode(title);
+            RecipeTree.saveRecipe();
+            CompanyTree.saveCompany();
+        }
+        catch (NullPointerException e){
+            return "Please check your info";
+        }
+
+        return title;
+    }
+
+    @GetMapping("/{companyEmail}/memberList")
+    public static SinglyList<JSONObject> memberList(@PathVariable String companyEmail){
+        SinglyList<JSONObject> userSinglyList = new SinglyList<>();
+        Company company;
+        try{ company = TreeManagement.binarySearchSplay(companyEmail).getData(); }
+        catch (NullPointerException e){
+            System.out.println("No company was found");
+            return userSinglyList;
+        }
+        for(int x=0; x<company.getMembers().getLength(); x++){
+            try{
+                userSinglyList.add(TypeConversion.userToJSON(TreeManagement.binarySearch(company.getMembers().get(x).getData())));}
+            catch (NullPointerException e){
+                System.out.println("There was a problem with the member at : "+x+" position");
+                return userSinglyList;
+            }
+        }
+        return userSinglyList;
     }
 
 }
