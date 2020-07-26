@@ -18,6 +18,12 @@ public class User extends Client {
     private String company = null;
     private int age;
 
+    public void removeRecipe(String delete){
+        for(int i=0; i<this.recipe.getLength(); i++){
+            if(this.recipe.get(i).getData().equals(delete)){ this.recipe.remove(i);}
+        }
+    }
+
     public String getCompany() {
         return company;
     }
