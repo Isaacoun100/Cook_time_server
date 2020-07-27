@@ -124,11 +124,17 @@ public class WebHost {
 
 
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
-                "    *Access the the dates sorted in the following link http://localhost:6969/sorting/getDates"
+                "    *Access the the dates sorted of each user in the following link http://localhost:6969/sorting/getDates/[id]"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Access the the dates sorted in the following link http://localhost:6969/sorting/getRatings"
+                "    *Access the the ratings sorted of each user in the following link http://localhost:6969/sorting/getRatings/[id]"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Access the the dates sorted in the following link http://localhost:6969/sorting/getDifficulties"
+                "    *Access the the difficulties sorted of each user in the following link http://localhost:6969/sorting/getDifficulties/[id]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the the dates sorted of each company in the following link http://localhost:6969/sorting/getDatesCompany/[id]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the the ratings sorted of each company in the following link http://localhost:6969/sorting/getRatingsCompany/[id]"
+                + System.lineSeparator() +System.lineSeparator() +
+                "    *Access the the difficulties sorted of each company in the following link http://localhost:6969/sorting/getDifficultiesCompany/[id]"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
                 "Read more about HTTP Methods here: https://restfulapi.net/http-methods/ ";
 
@@ -484,7 +490,11 @@ public class WebHost {
      */
     @GetMapping("/getRecipeList")
     public static SinglyList<Recipe> getRecipeList(){
-        try{ return TreeManagement.getRecipeList(); }
+        try{
+            SinglyList<Recipe> listTree = TreeManagement.getRecipeList();
+            listTree = listTree.Inverter(listTree);
+            return listTree;
+        }
         catch (NullPointerException e){ return new SinglyList<Recipe>(); }
     }
 
@@ -529,6 +539,37 @@ public class WebHost {
     public static SinglyList<Recipe> getSortedDifficulties(@PathVariable String id){
         return SortingMethods.DifficultySortUser(id);
     }
+
+    /**
+     * Getter for the dates sorted for each company
+     * @param id the id of the company (email)
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getDatesCompany/{id}")
+    public static SinglyList<Recipe> getSortedDatesCompany(@PathVariable String id){
+        return SortingMethods.DateSortCompany(id);
+    }
+
+    /**
+     * Getter for the ratings sorted for each company
+     * @param id the id of the company (email)
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getRatingsCompany/{id}")
+    public static SinglyList<Recipe> getSortedRatingsCompany(@PathVariable String id){
+        return SortingMethods.RatingSortCompany(id);
+    }
+
+    /**
+     * Getter for the difficulties sorted for each company
+     * @param id the id of the company (email)
+     * @return returns the singly list
+     */
+    @GetMapping("/sorting/getDifficultiesCompany/{id}")
+    public static SinglyList<Recipe> getSortedDifficultiesCompany(@PathVariable String id){
+        return SortingMethods.DifficultySortCompany(id);
+    }
+
 
     @GetMapping("/searchUser/{criteria}/")
     public static SinglyList<User> searchUser(@PathVariable String criteria){
