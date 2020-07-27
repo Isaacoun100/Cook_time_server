@@ -167,6 +167,12 @@ public class RecipeTree {
         try{jsonObject.put("comments", recipe.getComments());}
         catch (NullPointerException e){jsonObject.put("comments",null);}
 
+        try{jsonObject.put("numRating",recipe.getNumRating());}
+        catch (NullPointerException e){jsonObject.put("numRating",null);}
+
+        try{jsonObject.put("totalRating",recipe.getTotalRating());}
+        catch (NullPointerException e){jsonObject.put("totalRating",null);}
+
         return jsonObject;
     }
 
