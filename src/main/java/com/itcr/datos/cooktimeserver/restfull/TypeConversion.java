@@ -74,7 +74,7 @@ public class TypeConversion {
         try{ recipe.setServings(Integer.parseInt(jsonObject.get("servings").toString())); }
         catch (NullPointerException e){ recipe.setServings(1); }
 
-        try{ recipe.setRating(Integer.parseInt(jsonObject.get("rating").toString())); }
+        try{ recipe.setRating(Float.parseFloat(jsonObject.get("rating").toString())); }
         catch (NullPointerException e){ recipe.setRating(0);}
 
         try{ recipe.setDifficulty(Integer.parseInt(jsonObject.get("difficulty").toString())); }
@@ -82,6 +82,13 @@ public class TypeConversion {
 
         try{ recipe.setComments(jsonObject.get("comments").toString());}
         catch (NullPointerException e){ recipe.setComments(null);}
+
+        try{recipe.setTotalRating(Integer.parseInt(jsonObject.get("totalRating").toString()));}
+        catch (NullPointerException e){ recipe.setTotalRating(0); }
+
+        try{recipe.setNumRating(Integer.parseInt(jsonObject.get("numRating").toString()));}
+        catch (NullPointerException e){ recipe.setNumRating(0); }
+
         return recipe;
     }
 
