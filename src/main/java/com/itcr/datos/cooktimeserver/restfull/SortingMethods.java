@@ -42,12 +42,34 @@ public class SortingMethods {
 
     }
 
+    /**
+     * Function that sorts the user´s recipes by date
+     * @param user the user´s id
+     * @return returns the new singly list sorted
+     */
     public static SinglyList<Recipe> DateSortUser(String user){
 
         SinglyList<String> oldList = TreeManagement.binarySearch(user).getData().getRecipe();
         SinglyList<Recipe> newList = new SinglyList<>();
 
         for(int x=0;x<oldList.getLength();x++){
+            newList.add(TreeManagement.binarySearchAvl(oldList.get(x).getData()).getData());
+        }
+
+        return DateSort(newList);
+    }
+
+    /**
+     * Function that sorts the company´s recipes by date
+     * @param company the company´s email
+     * @return returns the new singly list sorted
+     */
+    public static SinglyList<Recipe> DateSortCompany(String company){
+
+        SinglyList<String> oldList = TreeManagement.binarySearchSplay(company).getData().getRecipe();
+        SinglyList<Recipe> newList = new SinglyList<>();
+
+        for(int x=0 ; x<oldList.getLength(); x++){
             newList.add(TreeManagement.binarySearchAvl(oldList.get(x).getData()).getData());
         }
 
@@ -71,8 +93,25 @@ public class SortingMethods {
      * @param user the user id
      * @return returns the new singly list sorted
      */
-    public static SinglyList<Recipe> RatingSortUser(String user){
+    public static SinglyList<Recipe> RatingSortUser(String user) {
         SinglyList<String> oldList = TreeManagement.binarySearch(user).getData().getRecipe();
+
+        SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
+
+        for (int i = 0; i < oldList.getLength(); i++) {
+            recipeSinglyList.add(TreeManagement.binarySearchAvl(oldList.get(i).getData()).getData());
+        }
+
+        return RatingSort(recipeSinglyList);
+    }
+
+    /**
+     * Function that sorts the ratings of the recipes of each company
+     * @param company the company´s email
+     * @return return the new singly list sorted
+     */
+    public static SinglyList<Recipe> RatingSortCompany(String company){
+        SinglyList<String> oldList = TreeManagement.binarySearchSplay(company).getData().getRecipe();
 
         SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
 
@@ -110,6 +149,25 @@ public class SortingMethods {
 
         return DifficultySort(recipeSinglyList);
     }
+
+    /**
+     * Function that sorts the ratings of the recipes of each company
+     * @param company the company´s id
+     * @return returns the new singly list sorted
+     */
+    public static SinglyList<Recipe> DifficultySortCompany(String company){
+        SinglyList<String> oldList = TreeManagement.binarySearchSplay(company).getData().getRecipe();
+
+        SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
+
+        for(int i = 0; i < oldList.getLength();i++){
+            recipeSinglyList.add(TreeManagement.binarySearchAvl(oldList.get(i).getData()).getData());
+        }
+
+        return DifficultySort(recipeSinglyList);
+    }
+
+
 
 
 }
