@@ -19,9 +19,35 @@ public class Recipe {
     private String date;
     private int price;
     private int servings;
-    private int rating;
+    private float rating;
     private int difficulty;
     private String comments;
+    private int totalRating;
+    private int numRating;
+
+    public int getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(int totalRating) {
+        this.totalRating = totalRating;
+    }
+
+    public int getNumRating() {
+        return numRating;
+    }
+
+    public void setNumRating(int numRating) {
+        this.numRating = numRating;
+    }
+
+    public void addNumRating(){
+        numRating++;
+    }
+
+    public void addTotalRating(int totalRating){
+        this.totalRating+=totalRating;
+    }
 
     /**
      * Getter for title
@@ -219,7 +245,7 @@ public class Recipe {
      * Getter for rating
      * @return returns rating
      */
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
@@ -227,7 +253,7 @@ public class Recipe {
      * Setter for rating
      * @param rating
      */
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

@@ -89,7 +89,7 @@ public class SortingAlgorithms {
      */
     private static void quick_sort_ratings(SinglyList<Recipe> list, int first, int last){
         int pivot = (first + (last - first) / 2);
-        int dataPivot = list.get(pivot).getData().getRating();
+        float dataPivot = list.get(pivot).getData().getRating();
         int i = first;
         int j = last;
         while (i <= j){

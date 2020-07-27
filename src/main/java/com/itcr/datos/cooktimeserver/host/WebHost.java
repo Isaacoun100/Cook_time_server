@@ -30,31 +30,31 @@ public class WebHost {
 
 
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
-                "    *Access the users in the following link http://localhost:6969/user "
+                "    * Access the users in the following link http://localhost:6969/user "
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Add new users using the link http://localhost:6969/newUser using a POST request "
+                "    * Add new users using the link http://localhost:6969/newUser using a POST request "
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Access a specific user by typing the link http://localhost:6969/email/getUser/[USER EMAIL]"
+                "    * Access a specific user by typing the link http://localhost:6969/email/getUser/[USER EMAIL]"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Change a value from a specific user with http://localhost:6969/setUser/[USER EMAIL]/[[KEY TO MODIFY]]"
+                "    * Change a value from a specific user with http://localhost:6969/setUser/[USER EMAIL]/[[KEY TO MODIFY]]"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Verify the user is in the server http://localhost:6969/login/[USER EMAIL]/[[PASSWORD]]"
+                "    * Verify the user is in the server http://localhost:6969/login/[USER EMAIL]/[[PASSWORD]]"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Add a follower to a user and assing the following http://localhost:6969/user/[FOLLOWED_EMAIL]/addFollower/[FOLLOWING_EMAIL]"
+                "    * Add a follower to a user and assign the following http://localhost:6969/user/[FOLLOWED_EMAIL]/addFollower/[FOLLOWING_EMAIL]"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *the first parameter FOLLOWED is the user that FOLLOWING is following, this will set the list for both FOLLOWED and FOLLOWING"
+                "      the first parameter FOLLOWED is the user that FOLLOWING is following, this will set the list for both FOLLOWED and FOLLOWING"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Access the a linked list of all users using http://localhost:6969/getUser/userShuffledList"
+                "    * Access the a linked list of all users using http://localhost:6969/getUser/userShuffledList"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Set a users value using http://localhost:6969/setUser/[Email]/[Data] , in this last field you'll be able"
+                "    * Set a users value using http://localhost:6969/setUser/[Email]/[Data] , in this last field you'll be able"
                 +System.lineSeparator() +System.lineSeparator() +
-                "    *Search for a user by typing http://localhost:6969/searchUser/[criteria]"
+                "    * Search for a user by typing http://localhost:6969/searchUser/[criteria]"
                 +System.lineSeparator() +System.lineSeparator() +
-                "    *Get the first 3 users of the shuffled user list by typing http://localhost:6969//getUser/userShuffledList"
+                "    * Get the first 3 users of the shuffled user list by typing http://localhost:6969//getUser/userShuffledList"
                 +System.lineSeparator() +System.lineSeparator() +
-                "    *Follow a company by typing http://localhost:6969/user/[userEmail]/addMember/[companyEmail]"
+                "    * Follow a company by typing http://localhost:6969/user/[userEmail]/addMember/[companyEmail]"
                 +System.lineSeparator() +
-                "     to change a value from a specified user using name, email, image, password, hasCompany and age"
+                "      to change a value from a specified user using name, email, image, password, hasCompany and age"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
 
@@ -62,11 +62,11 @@ public class WebHost {
 
 
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
-                "    *You can access the chef tree using http://localhost:6969/chef"
+                "    * You can access the chef tree using http://localhost:6969/chef"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Search for a chef by typing http://localhost:6969/searchChef/[criteria]/"
+                "    * Search for a chef by typing http://localhost:6969/searchChef/[criteria]/"
                 +System.lineSeparator() +
-                "    *You can add a chef using http://localhost:6969/newChef"
+                "    * You can add a chef using http://localhost:6969/newChef"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
 
@@ -74,29 +74,33 @@ public class WebHost {
 
 
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
-                "You can access the recipe tree using http://localhost:6969/recipe"
+                "    * You can access the recipe tree using http://localhost:6969/recipe"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Add a recipe to a user with http://localhost:6969/newRecipe using a post method"
+                "    * Add a recipe to a user with http://localhost:6969/newRecipe using a post method"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Get an specific recipe with http://localhost:6969/getRecipe/title/[RECIPE TITLE] using the title"
+                "    * Get an specific recipe with http://localhost:6969/getRecipe/title/[RECIPE TITLE] using the title"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Or access to all of the recipes of a user http://localhost:6969/getRecipe/user/[USER NAME] using the user name, this returns a list"
+                "    * Or access to all of the recipes of a user http://localhost:6969/getRecipe/user/[USER NAME] using the user name, this returns a list"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Add a recipe to the feed by using http://localhost:6969/addFeedRecipe/[Recipe_Title]/[User_email]"
+                "    * Add a recipe to the feed by using http://localhost:6969/addFeedRecipe/[Recipe_Title]/[User_email]"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Get a recipe list by typing http://localhost:6969/getRecipeList"
+                "    * Get a recipe list by typing http://localhost:6969/getRecipeList"
                 + System.lineSeparator() +System.lineSeparator() +
-                "    *Add a comment to a recipe by using the link http://localhost:6969/addComment/[Recipe_Title]/[Email]"
+                "    * Add a comment to a recipe by using the link http://localhost:6969/addComment/[Recipe_Title]/[Email]"
                 +System.lineSeparator() +System.lineSeparator() +
-                "    *Search for a recipe by typing http://localhost:6969/searchRecipe and the JSON with the query form or can be searched using the"
+                "    * Search for a recipe by typing http://localhost:6969/searchRecipe and the JSON with the query form or can be searched using the"
                 +System.lineSeparator() +
-                "    *Non query form using http://localhost:6969/searchRecipe/[query]"
+                "    * Non query form using http://localhost:6969/searchRecipe/[query]"
                 +System.lineSeparator() +
-                "    *where the email corresponds to the user email, this is a post that will recieve the comment in plain text"
+                "      where the email corresponds to the user email, this is a post that will recieve the comment in plain text"
                 +System.lineSeparator() +System.lineSeparator() +
-                "    *Recipes can be deleted both from user by using http://localhost:6969/deleteRecipe/user/[Recipe title]/ or from a company"
+                "    * Recipes can be deleted both from user by using http://localhost:6969/deleteRecipe/user/[Recipe title]/ or from a company"
                 +System.lineSeparator() +
-                "    *by typing http://localhost:6969/deleteRecipe/company/[Recipe title]/"
+                "      by typing http://localhost:6969/deleteRecipe/company/[Recipe title]/"
+                +System.lineSeparator() +System.lineSeparator() +
+                "    * Add a new rating by typing http://localhost:6969/newRating/{recipeTitle}/{rating}/ , this will automatically add the rating to the total"
+                +System.lineSeparator() +
+                "      will add the recipe to the overall and it will calculate the average, it will return true if everything went fine, false if not"
                 + System.lineSeparator() +System.lineSeparator() + System.lineSeparator() +System.lineSeparator() +
 
 
@@ -203,7 +207,7 @@ public class WebHost {
             count++;
         }
         return response;
-        
+
     }
     /**
      * Getter for the shuffled company singly list
@@ -475,6 +479,19 @@ public class WebHost {
         }
     }
 
+    @GetMapping("/newRating/{recipeTitle}/{rating}/")
+    public static boolean newRating(@PathVariable String recipeTitle, @PathVariable int rating){
+        try{
+            Recipe recipe = TreeManagement.binarySearchAvl(recipeTitle).getData();
+            recipe.addNumRating();
+            recipe.addTotalRating(rating);
+            recipe.setRating( (float)recipe.getTotalRating()/recipe.getNumRating() );
+            RecipeTree.saveRecipe();
+            return true;
+        }
+        catch (NullPointerException e){ return false;}
+    }
+
     /**
      * Function that gets the difficulties sorted
      * @return returns the singly list with the difficulties sorted
@@ -572,8 +589,15 @@ public class WebHost {
 
 
     @GetMapping("/searchUser/{criteria}/")
-    public static SinglyList<User> searchUser(@PathVariable String criteria){
-        try{ return UserTree.searchUser(criteria); }
+    public static SinglyList<JSONObject> searchUser(@PathVariable String criteria){
+        try{
+            SinglyList<User> userList = UserTree.searchUser(criteria);
+            SinglyList<JSONObject> objectList = new SinglyList<>();
+            for(int i=0; i<userList.getLength(); i++){
+                objectList.add(TypeConversion.userToJSON(new AlphNodeTree<User>(userList.get(i).getData(),null)));
+            }
+            return objectList;
+        }
         catch (NullPointerException e){ return new SinglyList<>(); }
     }
 
@@ -596,7 +620,7 @@ public class WebHost {
                 if(criteria.get("duration") == null ||
                         recipe.getDuration().equals(criteria.get("duration"))){
 
-                    if(criteria.get("servings") == null ||
+                    if(Integer.parseInt(criteria.get("servings").toString()) == 0 ||
                             recipe.getServings() == Integer.parseInt(criteria.get("servings").toString())){
 
                         finalSinglyList.add(recipeSinglyList.get(x).getData());
