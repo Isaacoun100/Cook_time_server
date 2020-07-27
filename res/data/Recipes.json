@@ -1,1 +1,37 @@
-{"date":"19\/07\/2020","image":"https:\/\/images-gmi-pmc.edge-generalmills.com\/a85a2a89-de74-4b59-bfd2-63c97614e03a.jpg","comments":null,"author":"cupo@email","rating":0,"description":"arroz y atun","right":null,"title":"Extracto de cupo","type":"Lunch","steps":"cocine el arroz etc","duration":"1 - 3 hours","difficulty":40,"servings":4,"left":null,"price":2500,"time":"Lunch","diet":"Carnivorous"}
+{
+  "date": "19\/07\/2020",
+  "image": "https:\/\/images-gmi-pmc.edge-generalmills.com\/a85a2a89-de74-4b59-bfd2-63c97614e03a.jpg",
+  "comments": null,
+  "author": "cupo@email",
+  "rating": 0,
+  "description": "arroz y atun",
+  "right": {
+    "date": "12\/5\/606",
+    "image": null,
+    "comments": null,
+    "author": "a@a.com",
+    "rating": 0,
+    "description": null,
+    "right": null,
+    "title": "Pollo campero",
+    "type": null,
+    "steps": null,
+    "duration": null,
+    "difficulty": 0,
+    "servings": 1,
+    "left": null,
+    "price": 0,
+    "time": null,
+    "diet": null
+  },
+  "title": "Extracto de cupo",
+  "type": "Lunch",
+  "steps": "cocine el arroz etc",
+  "duration": "1 - 3 hours",
+  "difficulty": 40,
+  "servings": 4,
+  "left": null,
+  "price": 2500,
+  "time": "Lunch",
+  "diet": "Carnivorous"
+}
