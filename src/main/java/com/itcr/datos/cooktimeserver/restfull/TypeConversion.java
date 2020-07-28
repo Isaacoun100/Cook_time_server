@@ -1,8 +1,6 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.*;
 import com.itcr.datos.cooktimeserver.object.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.json.simple.JSONArray;
@@ -30,6 +28,11 @@ public class TypeConversion {
         return  recipeSinglyList;
     }
 
+    /**
+     *Function that casts a jsonobject into a recipe object
+     * @param jsonObject
+     * @return the recipe object
+     */
     public static Recipe makeRecipe(JSONObject jsonObject) {
         Recipe recipe = new Recipe();
         Random random = new Random();
@@ -92,10 +95,20 @@ public class TypeConversion {
         return recipe;
     }
 
+    /**
+     * Function that casts an object into an Arraylist of object
+     * @param object
+     * @return returns the array list
+     */
     public static ArrayList<Object> objectArray(Object object){
         return (ArrayList<Object>) object;
     }
 
+    /**
+     * Function that casts and object into a JSON array
+     * @param object
+     * @return returns the JSON array
+     */
     public static JSONArray objectToJSONArray(Object object){
         JSONArray jsonArray = new JSONArray();
         ArrayList<Object> arrayList = objectArray(object);
@@ -111,6 +124,11 @@ public class TypeConversion {
         return jsonArray;
     }
 
+    /**
+     * Function that casts an array list into a singly list of comments
+     * @param arrayList
+     * @return returns the singly list
+     */
     private static SinglyList<Comment> toCommentList(ArrayList<Object> arrayList){
         SinglyList<Comment> commentSinglyList = new SinglyList<Comment>();
         int size, count=size=0;
@@ -134,6 +152,11 @@ public class TypeConversion {
         return  commentSinglyList;
     }
 
+    /**
+     * Function that turns a JSON object into a company object
+     * @param jsonObject
+     * @return returns the company object
+     */
     public static Company makeCompany(JSONObject jsonObject){
         Company newCompany = new Company();
 
@@ -173,6 +196,12 @@ public class TypeConversion {
         return newCompany;
     }
 
+    /**
+     * Function that casts JSON array into a singly list of strings
+     * @param jsonArray
+     * @param singlyList
+     * @return returns the singly list
+     */
     public static SinglyList<String> makeStringList(JSONArray jsonArray, SinglyList<String> singlyList){
         int count,size=count=0;
 
@@ -187,7 +216,12 @@ public class TypeConversion {
         return singlyList;
     }
 
-
+    /**
+     *Function that casts a singly list of comments into a JSON array
+     * @param commentSinglyList
+     * @param jsonArray
+     * @return returns the JSON array
+     */
     @SuppressWarnings("unchecked")
     public static JSONArray makeCommentArray(SinglyList<Comment> commentSinglyList, JSONArray jsonArray){
         int count, size  = count = 0;
@@ -204,6 +238,12 @@ public class TypeConversion {
 
     }
 
+    /**
+     * Function thatcasts a singlylist of strings into a JSON array
+     * @param stringSinglyList
+     * @param jsonArray
+     * @return returns the JSON array
+     */
     @SuppressWarnings("unchecked")
     public static JSONArray makeStringArray(SinglyList<String> stringSinglyList, JSONArray jsonArray){
         int count=0;
@@ -216,6 +256,11 @@ public class TypeConversion {
         return jsonArray;
     }
 
+    /**
+     * Function that casts user object into JSON
+     * @param user
+     * @return returns the JSON object
+     */
     @SuppressWarnings("unchecked")
     public static JSONObject userToJSON(AlphNodeTree<User> user){
         JSONObject jsonObject = new JSONObject();
@@ -255,6 +300,12 @@ public class TypeConversion {
         catch (NullPointerException e){ jsonObject.put("company", null);}
         return jsonObject;
     }
+
+    /**
+     *Function that casts chef object into a JSON object
+     * @param chef
+     * @return returns the JSON object
+     */
     @SuppressWarnings("unchecked")
     public static JSONObject chefToJSON(AlphNodeTree<Chef> chef){
         JSONObject jsonObject = new JSONObject();
@@ -291,6 +342,12 @@ public class TypeConversion {
 
         return jsonObject;
     }
+
+    /**
+     * Function that casts a company object into a JSON object
+     * @param company
+     * @return returns the JSON object
+     */
     @SuppressWarnings("unchecked")
     public static JSONObject companyToJSON(AlphNodeSplay<Company> company){
         JSONObject jsonObject = new JSONObject();
