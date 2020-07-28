@@ -10,6 +10,10 @@ public class AlphBinaryTree<T> {
     private AlphNodeTree<T> root = null;
     private int length;
 
+    /**
+     * This method will return the size of the tree by counting each node and returning the total
+     * @return the size of the tree
+     */
     public int getLength(){
         return this.length;
     }
@@ -60,7 +64,7 @@ public class AlphBinaryTree<T> {
      * @param key second string
      * @return return ´leaf´ if the first string is greater, ´key´ if the second string is greater, or ´equals´ if they are the same
      */
-    public String greater(String leaf, String key){
+    public static String greater(String leaf, String key){
 
         if(leaf.equals(key)){
             return "equals";
@@ -128,7 +132,6 @@ public class AlphBinaryTree<T> {
      * Deletes the node in the BST and calls recursively the other function
      * @param key key about to be deleted
      */
-
     public void delete(String key){
         this.root = deleteAux(this.root, key);
         length--;
@@ -140,7 +143,6 @@ public class AlphBinaryTree<T> {
      * @param key key about to be deleted
      * @return returns the root
      */
-
     private AlphNodeTree<T> deleteAux(AlphNodeTree<T> root, String key){
         /* Base Case: If the tree is empty */
         if (root == null)  return root;
@@ -171,24 +173,6 @@ public class AlphBinaryTree<T> {
         return root;
     }
 
-
-
-    @SuppressWarnings("DuplicatedCode")
-    private AlphNodeTree<T> change(AlphNodeTree<T> root){
-        AlphNodeTree<T> nodeTree = root;
-        AlphNodeTree<T> maxLeft = root.getLeft();
-
-        //noinspection DuplicatedCode
-        while (maxLeft.getRight() != null){
-            nodeTree = maxLeft;
-            maxLeft = maxLeft.getRight();
-        }
-        root.setData(maxLeft.getData());
-        if(nodeTree == root) nodeTree.setLeft(maxLeft.getRight());
-        else nodeTree.setRight(maxLeft.getRight());
-        return maxLeft;
-    }
-
     /**
      * Gets the inorder succesor of the node
      * @param root the node
@@ -204,6 +188,7 @@ public class AlphBinaryTree<T> {
         }
         return minv;
     }
+
     /**
      * Function that returns the root of the tree
      * @return returns the root
@@ -211,6 +196,7 @@ public class AlphBinaryTree<T> {
     public AlphNodeTree<T> getRoot(){
         return this.root;
     }
+
     /**
      * Function that calls recursively the function of printing the tree´s diagram
      * @return returns the recursive function
@@ -219,12 +205,16 @@ public class AlphBinaryTree<T> {
         AlphNodeTree<T> newRoot = null;
         try{
             newRoot=this.root;
+            if(newRoot==null){
+                return null;
+            }
             return this.toString(new StringBuilder(), true, new StringBuilder(),newRoot).toString();
         } catch (NullPointerException e){
             e.printStackTrace();
             return null;
         }
     }
+
     /**
      * Recursive function used for printing de AVL tree´s diagram
      * @param prefix StringBuilder instance
