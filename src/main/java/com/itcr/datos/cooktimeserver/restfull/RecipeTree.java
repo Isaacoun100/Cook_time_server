@@ -1,8 +1,6 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphAvlTree;
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.*;
 import com.itcr.datos.cooktimeserver.object.Comment;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import org.json.simple.JSONArray;
@@ -197,9 +195,20 @@ public class RecipeTree {
         return jsonObject;
     }
 
+    /**
+     * Getter fot the singly lists of the recipes of the recipe tree
+     * @return
+     */
     public static SinglyList<Recipe> getRecipeList(){
         return getRecipeList(RecipeTree.getAvlRecipeTree().getRoot(), new SinglyList<>());
     }
+
+    /**
+     * Function that gets the recipe list 
+     * @param reference 
+     * @param recipeList
+     * @return the singly list of recipes 
+     */
     private static SinglyList<Recipe> getRecipeList(AlphNodeAVL<Recipe> reference, SinglyList<Recipe> recipeList){
        if (reference != null){ recipeList.add(reference.getData());}
        if(reference.getRight()!=null){ getRecipeList(reference.getRight(), recipeList);}
@@ -208,10 +217,22 @@ public class RecipeTree {
 
     }
 
+    /**
+     * Function that searches for the recipe key
+     * @param data
+     * @return returns the data searched
+     */
     public static SinglyList<Recipe> searchRecipe(String data){
         return searchRecipe(data, getAvlRecipeTree().getRoot(), new SinglyList<Recipe>());
     }
 
+    /**
+     * Recursive function that searches for the recip key 
+     * @param data
+     * @param root
+     * @param result
+     * @return returns the singly list of recipes
+     */
     public static SinglyList<Recipe> searchRecipe(String data, AlphNodeAVL<Recipe> root, SinglyList<Recipe> result){
         if(root.getData().getTitle().toLowerCase().contains(data.toLowerCase())){ result.add(root.getData()); }
         if(root.getRight()!=null){ searchRecipe(data, root.getRight(), result); }
