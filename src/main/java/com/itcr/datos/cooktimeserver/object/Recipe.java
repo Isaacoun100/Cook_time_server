@@ -25,26 +25,49 @@ public class Recipe {
     private int totalRating;
     private int numRating;
 
+    /**
+     * Getter for total rating
+     * @return returns total rating
+     */
     public int getTotalRating() {
         return totalRating;
     }
 
+    /**
+     * Setter for total rating
+     * @param totalRating
+     */
     public void setTotalRating(int totalRating) {
         this.totalRating = totalRating;
     }
 
+    /**
+     * Getter for the number of the rating
+     * @return returns num
+     */
     public int getNumRating() {
         return numRating;
     }
 
+    /**
+     * Setter for the number of the rating
+     * @param numRating
+     */
     public void setNumRating(int numRating) {
         this.numRating = numRating;
     }
 
+    /**
+     * Function that adds +1 to number rating counter
+     */
     public void addNumRating(){
         numRating++;
     }
 
+    /**
+     * Function that adds the incoming number to the total rating variable
+     * @param totalRating
+     */
     public void addTotalRating(int totalRating){
         this.totalRating+=totalRating;
     }
