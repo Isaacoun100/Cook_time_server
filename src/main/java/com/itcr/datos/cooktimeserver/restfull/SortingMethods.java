@@ -120,6 +120,7 @@ public class SortingMethods {
 
         return RatingSort(recipeSinglyList);
     }
+
     /**
      * Function that sorts the difficulty of the recipes
      * @return the singly list
