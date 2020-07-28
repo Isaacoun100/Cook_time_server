@@ -46,6 +46,14 @@ ehthumbs_vista.db
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
+# Created by https://www.toptal.com/developers/gitignore/api/floobits
+# Edit at https://www.toptal.com/developers/gitignore?templates=floobits
+
+### floobits ###
+.floo
+
+# End of https://www.toptal.com/developers/gitignore/api/floobits
+
 # Windows Installer files
 *.cab
 *.msi
