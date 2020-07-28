@@ -1,5 +1,9 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
+/**
+ *This class will be the object we will use as the Alphabetical Node Tree
+ * @param <T>
+ */
 public class AlphNodeTree<T> {
 
     private T data;
@@ -8,6 +12,11 @@ public class AlphNodeTree<T> {
     private AlphNodeTree<T> left;
     private AlphNodeTree<T> right;
 
+    /**
+     * Constructor for the AlphNodeTree
+     * @param data that we're going to store
+     * @param key that will be used to sort
+     */
     public AlphNodeTree(T data, String key) {
         this.data = data;
         this.key = key;
@@ -81,8 +90,5 @@ public class AlphNodeTree<T> {
      */
     public void setRight(AlphNodeTree<T> right) {
         this.right = right;
-    }
-
-    public void toString(StringBuilder append, boolean b, StringBuilder sb, AlphNodeTree<T> root) {
     }
 }
