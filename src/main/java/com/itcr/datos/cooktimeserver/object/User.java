@@ -19,12 +19,20 @@ public class User extends Client {
     private String company = null;
     private int age;
 
+    /**
+     * Function that removes the recipe specified
+     * @param delete
+     */
     public void removeRecipe(String delete){
         for(int i=0; i<this.recipe.getLength(); i++){
             if(this.recipe.get(i).getData().equals(delete)){ this.recipe.remove(i);}
         }
     }
 
+    /**
+     * Getter for company
+     * @return returns compant
+     */
     public String getCompany() {
         return company;
     }
