@@ -1,10 +1,8 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
 import com.itcr.datos.cooktimeserver.data_structures.*;
-import com.itcr.datos.cooktimeserver.object.Chef;
-import com.itcr.datos.cooktimeserver.object.Company;
-import com.itcr.datos.cooktimeserver.object.Recipe;
-import com.itcr.datos.cooktimeserver.object.User;
+import com.itcr.datos.cooktimeserver.object.*;
+
 
 /**
  * Class for functions used for the tree
@@ -76,6 +74,7 @@ public class TreeManagement {
         }
         return null;
     }
+
     /**
      * Function used for calling BinarySearchAvl recursively
      * @param data the data string
