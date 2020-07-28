@@ -1,5 +1,9 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
+/**
+ * This class will be the object we will use as the Alphabetical Node Splay
+ * @param <T> that can be any type
+ */
 public class AlphNodeSplay<T> {
 
     private T data;
@@ -20,6 +24,10 @@ public class AlphNodeSplay<T> {
 
     }
 
+    /**
+     * This method will return the father of the given Node
+     * @return the father of the given node
+     */
     public AlphNodeSplay<T> getFather() {
         return father;
     }
