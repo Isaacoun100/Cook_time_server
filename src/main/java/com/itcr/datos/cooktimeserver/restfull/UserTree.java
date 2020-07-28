@@ -1,8 +1,6 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphBinaryTree;
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.*;
 import com.itcr.datos.cooktimeserver.object.Recipe;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.apache.commons.lang3.RandomStringUtils;
