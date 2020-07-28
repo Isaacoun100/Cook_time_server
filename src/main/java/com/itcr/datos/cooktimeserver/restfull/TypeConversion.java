@@ -241,6 +241,9 @@ public class TypeConversion {
         try{jsonObject.put("hasCompany",user.getData().isHasCompany());}
         catch (NullPointerException e){jsonObject.put("hasCompany",false);}
 
+        try{jsonObject.put("hasNotification",user.getData().isHasNotification());}
+        catch (NullPointerException e){jsonObject.put("hasNotification",false);}
+
         try{jsonObject.put("company",user.getData().getCompany());}
         catch (NullPointerException e){ jsonObject.put("company", null);}
         return jsonObject;
