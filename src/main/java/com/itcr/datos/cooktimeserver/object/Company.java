@@ -26,14 +26,26 @@ public class Company {
         }
     }
 
+    /**
+     * Function that adds follower
+     * @param follower
+     */
     public void addFollower(String follower){
         this.followers.add(follower);
     }
 
+    /**
+     * Function that adds following
+     * @param following
+     */
     public void addFollowing(String following){
         this.following.add(following);
     }
 
+    /**
+     * Function that adds member
+     * @param member
+     */
     public void addMember(String member){
         members.add(member);
     }
