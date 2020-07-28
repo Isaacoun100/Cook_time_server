@@ -400,7 +400,10 @@ public class WebHost {
      */
     @GetMapping("/setUser/{email}/boolean")
     public boolean setFalse(@PathVariable String email){
-        try{ TreeManagement.BinarySearch(email).getData().setHasNotification(false); }
+        try{
+            TreeManagement.BinarySearch(email).getData().setHasNotification(false);
+            UserTree.saveUser();
+        }
         catch (NullPointerException e){ e.printStackTrace(); }
         return TreeManagement.BinarySearch(email).getData().isHasNotification();
     }
@@ -551,6 +554,8 @@ public class WebHost {
             recipe.addNumRating();
             recipe.addTotalRating(rating);
             recipe.setRating( (float)recipe.getTotalRating()/recipe.getNumRating() );
+            TreeManagement.BinarySearch(recipe.getAuthor()).getData().setHasNotification(true);
+            UserTree.saveUser();
             RecipeTree.saveRecipe();
             return true;
         }
@@ -587,6 +592,7 @@ public class WebHost {
             newRecipe.addComment(commentator.concat(":").concat(comment));
             AlphNodeTree<User> authorNewRecipe = TreeManagement.BinarySearch(newRecipe.getAuthor());
             authorNewRecipe.getData().setHasNotification(true);
+            UserTree.saveUser();
             RecipeTree.saveRecipe();
             return newRecipe.getComments();
         } catch (NullPointerException e) {
