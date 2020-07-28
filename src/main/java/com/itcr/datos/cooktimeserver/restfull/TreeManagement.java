@@ -22,8 +22,8 @@ public class TreeManagement {
      * @param data the data string
      * @return returns the recursive function
      */
-    public static AlphNodeTree<User> binarySearch(String data){
-        return binarySearch(UserTree.getUserTree().getRoot(),data);
+    public static AlphNodeTree<User> BinarySearch(String data){
+        return BinarySearch(UserTree.getUserTree().getRoot(),data);
     }
 
     /**
@@ -32,16 +32,16 @@ public class TreeManagement {
      * @param data the string data
      * @return returns the node searched
      */
-    private static AlphNodeTree<User> binarySearch(AlphNodeTree<User> reference, String data){
+    private static AlphNodeTree<User> BinarySearch(AlphNodeTree<User> reference, String data){
         if(reference.getKey().equals(data)){
             return reference;
         }
         switch(greater(reference.getKey(),data)){
             case "key":
-                if(reference.getRight()!=null){ return binarySearch(reference.getRight(),data);}
+                if(reference.getRight()!=null){ return BinarySearch(reference.getRight(),data);}
                 else{ return null;}
             case "leaf":
-                if(reference.getLeft()!=null){return binarySearch(reference.getLeft(),data);}
+                if(reference.getLeft()!=null){return BinarySearch(reference.getLeft(),data);}
                 else{ return null;}
         }
         return null;

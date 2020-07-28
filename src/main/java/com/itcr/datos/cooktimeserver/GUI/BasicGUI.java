@@ -2,22 +2,29 @@ package com.itcr.datos.cooktimeserver.GUI;
 
 import com.itcr.datos.cooktimeserver.CookTimeServerApplication;
 import com.itcr.datos.cooktimeserver.object.User;
-import com.itcr.datos.cooktimeserver.restfull.*;
-import org.springframework.boot.SpringApplication;
+import com.itcr.datos.cooktimeserver.restfull.ChefTree;
+import com.itcr.datos.cooktimeserver.restfull.TreeManagement;
+import com.itcr.datos.cooktimeserver.restfull.UserTree;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Class of the GUI used for the management of the server
+ */
 public class BasicGUI extends JFrame {
     public JLabel userLabel, chefLabel;
     public JTextField userTextField;
     public JTextArea guiTextArea;
     public JButton startServer;
-    public boolean temp = false;
 
 
+    /**
+     * Constructor of the class for the creation of the main window
+     * @param args
+     */
     BasicGUI(String[] args){
         this.setTitle("GUI server");
         this.setBounds(250,30,300,530);
@@ -33,12 +40,9 @@ public class BasicGUI extends JFrame {
         startServer = new JButton("Start Server");
         startServer.setBackground(Color.BLUE);
         startServer.setForeground(Color.black);
-        startServer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CookTimeServerApplication.main(args);
-                newWindow();
-            }
+        startServer.addActionListener(e -> {
+            CookTimeServerApplication.main(args);
+            newWindow();
         });
 
 
@@ -49,8 +53,11 @@ public class BasicGUI extends JFrame {
 
     }
 
-
+    /**
+     * Function that creates new window
+     */
     public void newWindow() {
+
         this.dispose();
         JFrame frame = new JFrame("Server GUI");
         frame.setBounds(250,30,800,530);
@@ -80,31 +87,35 @@ public class BasicGUI extends JFrame {
         JButton verifyUserButton = new JButton("Verify");
         verifyUserButton.setBackground(Color.BLUE);
         verifyUserButton.setForeground(Color.black);
-        verifyUserButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (TreeManagement.binarySearch(userTextField.getText()) != null){
-                    String key = userTextField.getText();
-                    System.out.println(key);
-                    userTextField.setText("");
-                    TreeManagement.BinarySearchChefs(key).getData().setVerify(true);
-                    ChefTree.saveChef();
-                    guiTextArea.append("\n" + UserTree.getUserTree().toString());
-                }
-                else{
-                    guiTextArea.append("User not found");
-                    userTextField.setText("");
-                }
+        verifyUserButton.addActionListener(e -> {
+            if (TreeManagement.BinarySearch(userTextField.getText()) != null){
+                String key = userTextField.getText();
+                System.out.println(key);
+                userTextField.setText("");
+
+                TreeManagement.BinarySearchChefs(key).getData().setVerify(true);
+
+                TreeManagement.BinarySearch(key).getData().setName("★" + TreeManagement.BinarySearch(key).getData().getName());
+
+                TreeManagement.BinarySearchChefs(key).getData().setName("★" + TreeManagement.BinarySearchChefs(key).getData().getName());
+
+                ChefTree.saveChef();
+                UserTree.saveUser();
+
+                guiTextArea.append("This chef is now verified");
+                guiTextArea.append("\n" + "\n" + UserTree.getUserTree().toString());
+            }
+            else{
+                guiTextArea.append("User not found");
+                userTextField.setText("");
             }
         });
 
         JButton deleteUserButton = new JButton("Delete");
         deleteUserButton.setBackground(Color.BLUE);
         deleteUserButton.setForeground(Color.black);
-        deleteUserButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (TreeManagement.binarySearch(userTextField.getText()) != null){
+        deleteUserButton.addActionListener(e -> {
+            if (TreeManagement.BinarySearch(userTextField.getText()) != null){
                 String key = userTextField.getText();
                 System.out.println(key);
                 userTextField.setText("");
@@ -117,22 +128,23 @@ public class BasicGUI extends JFrame {
                 userTextField.setText("");
             }
 
-            }
-        });
+            });
+        JButton clearTextArea = new JButton("Clear Text");
+        clearTextArea.setBackground(Color.BLUE);
+        clearTextArea.setForeground(Color.black);
+        clearTextArea.addActionListener(e -> guiTextArea.setText(""));
 
         JButton printUsers = new JButton("Get Users");
         printUsers.setBackground(Color.BLUE);
         printUsers.setForeground(Color.black);
-        printUsers.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                guiTextArea.append("\n" + UserTree.getUserTree().toString());
-            }
-        });
+        printUsers.addActionListener(e -> guiTextArea.append("\n" + UserTree.getUserTree().toString()));
 
         JButton closeServerButton = new JButton("Close Server");
         closeServerButton.setBackground(Color.BLUE);
         closeServerButton.setForeground(Color.black);
+        closeServerButton.addActionListener(e -> {
+            frame.dispose();
+        });
 
 
         guiTextArea.setBounds(100, 40,550,300);
@@ -141,10 +153,12 @@ public class BasicGUI extends JFrame {
         verifyUserButton.setBounds(120, 400, 110, 20);
         deleteUserButton.setBounds(235, 400, 80, 20);
         printUsers.setBounds(320,400,130,20);
-        closeServerButton.setBounds(750, 600, 100, 30);
+        closeServerButton.setBounds(700, 450, 100, 30);
+        clearTextArea.setBounds(225, 425, 150,20);
 
         container.add(closeServerButton);
         container.add(printUsers);
+        container.add(clearTextArea);
         container.add(deleteUserButton);
         container.add(verifyUserButton);
         container.add(closeServerButton);
@@ -157,6 +171,10 @@ public class BasicGUI extends JFrame {
         JOptionPane.showMessageDialog(null,"Admin Settings");
     }
 
+    /**
+     * Main of the GUI
+     * @param args
+     */
     public static void main(String[] args) {
         new BasicGUI(args);
 

@@ -80,6 +80,9 @@ public class UserTree {
         try{newUser.setCompany(jsonObject.get("company").toString());}
         catch (NullPointerException e){ newUser.setCompany(null); }
 
+        try{newUser.setHasNotification((Boolean) jsonObject.get("hasNotification"));}
+        catch (NullPointerException e){newUser.setHasNotification(false);}
+
         binaryUserTree.add(newUser, newUser.getEmail());
 
         if(jsonObject.get("right")!=null){
