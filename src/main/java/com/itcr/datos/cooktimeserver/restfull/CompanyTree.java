@@ -1,9 +1,6 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
-import com.itcr.datos.cooktimeserver.data_structures.AlphSplayTree;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.*;
 import com.itcr.datos.cooktimeserver.object.Company;
 import com.itcr.datos.cooktimeserver.object.User;
 import org.json.simple.JSONArray;
@@ -28,6 +25,7 @@ public class CompanyTree {
         splayCompanyTree = new AlphSplayTree<Company>();
         updateCompanyList();
     }
+
     /**
      * This method will access to the Companies.json and load all of the users in the CompanyList
      */
