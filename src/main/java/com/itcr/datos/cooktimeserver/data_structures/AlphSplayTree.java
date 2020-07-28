@@ -1,9 +1,19 @@
 package com.itcr.datos.cooktimeserver.data_structures;
 
+/**
+ * This class will be the object we will use as the Alphabetical Splay Tree
+ * @param <T>
+ */
 public class AlphSplayTree<T> {
-    private AlphNodeSplay<T> root = null;
-    private int lenght = 0;
 
+    private AlphNodeSplay<T> root = null;
+    private int length = 0;
+
+    /**
+     * This method will add a node to the AlphSplayTree Tree
+     * @param data that is going to be added
+     * @param key that will identify the node
+     */
     public void add(T data, String key) {
         AlphNodeSplay<T> tmp = root;
         AlphNodeSplay<T> root = null;
@@ -25,13 +35,23 @@ public class AlphSplayTree<T> {
             root.setLeft(tmp);
         }
         splay(tmp);
-        lenght++;
+        length++;
     }
+
+    /**
+     * This will delete the node which key corresponds to
+     * @param key of the node that we want to delete
+     */
     public void delete(String key){
         AlphNodeSplay<T> node = getNode(key);
-        deleteAux(node);
+        delete(node);
     }
-    public void deleteAux(AlphNodeSplay<T> node){
+
+    /**
+     * This is an auxiliary method for delete method, this will delete a given node from the tree and adjust the tree
+     * @param node that is going to be deleted
+     */
+    public void delete(AlphNodeSplay<T> node){
         if (node == null)
             return;
         splay(node);
@@ -61,8 +81,13 @@ public class AlphSplayTree<T> {
         node.setLeft(null);
         node.setRight(null);
         node = null;
-        lenght--;
+        length--;
     }
+
+    /**
+     * This will adjust the give node in the tree
+     * @param node that is going to be adjusted
+     */
     private void splay(AlphNodeSplay<T> node){
         while (node.getFather() != null) {
             AlphNodeSplay<T> father = node.getFather();
@@ -95,6 +120,12 @@ public class AlphSplayTree<T> {
         }
         root = node;
     }
+
+    /**
+     * Zag rotation for the AlphSplayTree
+     * @param node that we're going to start
+     * @param father the final line where the zag is going to be applied
+     */
     private void zag(AlphNodeSplay<T> node, AlphNodeSplay<T> father) {
         if (father.getFather() != null) {
             if (father == father.getFather().getLeft()) {
@@ -112,6 +143,11 @@ public class AlphSplayTree<T> {
         node.setRight(father);
     }
 
+    /**
+     * Zig rotation for the AlphSplayTree
+     * @param node that we're going to start
+     * @param father the final line where the zig is going to be applied
+     */
     private void zig(AlphNodeSplay<T> node, AlphNodeSplay<T> father) {
         if (father.getFather() != null) {
             if (father == father.getFather().getLeft()) {
@@ -128,6 +164,7 @@ public class AlphSplayTree<T> {
         father.setRight(node.getLeft());
         node.setLeft(father);
     }
+
     /**
      * Function that identifies which string is greater than the other
      * @param leaf first string
@@ -163,6 +200,12 @@ public class AlphSplayTree<T> {
             return "leaf";
         }
     }
+
+    /**
+     * This method will return the data of the given node
+     * @param key that we're going to search
+     * @return The AlphNodeSplay we needed
+     */
     public AlphNodeSplay<T> getNode(String key){
         AlphNodeSplay<T> prevNode = null;
         AlphNodeSplay<T> tmp = root;
@@ -185,9 +228,7 @@ public class AlphSplayTree<T> {
         return null;
 
     }
-    public boolean isEmpty(){
-        return this.root == null;
-    }
+
     /**
      * @return Returns the root of the tree.
      */
@@ -198,12 +239,16 @@ public class AlphSplayTree<T> {
     /**
      * @return Returns the size of the tree.
      */
-    public int getLenght() {
-        return lenght;
+    public int getlength() {
+        return length;
     }
 
-    public void setLenght(int lenght) {
-        this.lenght = lenght;
+    /**
+     * This will return the length of the given tree
+     * @param length of the given tree
+     */
+    public void setLength(int length) {
+        this.length = length;
     }
 
     /**
@@ -211,8 +256,9 @@ public class AlphSplayTree<T> {
      */
     public void clear(){
         this.root=null;
-        setLenght(0);
+        setLength(0);
     }
+
     /**
      * Function that calls recursively the function of printing the tree´s diagram
      * @return returns the recursive function
@@ -228,6 +274,7 @@ public class AlphSplayTree<T> {
             return null;
         }
     }
+
     /**
      * Recursive function used for printing de AVL tree´s diagram
      * @param prefix StringBuilder instance
@@ -246,21 +293,4 @@ public class AlphSplayTree<T> {
         }
         return sb;
     }
-    /*
-    public static void main(String[] args) {
-        AlphSplayTree<Integer> tree = new AlphSplayTree<>();
-        tree.add(2, "c");
-        tree.add(2, "a");
-        tree.add(2, "b");
-        tree.add(2, "z");
-        tree.add(2, "d");
-        System.out.println(tree.toString());
-
-        System.out.println("---------------------new tree---------------------");
-
-        tree.delete("b");
-        System.out.println(tree.toString());
-    }
-
-     */
 }
