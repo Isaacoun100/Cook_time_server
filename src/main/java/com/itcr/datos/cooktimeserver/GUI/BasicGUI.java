@@ -1,15 +1,11 @@
 package com.itcr.datos.cooktimeserver.GUI;
 
 import com.itcr.datos.cooktimeserver.CookTimeServerApplication;
-import com.itcr.datos.cooktimeserver.object.User;
 import com.itcr.datos.cooktimeserver.restfull.ChefTree;
 import com.itcr.datos.cooktimeserver.restfull.TreeManagement;
 import com.itcr.datos.cooktimeserver.restfull.UserTree;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Class of the GUI used for the management of the server
@@ -144,6 +140,7 @@ public class BasicGUI extends JFrame {
         closeServerButton.setForeground(Color.black);
         closeServerButton.addActionListener(e -> {
             frame.dispose();
+            System.exit(1);
         });
 
 
