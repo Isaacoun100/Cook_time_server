@@ -1,8 +1,6 @@
 package com.itcr.datos.cooktimeserver.host;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeSplay;
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeTree;
-import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
+import com.itcr.datos.cooktimeserver.data_structures.*;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.restfull.*;
 import org.springframework.web.bind.annotation.*;
@@ -156,13 +154,16 @@ public class WebHost {
         return UserTree.getUserTree().toString();
     }
 
+    /**
+     * Function that gets a company`s name
+     * @param ID
+     * @return returns the company object
+     */
     @GetMapping("/getCompany/name/{ID}")
     public Company getCompany(@PathVariable String ID){
         try{ return TreeManagement.binarySearchSplay(ID).getData(); }
         catch (NullPointerException e){ return new Company();}
     }
-
-
 
     /**
      * This method is a post method that receives a user in json format and converts it into a User type
@@ -334,13 +335,21 @@ public class WebHost {
         }
     }
 
-
+    /**
+     * Function that gets the recipe tree
+     * @return a string
+     */
     @GetMapping("/recipe")
     public String getRecipeTree(){
         RecipeTree.updateRecipeList();
         return RecipeTree.getAvlRecipeTree().toString();
     }
 
+    /**
+     * Function that adds a new chef
+     * @param newChef
+     * @return returns the chef method
+     */
     @PostMapping("/newChef")
     public static Chef addChef(@RequestBody Chef newChef){
         if(newChef!=null){
@@ -364,6 +373,12 @@ public class WebHost {
         }
     }
 
+    /**
+     * Function that adds a feed of recipes
+     * @param User
+     * @param recipe
+     * @return returns a string
+     */
     @GetMapping("/addFeedRecipe/{Recipe}/{User}")
     public static String addFeedRecipe(@PathVariable String User, @PathVariable String recipe){
         try{
@@ -375,6 +390,12 @@ public class WebHost {
         catch (NullPointerException e){ return null; }
     }
 
+    /**
+     * Function that adds a follower
+     * @param email
+     * @param incoming
+     * @return returns a string
+     */
     @GetMapping("/user/{email}/addFollower/{incoming}")
     public static String addValue(@PathVariable String email , @PathVariable String incoming){
         User follower, followed = follower = null;
@@ -408,6 +429,11 @@ public class WebHost {
         return TreeManagement.BinarySearch(email).getData().isHasNotification();
     }
 
+    /**
+     * Function that adds a  new recipe
+     * @param newRecipe
+     * @return returns the recipe object
+     */
     @PostMapping("/newRecipe")
     public Recipe addRecipe(@RequestBody JSONObject newRecipe){
         try{
@@ -429,6 +455,11 @@ public class WebHost {
         }
     }
 
+    /**
+     * Function that adds a new recipe toa  company
+     * @param newRecipe
+     * @return returns a recipe object
+     */
     @PostMapping("/company/newRecipe")
     public Recipe addCompanyRecipe(@RequestBody JSONObject newRecipe){
         try {
@@ -476,6 +507,11 @@ public class WebHost {
         }
     }
 
+    /**
+     * Function that gets the user`s compant
+     * @param ID
+     * @return returns a jsonobject
+     */
     @GetMapping("/getCompany/user/{ID}")
     public static JSONObject getUserCompany(@PathVariable String ID){
         try{
@@ -485,11 +521,21 @@ public class WebHost {
         catch (NullPointerException e){return CompanyTree.companyToJSON(null); }
     }
 
+    /**
+     * Function that gets a recipe`s title
+     * @param recipe
+     * @return returns a recipe object
+     */
     @GetMapping("/getRecipe/{recipe}/title")
     public static Recipe getRecipe(@PathVariable String recipe){
         return RecipeTree.getAvlRecipeTree().getRoot().getData();
     }
 
+    /**
+     * Function that gets a recipe of a user by its email
+     * @param email
+     * @return returns a singly list of recipes
+     */
     @GetMapping("/getRecipe/{email}/user")
     public static SinglyList<Recipe> getRecipeID(@PathVariable String email){
         SinglyList<Recipe> recipeSinglyList = new SinglyList<Recipe>();
@@ -585,6 +631,13 @@ public class WebHost {
         catch (NullPointerException e){ return new SinglyList<Recipe>(); }
     }
 
+    /**
+     * Post function that adds a comment to a certain recipe
+     * @param comment
+     * @param recipe
+     * @param commentator
+     * @return returns a string
+     */
     @PostMapping("/addComment/{recipe}/{commentator}/")
     public static String addComment(@RequestBody String comment, @PathVariable String recipe, @PathVariable String commentator) {
         try {
@@ -660,7 +713,11 @@ public class WebHost {
         return SortingMethods.DifficultySortCompany(id);
     }
 
-
+    /**
+     * Function that searhes for a user
+     * @param criteria
+     * @return returns a singly list of objects
+     */
     @GetMapping("/searchUser/{criteria}/")
     public static SinglyList<JSONObject> searchUser(@PathVariable String criteria){
         try{
@@ -674,12 +731,22 @@ public class WebHost {
         catch (NullPointerException e){ return new SinglyList<>(); }
     }
 
+    /**
+     * Function for searching for a chef
+     * @param criteria
+     * @return returns singly list of chefs
+     */
     @GetMapping("/searchChef/{criteria}/")
     public static SinglyList<Chef> searchChef(@PathVariable String criteria){
         try{ return ChefTree.searchChef(criteria); }
         catch (NullPointerException e){ return new SinglyList<>(); }
     }
 
+    /**
+     * Post function for searchin for a recipe
+     * @param criteria json object
+     * @return returns singly list of recipes
+     */
     @PostMapping("/searchRecipe")
     public static SinglyList<Recipe> searchRecipe(@RequestBody JSONObject criteria){
         SinglyList<Recipe> recipeSinglyList, finalSinglyList = recipeSinglyList = new SinglyList<Recipe>();
@@ -705,11 +772,21 @@ public class WebHost {
         return finalSinglyList;
     }
 
+    /**
+     * Function that searhes for a recipe
+     * @param criteria
+     * @return returns a singly list of recipes
+     */
     @GetMapping("/searchRecipe/{criteria}/")
     public static SinglyList<Recipe> searchRecipe(@PathVariable String criteria){
         return RecipeTree.searchRecipe(criteria);
     }
 
+    /**
+     * Function that searches for the company`s data
+     * @param criteria
+     * @return returns a singly list of objects
+     */
     @GetMapping("/searchCompany/{criteria}/")
     public static SinglyList<JSONObject> searchCompany(@PathVariable String criteria){
         try{
@@ -725,6 +802,11 @@ public class WebHost {
         catch (NullPointerException e){ return new SinglyList<JSONObject>(); }
     }
 
+    /**
+     * Function that gets the company`s recipe by searching its email
+     * @param email
+     * @return returns a singly list
+     */
     @GetMapping("/company/getRecipe/{email}/")
     public static SinglyList<Recipe> getCompanyRecipe(@PathVariable String email){
         SinglyList<String> recipeStringList = TreeManagement.binarySearchSplay(email).getData().getRecipe();
@@ -738,6 +820,12 @@ public class WebHost {
 
     }
 
+    /**
+     * Function for following a company
+     * @param companyEmail
+     * @param userEmail
+     * @return returns string
+     */
     @GetMapping("/user/{userEmail}/follow/{companyEmail}")
     public static String followCompany(@PathVariable String companyEmail, @PathVariable String userEmail){
 
@@ -754,6 +842,12 @@ public class WebHost {
 
     }
 
+    /**
+     * Function that adds a member to the company
+     * @param companyEmail
+     * @param userEmail
+     * @return returns string with the member
+     */
     @GetMapping("/user/{userEmail}/addMember/{companyEmail}")
     public static String memberCompany(@PathVariable String companyEmail, @PathVariable String userEmail){
 
@@ -783,13 +877,20 @@ public class WebHost {
 
     }
 
-
+    /**
+     * Fcuntion that deletes the user`s email
+     * @param email
+     */
     @GetMapping("/deleteUser/{email}/")
     public static void deleteUser(@PathVariable String email){
         UserTree.getUserTree().delete(email);
         UserTree.saveUser();
     }
 
+    /**
+     * Function that deletes the chef`s email
+     * @param email
+     */
     @GetMapping("/deleteChef/{email}/")
     public static void deleteChef(@PathVariable String email){
         UserTree.getUserTree().delete(email);
@@ -798,6 +899,10 @@ public class WebHost {
         ChefTree.saveChef();
     }
 
+    /**
+     * Function that deletes the company`s email
+     * @param email
+     */
     @GetMapping("/deleteCompany/{email}/")
     public static void deleteCompany(@PathVariable String email){
 
@@ -813,6 +918,11 @@ public class WebHost {
         CompanyTree.saveCompany();
     }
 
+    /**
+     * Function that deletes recipe of the user
+     * @param title
+     * @return
+     */
     @GetMapping("/deleteRecipe/user/{title}/")
     public static String deleteRecipeUser(@PathVariable String title){
         try{
@@ -830,6 +940,11 @@ public class WebHost {
         return title;
     }
 
+    /**
+     * Function that deletes recipe of company
+     * @param title
+     * @return
+     */
     @GetMapping("/deleteRecipe/company/{title}/")
     public static String deleteRecipeCompany(@PathVariable String title){
         try{
@@ -847,6 +962,11 @@ public class WebHost {
         return title;
     }
 
+    /**
+     * Function that gets the member list
+     * @param companyEmail
+     * @return returns the singly list of json objects
+     */
     @GetMapping("/{companyEmail}/memberList")
     public static SinglyList<JSONObject> memberList(@PathVariable String companyEmail){
         SinglyList<JSONObject> userSinglyList = new SinglyList<>();
