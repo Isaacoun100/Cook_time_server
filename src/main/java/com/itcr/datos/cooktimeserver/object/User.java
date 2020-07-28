@@ -15,6 +15,7 @@ public class User extends Client {
     private SinglyList<String> followers;
     private SinglyList<String> following;
     private boolean hasCompany;
+    private boolean hasNotification;
     private String company = null;
     private int age;
 
@@ -240,6 +241,22 @@ public class User extends Client {
     @Override
     public void setFollowing(SinglyList<String> following) {
         this.following=following;
+    }
+
+    /**
+     * Getter for the boolean notification
+     * @return returns the boolean
+     */
+    public boolean isHasNotification() {
+        return hasNotification;
+    }
+
+    /**
+     * Setter for the notification variable
+     * @param hasNotification
+     */
+    public void setHasNotification(boolean hasNotification) {
+        this.hasNotification = hasNotification;
     }
 
     /**
