@@ -1,6 +1,5 @@
 package com.itcr.datos.cooktimeserver.restfull;
 
-import com.itcr.datos.cooktimeserver.data_structures.AlphNodeAVL;
 import com.itcr.datos.cooktimeserver.data_structures.SinglyList;
 import com.itcr.datos.cooktimeserver.object.*;
 import com.itcr.datos.cooktimeserver.sorting.SortingAlgorithms;
@@ -49,7 +48,7 @@ public class SortingMethods {
      */
     public static SinglyList<Recipe> DateSortUser(String user){
 
-        SinglyList<String> oldList = TreeManagement.binarySearch(user).getData().getRecipe();
+        SinglyList<String> oldList = TreeManagement.BinarySearch(user).getData().getRecipe();
         SinglyList<Recipe> newList = new SinglyList<>();
 
         for(int x=0;x<oldList.getLength();x++){
@@ -94,7 +93,7 @@ public class SortingMethods {
      * @return returns the new singly list sorted
      */
     public static SinglyList<Recipe> RatingSortUser(String user) {
-        SinglyList<String> oldList = TreeManagement.binarySearch(user).getData().getRecipe();
+        SinglyList<String> oldList = TreeManagement.BinarySearch(user).getData().getRecipe();
 
         SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
 
@@ -139,7 +138,7 @@ public class SortingMethods {
      * @return returns the new singly list sorted
      */
     public static SinglyList<Recipe> DifficultySortUser(String user){
-        SinglyList<String> oldList = TreeManagement.binarySearch(user).getData().getRecipe();
+        SinglyList<String> oldList = TreeManagement.BinarySearch(user).getData().getRecipe();
 
         SinglyList<Recipe> recipeSinglyList = new SinglyList<>();
 
