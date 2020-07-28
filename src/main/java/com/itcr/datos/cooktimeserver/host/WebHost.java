@@ -188,7 +188,7 @@ public class WebHost {
      */
     @GetMapping("/getUser/{userKey}")
     public String getUser(@PathVariable String userKey){
-        JSONObject jsonObject = TypeConversion.userToJSON(TreeManagement.binarySearch(userKey));
+        JSONObject jsonObject = TypeConversion.userToJSON(TreeManagement.BinarySearch(userKey));
         return jsonObject.toString();
     }
 
@@ -228,8 +228,8 @@ public class WebHost {
     @GetMapping("/login/{userKey}/{password}")
     public JSONObject LoginMethod(@PathVariable String userKey, @PathVariable String password){
         JSONObject jsonObject;
-        if(TreeManagement.binarySearch(userKey)!=null){
-            jsonObject = TypeConversion.userToJSON(TreeManagement.binarySearch(userKey));
+        if(TreeManagement.BinarySearch(userKey)!=null){
+            jsonObject = TypeConversion.userToJSON(TreeManagement.BinarySearch(userKey));
         }
         else{ return TypeConversion.userToJSON(new AlphNodeTree<User>(null,null)); }
         if(jsonObject.get("password").equals(password)){ return jsonObject; }
@@ -245,7 +245,7 @@ public class WebHost {
      */
     @PostMapping("/setUser/{userKey}/{userData}")
     public String setUser(@PathVariable String userKey, @PathVariable String userData, @RequestBody String request){
-        AlphNodeTree<User> user = TreeManagement.binarySearch(userKey);
+        AlphNodeTree<User> user = TreeManagement.BinarySearch(userKey);
         if(user==null){
             return "user not found";
         }
@@ -280,8 +280,60 @@ public class WebHost {
                     return "This request can't be processed";
             }
         }
-
     }
+
+    /**
+     * This method will modify an specific value of a given company.
+     * @param companyKey the company´s email
+     * @param companyData the data type to be modified
+     * @param request The response from the client
+     * @return
+     */
+    @PostMapping("/setCompany/{companyKey}/{companyData}")
+    public String setCompany(@PathVariable String companyKey, @PathVariable String companyData, @RequestBody String request){
+        AlphNodeSplay<Company> company = TreeManagement.binarySearchSplay(companyKey);
+        if(company==null){
+            return "company not found";
+        }
+        else{
+            switch(companyData){
+                case "name":
+                    company.getData().setName(request);
+                    return company.getData().getName();
+                case "email":
+                    company.getData().setEmail(request);
+                    return company.getData().getEmail();
+                case "logo":
+                    company.getData().setLogo(request);
+                    return company.getData().getLogo();
+                case "schedule":
+                    company.getData().setSchedule(request);
+                    return company.getData().getLogo();
+                case "location":
+                    company.getData().setLocation(request);
+                    return company.getData().getLocation();
+                case "number":
+                    try{
+                        company.getData().setNumber(Integer.parseInt(request));
+                    }
+                    catch (NumberFormatException e){
+                        e.printStackTrace();
+                    }
+                    return String.valueOf(company.getData().getNumber());
+                case "posts":
+                    try{
+                        company.getData().setPosts(Integer.parseInt(request));
+                    }
+                    catch (NumberFormatException e){
+                        e.printStackTrace();
+                    }
+                    return String.valueOf(company.getData().getPosts());
+                default:
+                    return "This request can't be processed";
+            }
+        }
+    }
+
 
     @GetMapping("/recipe")
     public String getRecipeTree(){
@@ -315,7 +367,7 @@ public class WebHost {
     @GetMapping("/addFeedRecipe/{Recipe}/{User}")
     public static String addFeedRecipe(@PathVariable String User, @PathVariable String recipe){
         try{
-            User user = TreeManagement.binarySearch(User).getData();
+            User user = TreeManagement.BinarySearch(User).getData();
             Recipe newRecipe = TreeManagement.binarySearchAvl(recipe).getData();
             user.addRecipe(recipe);
             return recipe;
@@ -327,8 +379,9 @@ public class WebHost {
     public static String addValue(@PathVariable String email , @PathVariable String incoming){
         User follower, followed = follower = null;
         try{
-            followed = TreeManagement.binarySearch(email).getData();
-            follower = TreeManagement.binarySearch(incoming).getData();
+            followed = TreeManagement.BinarySearch(email).getData();
+            follower = TreeManagement.BinarySearch(incoming).getData();
+            followed.setHasNotification(true);
         }
         catch (NullPointerException e){
             e.printStackTrace();
@@ -340,11 +393,23 @@ public class WebHost {
         return incoming +"  now follows  "+ email;
     }
 
+    /**
+     * Get method that turns the requested
+     * @param email the email of the user
+     * @return returns the boolean of the user
+     */
+    @GetMapping("/setUser/{email}/boolean")
+    public boolean setFalse(@PathVariable String email){
+        try{ TreeManagement.BinarySearch(email).getData().setHasNotification(false); }
+        catch (NullPointerException e){ e.printStackTrace(); }
+        return TreeManagement.BinarySearch(email).getData().isHasNotification();
+    }
+
     @PostMapping("/newRecipe")
     public Recipe addRecipe(@RequestBody JSONObject newRecipe){
         try{
             Recipe incomingRecipe = TypeConversion.makeRecipe(newRecipe);
-            User user = TreeManagement.binarySearch(incomingRecipe.getAuthor()).getData();
+            User user = TreeManagement.BinarySearch(incomingRecipe.getAuthor()).getData();
             if (newRecipe != null){
                 user.addRecipe(incomingRecipe.getTitle());
                 UserTree.saveUser();
@@ -392,7 +457,7 @@ public class WebHost {
         try{
             Company incomingCompany = TypeConversion.makeCompany(newCompany);
             if (newCompany != null){
-                User newUser = TreeManagement.binarySearch(user).getData();
+                User newUser = TreeManagement.BinarySearch(user).getData();
                 newUser.setCompany(incomingCompany.getEmail());
                 newUser.setHasCompany(true);
                 UserTree.saveUser();
@@ -411,7 +476,7 @@ public class WebHost {
     @GetMapping("/getCompany/user/{ID}")
     public static JSONObject getUserCompany(@PathVariable String ID){
         try{
-            User user = TreeManagement.binarySearch(ID).getData();
+            User user = TreeManagement.BinarySearch(ID).getData();
             return CompanyTree.companyToJSON(TreeManagement.binarySearchSplay(user.getCompany()));
         }
         catch (NullPointerException e){return CompanyTree.companyToJSON(null); }
@@ -428,7 +493,7 @@ public class WebHost {
         User user = new User();
 
         try{
-            user = TreeManagement.binarySearch(email).getData();
+            user = TreeManagement.BinarySearch(email).getData();
         }
         catch (NullPointerException e){ e.printStackTrace();}
 
@@ -520,6 +585,8 @@ public class WebHost {
         try {
             Recipe newRecipe = TreeManagement.binarySearchAvl(recipe).getData();
             newRecipe.addComment(commentator.concat(":").concat(comment));
+            AlphNodeTree<User> authorNewRecipe = TreeManagement.BinarySearch(newRecipe.getAuthor());
+            authorNewRecipe.getData().setHasNotification(true);
             RecipeTree.saveRecipe();
             return newRecipe.getComments();
         } catch (NullPointerException e) {
@@ -669,7 +736,7 @@ public class WebHost {
     public static String followCompany(@PathVariable String companyEmail, @PathVariable String userEmail){
 
         try {
-            User user = TreeManagement.binarySearch(userEmail).getData();
+            User user = TreeManagement.BinarySearch(userEmail).getData();
             Company company = TreeManagement.binarySearchSplay(companyEmail).getData();
             user.addFollowing(company.getEmail());
             company.addFollower(user.getEmail());
@@ -685,7 +752,7 @@ public class WebHost {
     public static String memberCompany(@PathVariable String companyEmail, @PathVariable String userEmail){
 
         try {
-            User user = TreeManagement.binarySearch(userEmail).getData();
+            User user = TreeManagement.BinarySearch(userEmail).getData();
             Company company = TreeManagement.binarySearchSplay(companyEmail).getData();
 
             if(user.getCompany()!=null){
@@ -731,7 +798,7 @@ public class WebHost {
         Company company = TreeManagement.binarySearchSplay(email).getData();
 
         for(int x=0; x<company.getMembers().getLength(); x++){
-            User user = TreeManagement.binarySearch(company.getMembers().get(x).getData()).getData();
+            User user = TreeManagement.BinarySearch(company.getMembers().get(x).getData()).getData();
             user.setCompany(null);
             user.setHasCompany(false);
         }
@@ -744,7 +811,7 @@ public class WebHost {
     public static String deleteRecipeUser(@PathVariable String title){
         try{
             Recipe recipe = TreeManagement.binarySearchAvl(title).getData();
-            User user = TreeManagement.binarySearch(recipe.getAuthor()).getData();
+            User user = TreeManagement.BinarySearch(recipe.getAuthor()).getData();
             user.removeRecipe(title);
             RecipeTree.getAvlRecipeTree().deleteNode(title);
             RecipeTree.saveRecipe();
@@ -785,7 +852,7 @@ public class WebHost {
         }
         for(int x=0; x<company.getMembers().getLength(); x++){
             try{
-                userSinglyList.add(TypeConversion.userToJSON(TreeManagement.binarySearch(company.getMembers().get(x).getData())));}
+                userSinglyList.add(TypeConversion.userToJSON(TreeManagement.BinarySearch(company.getMembers().get(x).getData())));}
             catch (NullPointerException e){
                 System.out.println("There was a problem with the member at : "+x+" position");
                 return userSinglyList;
@@ -793,5 +860,7 @@ public class WebHost {
         }
         return userSinglyList;
     }
+
+
 
 }
